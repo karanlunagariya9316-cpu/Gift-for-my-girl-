@@ -11,6 +11,7 @@
       text-align: center;
       color: white;
       background: linear-gradient(to right, #ff9a9e, #8e2de2);
+      overflow-x: hidden;
     }
 
     .container {
@@ -18,7 +19,7 @@
     }
 
     .button {
-      display: none; /* 🔥 initially hide */
+      display: none;
       margin: 20px auto;
       padding: 12px 25px;
       border-radius: 25px;
@@ -46,7 +47,6 @@
       opacity: 0.8;
     }
 
-    /* 🔥 counter */
     .counter {
       font-size: 13px;
       margin-top: 5px;
@@ -89,16 +89,28 @@
       transform: translateY(-50%) scale(1.3);
     }
 
+    /* 🔥 NEW GLOW HEART */
     .heart {
       position: fixed;
-      color: red;
-      animation: float 5s linear infinite;
+      pointer-events: none;
+      animation: floatUp linear forwards;
+      text-shadow: 
+        0 0 10px #ff4d6d,
+        0 0 20px #ff4d6d,
+        0 0 30px #ff99ac;
     }
 
-    @keyframes float {
-      0% {transform: translateY(100vh);}
-      100% {transform: translateY(-10vh);}
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.4);
+        opacity: 0;
+      }
     }
+
   </style>
 </head>
 
@@ -110,13 +122,12 @@
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <!-- 🔥 NEXT BUTTON -->
   <button id="nextBtn" class="button" onclick="goNext()">Next ➡️</button>
 
   <div id="quoteText" class="quote"></div>
 
   <div class="hint">Tap ➡️ to change photo</div>
-  <div id="counter" class="counter"></div> <!-- 🔥 counter -->
+  <div id="counter" class="counter"></div>
 
   <div class="slideshow">
 
@@ -166,7 +177,6 @@ let quotes = [
 ];
 
 function showSlide(n) {
-
   if (n >= slides.length) slideIndex = 0;
   if (n < 0) slideIndex = slides.length - 1;
 
@@ -177,11 +187,9 @@ function showSlide(n) {
   slides[slideIndex].style.display = "block";
   document.getElementById("quoteText").innerText = quotes[slideIndex];
 
-  /* 🔥 COUNTER UPDATE */
   document.getElementById("counter").innerText = 
     `Photo ${slideIndex + 1}/${slides.length}`;
 
-  /* 🔥 SHOW NEXT BUTTON ONLY LAST PHOTO */
   if (slideIndex === slides.length - 1) {
     document.getElementById("nextBtn").style.display = "block";
   } else {
@@ -205,17 +213,20 @@ function goNext(){
   window.location.href = "page2.html";
 }
 
-/* hearts */
+/* 🔥 GLOW HEART SYSTEM */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.className = "heart";
-  heart.style.left = Math.random() * 100 + "vw";
   heart.innerHTML = "💖";
-  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 12) + "px";
+  heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
   document.body.appendChild(heart);
 
   setTimeout(() => heart.remove(), 5000);
-}, 300);
+}, 250);
 
 </script>
 
