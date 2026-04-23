@@ -213,19 +213,23 @@ function goNext(){
 }
 
 /* hearts */
-setInterval(() => {
-  let heart = document.createElement("div");
-  heart.className = "heart";
+setTimeout(() => {
 
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.innerHTML = "🌸";
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
 
-  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.innerHTML = "🌸";
 
-  document.body.appendChild(heart);
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
 
-  setTimeout(() => heart.remove(), 5000);
-}, 300);
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+
+}, 1500);
 
 </script>
 
