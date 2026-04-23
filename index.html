@@ -21,7 +21,6 @@
     h2 { font-size: 22px; }
     p { font-size: 16px; }
 
-    /* BUTTON */
     .button {
       display: block;
       margin: 20px auto;
@@ -35,7 +34,6 @@
       cursor: pointer;
     }
 
-    /* QUOTE */
     .quote {
       margin-top: 10px;
       display: inline-block;
@@ -46,7 +44,6 @@
       font-weight: bold;
     }
 
-    /* HINT TEXT */
     .hint {
       margin-top: 10px;
       font-size: 12px;
@@ -59,50 +56,46 @@
       position: relative;
     }
 
-    .slide {
-  width: 85%;
-  max-width: 320px;
-  height: 420px;              
-      /* 🔥 fixed height (same size for all) */
-  border-radius: 15px;
-  margin: auto;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    /* ✅ NEW wrapper for top-crop */
+    .slide-box {
+      width: 85%;
+      max-width: 320px;
+      height: 420px;
+      margin: auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      display: none;
+    }
 
-  object-fit: cover;          
-      /* image fill kare */
-  object-position: top;       
-      /* 🔥 IMPORTANT → upar thi crop */
-  
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+    .slide {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* ARROWS */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 30px;
-  color: #d8b4fe; /* lavender */
-  cursor: pointer;
-  user-select: none;
-  transition: 0.3s;
-}
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #d8b4fe;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.3s;
+    }
 
-/* left right position (photo thi dur) */
-.left { left: 2%; }
-.right { right: 2%; }
+    .left { left: 2%; }
+    .right { right: 2%; }
 
-/* glow effect */
-.arrow:hover {
-  text-shadow: 0 0 10px #e0c3fc,
-               0 0 20px #c084fc,
-               0 0 30px #a855f7;
-  transform: translateY(-50%) scale(1.2);
-}
+    .arrow:hover {
+      text-shadow: 0 0 10px #e0c3fc,
+                   0 0 20px #c084fc,
+                   0 0 30px #a855f7;
+      transform: translateY(-50%) scale(1.2);
+    }
 
-    /* HEARTS */
     .heart {
       position: fixed;
       color: red;
@@ -128,22 +121,21 @@
   <button class="button" onclick="goNext()">Next ➡️</button>
 
   <div id="quoteText" class="quote"></div>
-
   <div class="hint">Tap ➡️ to change photo</div>
 
-  <!-- SLIDER -->
   <div class="slideshow">
 
     <span class="arrow left" onclick="prevSlide()">&#10094;</span>
     <span class="arrow right" onclick="nextSlide()">&#10095;</span>
 
-    <img class="slide" src="IMG-20260401-WA0014.jpg">
-    <img class="slide" src="IMG-20260401-WA0021.jpg">
-    <img class="slide" src="IMG-20260401-WA0023.jpg">
-    <img class="slide" src="IMG-20260401-WA0038.jpg">
-    <img class="slide" src="IMG-20260129-WA0032.jpg">
-    <img class="slide" src="IMG_20260112_175825_524~2.jpg">
-    <img class="slide" src="Snapchat-754572241.jpg">
+    <!-- ✅ UPDATED images -->
+    <div class="slide-box"><img class="slide" src="IMG-20260401-WA0014.jpg"></div>
+    <div class="slide-box"><img class="slide" src="IMG-20260401-WA0021.jpg"></div>
+    <div class="slide-box"><img class="slide" src="IMG-20260401-WA0023.jpg"></div>
+    <div class="slide-box"><img class="slide" src="IMG-20260401-WA0038.jpg"></div>
+    <div class="slide-box"><img class="slide" src="IMG-20260129-WA0032.jpg"></div>
+    <div class="slide-box"><img class="slide" src="IMG_20260112_175825_524~2.jpg"></div>
+    <div class="slide-box"><img class="slide" src="Snapchat-754572241.jpg"></div>
 
   </div>
 
@@ -165,8 +157,7 @@ typing();
 
 /* MANUAL SLIDER */
 let slideIndex = 0;
-
-let slides = document.getElementsByClassName("slide");
+let slides = document.getElementsByClassName("slide-box");
 
 let quotes = [
   "You are my happiness 💖",
@@ -175,7 +166,7 @@ let quotes = [
   "You complete me 💕",
   "I love you forever 💞",
   "You are my world 🌍",
-  "You are my fevorite parson 💗"
+  "You are the most beautiful part of my life 💖"
 ];
 
 function showSlide(n) {
@@ -184,16 +175,9 @@ function showSlide(n) {
 
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
-    slides[i].style.opacity = 0;
   }
 
-  let current = slides[slideIndex];
-  current.style.display = "block";
-
-  setTimeout(() => {
-    current.style.opacity = 1;
-  }, 50);
-
+  slides[slideIndex].style.display = "block";
   document.getElementById("quoteText").innerText = quotes[slideIndex];
 }
 
@@ -207,7 +191,6 @@ function prevSlide(){
   showSlide(slideIndex);
 }
 
-/* FIRST LOAD */
 showSlide(slideIndex);
 
 /* NEXT PAGE */
