@@ -17,12 +17,8 @@
       padding-top: 5vh;
     }
 
-    h1 { font-size: 28px; }
-    h2 { font-size: 22px; }
-    p { font-size: 16px; }
-
     .button {
-      display: block;
+      display: none; /* 🔥 initially hide */
       margin: 20px auto;
       padding: 12px 25px;
       border-radius: 25px;
@@ -50,6 +46,13 @@
       opacity: 0.8;
     }
 
+    /* 🔥 counter */
+    .counter {
+      font-size: 13px;
+      margin-top: 5px;
+      opacity: 0.9;
+    }
+
     .slideshow {
       margin-top: 20px;
       position: relative;
@@ -64,7 +67,6 @@
       display: none;
     }
 
-    /* ARROWS */
     .arrow {
       position: absolute;
       top: 50%;
@@ -108,11 +110,13 @@
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <button class="button" onclick="goNext()">Next ➡️</button>
+  <!-- 🔥 NEXT BUTTON -->
+  <button id="nextBtn" class="button" onclick="goNext()">Next ➡️</button>
 
   <div id="quoteText" class="quote"></div>
 
   <div class="hint">Tap ➡️ to change photo</div>
+  <div id="counter" class="counter"></div> <!-- 🔥 counter -->
 
   <div class="slideshow">
 
@@ -120,13 +124,13 @@
     <span class="arrow right" onclick="nextSlide()">&#10095;</span>
 
     <img class="slide" src="IMG-20260401-WA0014.jpg">
-<img class="slide" src="IMG-20260401-WA0021.jpg">
-<img class="slide" src="IMG-20260401-WA0023.jpg">
-<img class="slide" src="IMG_20260112_175838_981~2.jpg">
-<img class="slide" src="IMG-20260401-WA0038.jpg">
-<img class="slide" src="IMG_20260112_175825_524~2.jpg">
-<img class="slide" src="IMG-20260129-WA0033~2.jpg">
-<img class="slide" src="Snapchat-754572241~2.jpg">
+    <img class="slide" src="IMG-20260401-WA0021.jpg">
+    <img class="slide" src="IMG-20260401-WA0023.jpg">
+    <img class="slide" src="IMG_20260112_175838_981~2.jpg">
+    <img class="slide" src="IMG-20260401-WA0038.jpg">
+    <img class="slide" src="IMG_20260112_175825_524~2.jpg">
+    <img class="slide" src="IMG-20260129-WA0032.jpg">
+    <img class="slide" src="Snapchat-754572241.jpg">
 
   </div>
 
@@ -150,7 +154,6 @@ typing();
 let slideIndex = 0;
 let slides = document.getElementsByClassName("slide");
 
-/* ✅ FIXED QUOTES */
 let quotes = [
   "You are my happiness 💝",
   "you are my Forever ♾️✨",
@@ -163,6 +166,7 @@ let quotes = [
 ];
 
 function showSlide(n) {
+
   if (n >= slides.length) slideIndex = 0;
   if (n < 0) slideIndex = slides.length - 1;
 
@@ -172,6 +176,17 @@ function showSlide(n) {
 
   slides[slideIndex].style.display = "block";
   document.getElementById("quoteText").innerText = quotes[slideIndex];
+
+  /* 🔥 COUNTER UPDATE */
+  document.getElementById("counter").innerText = 
+    `Photo ${slideIndex + 1}/${slides.length}`;
+
+  /* 🔥 SHOW NEXT BUTTON ONLY LAST PHOTO */
+  if (slideIndex === slides.length - 1) {
+    document.getElementById("nextBtn").style.display = "block";
+  } else {
+    document.getElementById("nextBtn").style.display = "none";
+  }
 }
 
 function nextSlide(){
