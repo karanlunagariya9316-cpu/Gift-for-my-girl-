@@ -161,25 +161,195 @@ let data = [
   "I love you forever 💞"
 ];
 
-let index = 0;
+let index = 0;<!DOCTYPE html>
+<html>
+<head>
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      text-align: center;
+      color: white;
+      background: linear-gradient(to right, #ff9a9e, #8e2de2);
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding-top: 5vh; /* 🔥 upar shift */
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    /* BUTTON */
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      background: white;
+      color: #8e2de2;
+      font-weight: bold;
+    }
+
+    /* QUOTE */
+    .quote {
+      margin-top: 15px;
+      display: inline-block;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* SLIDER */
+    .slideshow {
+      margin-top: 20px;
+    }
+
+    .slide {
+      width: 85%;
+      max-width: 320px;
+      height: 60vh;              /* 🔥 fix height */
+      object-fit: cover;         /* 🔥 proper fit */
+      border-radius: 15px;
+      display: none;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    /* SECRET */
+    #secretMsg {
+      display: none;
+      margin-top: 20px;
+      font-size: 20px;
+      color: yellow;
+    }
+
+    #cake {
+      display: none;
+      font-size: 40px;
+    }
+
+    /* HEARTS */
+    .heart {
+      position: fixed;
+      color: red;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% {transform: translateY(100vh);}
+      100% {transform: translateY(-10vh);}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1 id="text"></h1>
+
+  <h2>Dhrutuu..💗</h2>
+  <p>Happy Birthday My Love 🥳💫💖</p>
+
+  <button onclick="showSecret()">Tap for surprise 💖</button>
+
+  <!-- QUOTE -->
+  <div class="quote" id="quoteText"></div>
+
+  <!-- SLIDER -->
+  <div class="slideshow">
+    <img class="slide" src="IMG-20260401-WA0014.jpg">
+    <img class="slide" src="IMG-20260401-WA0021.jpg">
+    <img class="slide" src="IMG-20260401-WA0023.jpg">
+    <img class="slide" src="IMG-20260401-WA0038.jpg">
+    <img class="slide" src="IMG-20260129-WA0032.jpg">
+    <img class="slide" src="IMG_20260112_175825_524~2.jpg">
+    <img class="slide" src="Snapchat-754572241.jpg">
+  </div>
+
+  <!-- SECRET -->
+  <div id="secretMsg">You are the most beautiful part of my life 💕</div>
+  <div id="cake">🎂✨</div>
+
+</div>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+
+/* typing */
+let text = "Hey 💖";
+let i = 0;
+function typing(){
+  if(i < text.length){
+    document.getElementById("text").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, 80);
+  }
+}
+typing();
+
+/* slider + quotes sync */
+let slideIndex = 0;
+
+let slides = document.getElementsByClassName("slide");
+
+let quotes = [
+  "You are my happiness 💖",
+  "Forever with you ✨",
+  "My best friend & my love 💫",
+  "You complete me 💕",
+  "I love you forever 💞",
+  "You are my world 🌍",
+  "Always yours 💘"
+];
 
 function showSlides() {
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
 
-  index++;
-  if (index > slides.length) { index = 1; }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
 
-  slides[index - 1].style.display = "block";
+  slides[slideIndex-1].style.display = "block";
 
-  // synced text
-  document.getElementById("quoteText").innerText = data[index - 1];
+  // 🔥 sync quote with image
+  document.getElementById("quoteText").innerText = quotes[slideIndex-1];
 
-  setTimeout(showSlides, 3000);
+  setTimeout(showSlides, 2500);
 }
 
 window.onload = showSlides;
+
+/* secret */
+function showSecret(){
+  document.getElementById("secretMsg").style.display = "block";
+  document.getElementById("cake").style.display = "block";
+}
 
 /* hearts */
 setInterval(() => {
@@ -189,14 +359,9 @@ setInterval(() => {
   heart.innerHTML = "💖";
   heart.style.fontSize = (Math.random() * 20 + 10) + "px";
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 5000);
 }, 300);
-
-/* secret */
-function showSecret(){
-  document.getElementById("secretMsg").style.display = "block";
-  document.getElementById("cake").style.display = "block";
-}
 
 </script>
 
