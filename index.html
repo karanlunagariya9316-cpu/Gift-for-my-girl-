@@ -18,7 +18,7 @@
     }
 
     h1 { font-size: 28px; }
-    h2 { margin-top: 10px; font-size: 22px; }
+    h2 { font-size: 22px; margin-top: 10px; }
     p { font-size: 16px; }
 
     /* BUTTON */
@@ -32,8 +32,11 @@
       font-weight: bold;
     }
 
-    /* SLIDER */
-    .slideshow { margin-top: 30px; }
+    /* SLIDESHOW CONTAINER */
+    .slideshow-container {
+      position: relative;
+      margin-top: 30px;
+    }
 
     .slide {
       width: 80%;
@@ -42,6 +45,34 @@
       display: none;
       margin: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    /* OVERLAY TEXT */
+    .overlay-text {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 6px;
+      border-radius: 10px;
+    }
+
+    /* SECRET */
+    .secret {
+      display: none;
+      margin-top: 15px;
+      font-size: 18px;
+      color: yellow;
+    }
+
+    /* CAKE */
+    .cake {
+      display: none;
+      font-size: 40px;
+      margin-top: 10px;
     }
 
     /* HEARTS */
@@ -55,36 +86,13 @@
       0% {transform: translateY(100vh);}
       100% {transform: translateY(-10vh);}
     }
-
-    /* SECRET MESSAGE */
-    .secret {
-      display: none;
-      margin-top: 15px;
-      font-size: 18px;
-      color: yellow;
-    }
-
-    /* CAKE */
-    .cake {
-      display: none;
-      font-size: 40px;
-      margin-top: 15px;
-    }
-
-    /* QUOTES */
-    .quote {
-      margin-top: 15px;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-
   </style>
 </head>
 
 <body>
 
+<!-- PASSWORD -->
 <script>
-/* PASSWORD LOCK */
 let pass = prompt("Enter secret code 💖");
 if(pass !== "dhrutuu"){
   document.body.innerHTML = "<h1>Not for you 😜</h1>";
@@ -101,7 +109,7 @@ if(pass !== "dhrutuu"){
   <!-- BUTTON -->
   <button class="btn" onclick="showSecret()">Tap for surprise 💖</button>
 
-  <!-- SECRET MESSAGE -->
+  <!-- SECRET -->
   <div class="secret" id="secretMsg">
     You are the most beautiful part of my life 💕
   </div>
@@ -109,16 +117,17 @@ if(pass !== "dhrutuu"){
   <!-- CAKE -->
   <div class="cake" id="cake">🎂✨</div>
 
-  <!-- SLIDER -->
-  <div class="slideshow">
+  <!-- SLIDER + OVERLAY -->
+  <div class="slideshow-container">
+
     <img class="slide" src="IMG-20260401-WA0014.jpg">
     <img class="slide" src="IMG-20260401-WA0021.jpg">
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="Snapchat-754572241.jpg">
-  </div>
 
-  <!-- QUOTES -->
-  <div class="quote" id="quoteText"></div>
+    <div class="overlay-text" id="quoteText"></div>
+
+  </div>
 
 </div>
 
@@ -167,13 +176,13 @@ setInterval(() => {
   setTimeout(() => heart.remove(), 5000);
 }, 300);
 
-/* SECRET BUTTON */
+/* secret */
 function showSecret(){
   document.getElementById("secretMsg").style.display = "block";
   document.getElementById("cake").style.display = "block";
 }
 
-/* QUOTES */
+/* quotes */
 let quotes = [
   "You are my happiness 💖",
   "Forever with you ✨",
