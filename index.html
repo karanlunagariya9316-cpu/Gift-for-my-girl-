@@ -21,7 +21,6 @@
     h2 { font-size: 22px; margin-top: 10px; }
     p { font-size: 16px; }
 
-    /* BUTTON */
     .btn {
       margin-top: 15px;
       padding: 10px 20px;
@@ -32,21 +31,22 @@
       font-weight: bold;
     }
 
-    /* QUOTE FIXED POSITION */
+    /* QUOTE STYLE (UPDATED) */
     .quote {
-  margin-top: 20px;
-  font-size: 16px;
-  background: rgba(0,0,0,0.4);
-  display: block;          
-    /* IMPORTANT FIX */
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 6px 12px;
-  border-radius: 10px;
-}
+      margin-top: 18px;
+      font-size: 20px;
+      font-weight: bold;
+      background: rgba(0,0,0,0.5);
+      display: block;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 18px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
 
-    /* SLIDER */
     .slideshow {
       margin-top: 20px;
     }
@@ -60,7 +60,6 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
-    /* SECRET */
     .secret {
       display: none;
       margin-top: 15px;
@@ -74,7 +73,6 @@
       margin-top: 10px;
     }
 
-    /* HEARTS */
     .heart {
       position: fixed;
       color: red;
@@ -93,7 +91,7 @@
 <script>
 let pass = prompt("Enter secret code 💖");
 if(pass !== "dhrutuu"){
-  document.body.innerHTML = "<h1>Not for you 😜</h1>";
+  document.body.innerHTML = "<h1>it's only for you 😜</h1>";
 }
 </script>
 
@@ -112,20 +110,18 @@ if(pass !== "dhrutuu"){
 
   <div class="cake" id="cake">🎂✨</div>
 
-  <!-- QUOTE HERE (FIXED) -->
+  <!-- QUOTE -->
   <div class="quote" id="quoteText"></div>
 
   <!-- SLIDER -->
   <div class="slideshow">
-
-  <img class="slide" src="IMG-20260129-WA0032.jpg">
-  <img class="slide" src="IMG-20260401-WA0014.jpg">
-  <img class="slide" src="IMG-20260401-WA0021.jpg">
-  <img class="slide" src="IMG-20260401-WA0023.jpg">
-  <img class="slide" src="IMG-20260401-WA0038.jpg">
-  <img class="slide" src="IMG_20260112_175825_524~2.jpg">
-  <img class="slide" src="Snapchat-754572241.jpg">
-
+    <img class="slide" src="IMG-20260129-WA0032.jpg">
+    <img class="slide" src="IMG-20260401-WA0014.jpg">
+    <img class="slide" src="IMG-20260401-WA0021.jpg">
+    <img class="slide" src="IMG-20260401-WA0023.jpg">
+    <img class="slide" src="IMG-20260401-WA0038.jpg">
+    <img class="slide" src="IMG_20260112_175825_524~2.jpg">
+    <img class="slide" src="Snapchat-754572241.jpg">
   </div>
 
 </div>
@@ -148,19 +144,37 @@ function typing(){
 }
 typing();
 
-/* slider */
-let slideIndex = 0;
+/* slider + synced quotes */
 let slides = document.getElementsByClassName("slide");
+
+let data = [
+  "You are my happiness 💖",
+  "Forever with you ✨",
+  "My best friend & my love 💫",
+  "You complete me 💕",
+  "My world is you 🌍💖",
+  "Always yours ❤️",
+  "I love you forever 💞"
+];
+
+let index = 0;
 
 function showSlides() {
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  slideIndex++;
-  if (slideIndex > slides.length) { slideIndex = 1; }
-  slides[slideIndex-1].style.display = "block";
+
+  index++;
+  if (index > slides.length) { index = 1; }
+
+  slides[index - 1].style.display = "block";
+
+  // synced text
+  document.getElementById("quoteText").innerText = data[index - 1];
+
   setTimeout(showSlides, 3000);
 }
+
 window.onload = showSlides;
 
 /* hearts */
@@ -179,23 +193,6 @@ function showSecret(){
   document.getElementById("secretMsg").style.display = "block";
   document.getElementById("cake").style.display = "block";
 }
-
-/* quotes */
-let quotes = [
-  "You are my happiness 💖",
-  "Forever with you ✨",
-  "My best friend & my love 💫",
-  "You complete me 💕"
-];
-
-let q = 0;
-function changeQuote(){
-  document.getElementById("quoteText").innerText = quotes[q];
-  q++;
-  if(q >= quotes.length){ q = 0; }
-  setTimeout(changeQuote, 2000);
-}
-changeQuote();
 
 </script>
 
