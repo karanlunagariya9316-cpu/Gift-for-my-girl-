@@ -18,6 +18,42 @@
       padding-top: 5vh;
     }
 
+    /* 🔥 NEW HEADER DESIGN */
+    .header-box {
+      width: 85%;
+      margin: auto;
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ff9a9e, #c084fc);
+      backdrop-filter: blur(10px);
+      box-shadow: 
+        0 0 20px rgba(255, 154, 158, 0.5),
+        0 0 30px rgba(192, 132, 252, 0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: 0.3s;
+    }
+
+    .header-box:hover {
+      transform: scale(1.03);
+    }
+
+    .header-box h1 {
+      font-size: 32px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    }
+
+    .header-box h2 {
+      margin-top: 5px;
+      font-size: 22px;
+      opacity: 0.9;
+    }
+
+    .header-box p {
+      margin-top: 8px;
+      font-size: 16px;
+      opacity: 0.85;
+    }
+
     .button {
       display: none;
       margin: 20px auto;
@@ -106,9 +142,12 @@
 
 <div class="container">
 
-  <h1 id="text"></h1>
-  <h2>Dhrutuu..💗</h2>
-  <p>Happy Birthday My Love 🥳💫💖</p>
+  <!-- 🔥 HEADER BOX -->
+  <div class="header-box">
+    <h1 id="text"></h1>
+    <h2>Dhrutuu..💗</h2>
+    <p>Happy Birthday My Love 🥳💫💖</p>
+  </div>
 
   <button id="nextBtn" class="button" onclick="goNext()">Next ➡️</button>
 
@@ -119,7 +158,6 @@
 
   <div class="slideshow">
 
-    <!-- 🔥 ADDED ID -->
     <span id="leftArrow" class="arrow left" onclick="prevSlide()">&#10094;</span>
     <span id="rightArrow" class="arrow right" onclick="nextSlide()">&#10095;</span>
 
@@ -166,6 +204,7 @@ let quotes = [
 ];
 
 function showSlide(n) {
+
   if (n >= slides.length) slideIndex = 0;
   if (n < 0) slideIndex = slides.length - 1;
 
@@ -179,18 +218,18 @@ function showSlide(n) {
   document.getElementById("counter").innerText = 
     `Photo ${slideIndex + 1}/${slides.length}`;
 
-  /* NEXT BUTTON */
+  /* 🔥 LAST PHOTO LOGIC */
   if (slideIndex === slides.length - 1) {
     document.getElementById("nextBtn").style.display = "block";
-  } else {
-    document.getElementById("nextBtn").style.display = "none";
-  }
 
-  /* 🔥 ARROW HIDE LOGIC */
-  if (slideIndex === slides.length - 1) {
+    // ❌ hide arrows
     document.getElementById("leftArrow").style.display = "none";
     document.getElementById("rightArrow").style.display = "none";
+
   } else {
+    document.getElementById("nextBtn").style.display = "none";
+
+    // ✅ show arrows
     document.getElementById("leftArrow").style.display = "block";
     document.getElementById("rightArrow").style.display = "block";
   }
@@ -212,7 +251,7 @@ function goNext(){
   window.location.href = "page2.html";
 }
 
-/* hearts */
+/* 🌸 DELAY FLOWERS START */
 setTimeout(() => {
 
   setInterval(() => {
