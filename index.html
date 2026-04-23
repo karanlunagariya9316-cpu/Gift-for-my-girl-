@@ -11,54 +11,39 @@
       text-align: center;
       color: white;
       background: linear-gradient(to right, #ff9a9e, #8e2de2);
-      overflow-x: hidden;
     }
 
     .container {
-      padding-top: 5vh; /* 🔥 upar shift */
+      padding-top: 8vh;
     }
 
-    h1 {
-      font-size: 32px;
-    }
-
-    h2 {
-      margin-top: 10px;
-      font-size: 24px;
-    }
-
-    p {
-      font-size: 18px;
-    }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    p { font-size: 16px; }
 
     /* BUTTON */
-    button {
-      margin-top: 20px;
+    .button {
+      display: block;
+      margin: 20px auto;
       padding: 12px 25px;
-      border: none;
       border-radius: 25px;
+      border: none;
       font-size: 16px;
       background: white;
-      color: #8e2de2;
+      color: purple;
       font-weight: bold;
+      cursor: pointer;
     }
 
     /* QUOTE */
     .quote {
-    .quote {
-  margin-top: 15px;
-  display: block;              
-      /* 🔥 MAIN FIX */
-  width: fit-content;          
-      /* center size */
-  margin-left: auto;
-  margin-right: auto;          
-      /* center align */
-  background: rgba(0,0,0,0.4);
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-size: 20px;
-  font-weight: bold;
+      margin-top: 10px;
+      display: inline-block;
+      background: rgba(0,0,0,0.4);
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 20px;
+      font-weight: bold;
     }
 
     /* SLIDER */
@@ -69,25 +54,10 @@
     .slide {
       width: 85%;
       max-width: 320px;
-      height: 60vh;              /* 🔥 fix height */
-      object-fit: cover;         /* 🔥 proper fit */
       border-radius: 15px;
       display: none;
       margin: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    }
-
-    /* SECRET */
-    #secretMsg {
-      display: none;
-      margin-top: 20px;
-      font-size: 20px;
-      color: yellow;
-    }
-
-    #cake {
-      display: none;
-      font-size: 40px;
     }
 
     /* HEARTS */
@@ -101,6 +71,7 @@
       0% {transform: translateY(100vh);}
       100% {transform: translateY(-10vh);}
     }
+
   </style>
 </head>
 
@@ -109,14 +80,13 @@
 <div class="container">
 
   <h1 id="text"></h1>
-
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <button onclick="showSecret()">Tap for surprise 💖</button>
+  <button class="button" onclick="showSecret()">Tap for surprise 💖</button>
 
   <!-- QUOTE -->
-  <div class="quote" id="quoteText"></div>
+  <div id="quoteText" class="quote"></div>
 
   <!-- SLIDER -->
   <div class="slideshow">
@@ -128,10 +98,6 @@
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="Snapchat-754572241.jpg">
   </div>
-
-  <!-- SECRET -->
-  <div id="secretMsg">You are the most beautiful part of my life 💕</div>
-  <div id="cake">🎂✨</div>
 
 </div>
 
@@ -154,7 +120,7 @@ function typing(){
 }
 typing();
 
-/* slider + quotes sync */
+/* SLIDER + QUOTE SYNC */
 let slideIndex = 0;
 
 let slides = document.getElementsByClassName("slide");
@@ -166,7 +132,7 @@ let quotes = [
   "You complete me 💕",
   "I love you forever 💞",
   "You are my world 🌍",
-  "Always yours 💘"
+  "You are the most beautiful part of my life 💖"
 ];
 
 function showSlides() {
@@ -175,13 +141,11 @@ function showSlides() {
   }
 
   slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
+  if (slideIndex > slides.length) { slideIndex = 1; }
 
   slides[slideIndex-1].style.display = "block";
 
-  // 🔥 sync quote with image
+  // SYNC QUOTE
   document.getElementById("quoteText").innerText = quotes[slideIndex-1];
 
   setTimeout(showSlides, 2500);
@@ -189,13 +153,12 @@ function showSlides() {
 
 window.onload = showSlides;
 
-/* secret */
+/* SECRET */
 function showSecret(){
-  document.getElementById("secretMsg").style.display = "block";
-  document.getElementById("cake").style.display = "block";
+  alert("I love you so much 💖");
 }
 
-/* hearts */
+/* HEARTS */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.className = "heart";
