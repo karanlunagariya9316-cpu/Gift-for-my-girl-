@@ -8,66 +8,77 @@
 
 body {
   margin: 0;
-  font-family: Arial;
-  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
   color: white;
-  background: linear-gradient(to right, #ff9a9e, #8e2de2);
-  overflow-x: hidden;
 }
 
-/* 🌸 FLOWERS (visible front) */
+/* 🌸 particles FIX */
 .particle {
   position: fixed;
-  font-size: 16px;
-  animation: float 5s linear infinite;
-  z-index: 10; /* 🔥 front ma */
-  pointer-events: none;
-}
-
-@keyframes float {
-  0% { transform: translateY(100vh); }
-  100% { transform: translateY(-10vh); }
-}
-
-/* 📦 container */
-.container {
-  padding-top: 5vh;
-}
-
-/* 🦄 PHOTO + UNICORN BACK */
-.photo-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-/* 🦄 unicorn glow behind */
-.photo-wrapper::before {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  background: url('https://i.imgur.com/6qK0F0K.png') no-repeat center/contain;
-  opacity: 0.25; /* soft */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  filter: blur(1px);
+  font-size: 14px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
+  pointer-events: none; /* 🔥 IMPORTANT FIX */
   z-index: 1;
 }
 
-/* 📸 photo */
-.photo {
-  width: 85%;
-  max-width: 320px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
-  position: relative;
-  z-index: 2;
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
 }
 
-/* ✨ heading */
+/* glow bg */
+body::before,
+body::after {
+  pointer-events: none; /* 🔥 prevent blocking */
+}
+
+/* card */
+.container {
+  text-align: center;
+  padding: 25px;
+  width: 90%;
+  max-width: 320px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  animation: fadeIn 0.8s ease;
+  position: relative;
+  z-index: 5; /* 🔥 above particles */
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(30px);}
+  to {opacity:1; transform: translateY(0);}
+}
+
+/* photo */
+.photo {
+  width: 200px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.5),
+    0 0 25px rgba(255, 100, 150, 0.5);
+}
+
+/* heading */
 h2 {
-  margin-top: 20px;
+  font-weight: 500;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #fff; }
+  to { text-shadow: 0 0 20px #ff9a9e; }
 }
 
 /* dots */
@@ -83,10 +94,12 @@ h2 {
   margin: 6px;
   border-radius: 50%;
   background: rgba(255,255,255,0.3);
+  transition: 0.3s;
 }
 
 .dot.active {
-  background: white;
+  background: #fff;
+  transform: scale(1.2);
   box-shadow: 0 0 10px white;
 }
 
@@ -96,6 +109,8 @@ h2 {
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
+  position: relative;
+  z-index: 6; /* 🔥 clickable */
 }
 
 .key {
@@ -115,6 +130,10 @@ h2 {
   transform: scale(1.1);
 }
 
+.key:active {
+  transform: scale(0.9);
+}
+
 /* shake */
 .shake {
   animation: shake 0.4s;
@@ -132,10 +151,11 @@ h2 {
 .heart {
   position: fixed;
   font-size: 20px;
-  animation: floatUp 2s linear forwards;
+  animation: float 2s linear forwards;
+  pointer-events: none;
 }
 
-@keyframes floatUp {
+@keyframes float {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-200px); opacity: 0; }
 }
@@ -147,14 +167,10 @@ h2 {
 
 <div class="container">
 
-  <!-- 🦄 PHOTO WITH UNICORN -->
-  <div class="photo-wrapper">
-    <img src="IMG-20260401-WA0014.jpg" class="photo">
-  </div>
+  <img src="IMG-20260401-WA0014.jpg" class="photo">
 
   <h2>🌸 Enter your birthdate 🌸</h2>
 
-  <!-- DOTS -->
   <div class="dots">
     <div class="dot"></div>
     <div class="dot"></div>
@@ -162,7 +178,6 @@ h2 {
     <div class="dot"></div>
   </div>
 
-  <!-- KEYPAD -->
   <div class="keypad">
     <button class="key" onclick="press(1)">1</button>
     <button class="key" onclick="press(2)">2</button>
@@ -185,7 +200,7 @@ h2 {
 let password = "2704";
 let input = "";
 
-/* 🌸 FLOWERS START */
+/* particles */
 setTimeout(()=>{
   setInterval(()=>{
     let p = document.createElement("div");
@@ -193,7 +208,7 @@ setTimeout(()=>{
     p.innerHTML = "🌸";
     p.style.left = Math.random()*100 + "vw";
     document.body.appendChild(p);
-    setTimeout(()=>p.remove(),5000);
+    setTimeout(()=>p.remove(),6000);
   }, 300);
 }, 500);
 
@@ -221,11 +236,16 @@ function clearPass(){
 function check(){
   if(input === password){
 
+    let rect = document.querySelector(".container").getBoundingClientRect();
+
     for(let i=0;i<20;i++){
       let heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
-      heart.style.left = Math.random()*100 + "vw";
+
+      heart.style.left = rect.left + rect.width/2 + "px";
+      heart.style.top = rect.top + rect.height/2 + "px";
+
       document.body.appendChild(heart);
       setTimeout(()=>heart.remove(),2000);
     }
