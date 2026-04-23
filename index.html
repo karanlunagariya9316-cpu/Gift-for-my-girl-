@@ -91,20 +91,25 @@
 
     /* 🔥 NEW GLOW HEART */
     .blast-heart {
+  po.heart {
   position: fixed;
-  pointer-events: none;
-  font-size: 20px;
-  animation: blast 1s ease-out forwards;
-  filter: drop-shadow(0 0 10px #ff4d6d);
+  bottom: -20px;
+  color: #ff4d6d;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
+  filter: blur(0.5px);
 }
 
-@keyframes blast {
+@keyframes floatUp {
   0% {
-    transform: translate(0,0) scale(0.5);
-    opacity: 1;
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
   }
   100% {
-    transform: translate(var(--x), var(--y)) scale(1.5);
+    transform: translateY(-120vh) scale(1.4);
     opacity: 0;
   }
 }
@@ -212,18 +217,21 @@ function goNext(){
 
 /* 🔥 GLOW HEART SYSTEM */
 setInterval(() => {
+
   let heart = document.createElement("div");
   heart.className = "heart";
-  heart.innerHTML = "💖";
+
+  let hearts = ["💖","💗","💘","💝"];
+  heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
 
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 20 + 12) + "px";
-  heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+  heart.style.fontSize = (Math.random() * 18 + 12) + "px";
 
   document.body.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 5000);
-}, 250);
+  setTimeout(() => heart.remove(), 6000);
+
+}, 500);
 
 </script>
 
