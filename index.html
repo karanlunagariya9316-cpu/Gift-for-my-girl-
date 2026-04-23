@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>For You ❤️</title>
+
   <style>
     body {
       margin: 0;
@@ -13,12 +14,27 @@
     }
 
     h1 {
-      margin-top: 40vh;
+      margin-top: 20vh;
       font-size: 2.5em;
     }
 
     p {
       font-size: 1.2em;
+    }
+
+    /* Slideshow */
+    .slideshow {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+    }
+
+    .slideshow img {
+      width: 200px;
+      height: 200px;
+      border-radius: 15px;
+      display: none;
+      margin: auto;
     }
 
     /* Floating hearts */
@@ -33,21 +49,9 @@
       100% {transform: translateY(-10vh);}
     }
 
-    /* Slideshow */
-    .slideshow {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-    }
-
-    .slideshow img {
-      width: 120px;
-      height: 120px;
-      border-radius: 10px;
-      margin: 5px;
-    }
   </style>
 </head>
+
 <body>
 
 <h1 id="text"></h1>
@@ -59,19 +63,18 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
-<!-- Slideshow -->
+<!-- 4 Photos Slideshow -->
 <div class="slideshow">
-  <img src="Screenshot_20260420-204315.jpg">
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
 </div>
 
-<!-- Video -->
-<video width="200" controls>
-  <source src="VID-20260418-WA0002.mp4" type="video/mp4">
-</video>
-
 <script>
+
 /* Typing effect */
-let text = "Hey (dhrutuu..💗) 💖";
+let text = "Hey 💖";
 let i = 0;
 function typing(){
   if(i < text.length){
@@ -81,6 +84,19 @@ function typing(){
   }
 }
 typing();
+
+/* Slideshow logic */
+let slideIndex = 0;
+let slides = document.querySelectorAll(".slideshow img");
+
+function showSlides() {
+  slides.forEach(img => img.style.display = "none");
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1;}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 2000); // 2 sec change
+}
+showSlides();
 
 /* Floating hearts */
 setInterval(()=>{
@@ -93,6 +109,7 @@ setInterval(()=>{
 
   setTimeout(()=>{heart.remove()},5000);
 },300);
+
 </script>
 
 </body>
