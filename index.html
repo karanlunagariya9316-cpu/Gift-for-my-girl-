@@ -32,10 +32,19 @@
       font-weight: bold;
     }
 
-    /* SLIDESHOW CONTAINER */
-    .slideshow-container {
-      position: relative;
-      margin-top: 30px;
+    /* QUOTE FIXED POSITION */
+    .quote {
+      margin-top: 20px;
+      font-size: 16px;
+      background: rgba(0,0,0,0.4);
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 10px;
+    }
+
+    /* SLIDER */
+    .slideshow {
+      margin-top: 20px;
     }
 
     .slide {
@@ -47,19 +56,6 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
-    /* OVERLAY TEXT */
-    .overlay-text {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 16px;
-      color: white;
-      background: rgba(0,0,0,0.5);
-      padding: 6px;
-      border-radius: 10px;
-    }
-
     /* SECRET */
     .secret {
       display: none;
@@ -68,7 +64,6 @@
       color: yellow;
     }
 
-    /* CAKE */
     .cake {
       display: none;
       font-size: 40px;
@@ -91,7 +86,6 @@
 
 <body>
 
-<!-- PASSWORD -->
 <script>
 let pass = prompt("Enter secret code 💖");
 if(pass !== "dhrutuu"){
@@ -106,32 +100,27 @@ if(pass !== "dhrutuu"){
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <!-- BUTTON -->
   <button class="btn" onclick="showSecret()">Tap for surprise 💖</button>
 
-  <!-- SECRET -->
   <div class="secret" id="secretMsg">
     You are the most beautiful part of my life 💕
   </div>
 
-  <!-- CAKE -->
   <div class="cake" id="cake">🎂✨</div>
 
-  <!-- SLIDER + OVERLAY -->
-  <div class="slideshow-container">
+  <!-- QUOTE HERE (FIXED) -->
+  <div class="quote" id="quoteText"></div>
 
+  <!-- SLIDER -->
+  <div class="slideshow">
     <img class="slide" src="IMG-20260401-WA0014.jpg">
     <img class="slide" src="IMG-20260401-WA0021.jpg">
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="Snapchat-754572241.jpg">
-
-    <div class="overlay-text" id="quoteText"></div>
-
   </div>
 
 </div>
 
-<!-- MUSIC -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
