@@ -46,19 +46,44 @@
       font-weight: bold;
     }
 
+    /* HINT TEXT */
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
     /* SLIDER */
     .slideshow {
       margin-top: 20px;
+      position: relative;
     }
 
     .slide {
       width: 85%;
       max-width: 320px;
       border-radius: 15px;
-      display: none;
       margin: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      display: none;
     }
+
+    /* ARROWS */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 28px;
+      background: rgba(255,255,255,0.7);
+      color: #b57edc;
+      border-radius: 50%;
+      padding: 8px 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .left { left: 5%; }
+    .right { right: 5%; }
 
     /* HEARTS */
     .heart {
@@ -83,14 +108,18 @@
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <!-- ✅ NEW NEXT BUTTON -->
   <button class="button" onclick="goNext()">Next ➡️</button>
 
-  <!-- QUOTE -->
   <div id="quoteText" class="quote"></div>
+
+  <div class="hint">Tap ➡️ to change photo</div>
 
   <!-- SLIDER -->
   <div class="slideshow">
+
+    <span class="arrow left" onclick="prevSlide()">&#10094;</span>
+    <span class="arrow right" onclick="nextSlide()">&#10095;</span>
+
     <img class="slide" src="IMG-20260401-WA0014.jpg">
     <img class="slide" src="IMG-20260401-WA0021.jpg">
     <img class="slide" src="IMG-20260401-WA0023.jpg">
@@ -98,14 +127,10 @@
     <img class="slide" src="IMG-20260129-WA0032.jpg">
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="Snapchat-754572241.jpg">
+
   </div>
 
 </div>
-
-<!-- MUSIC -->
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
 
 <script>
 
@@ -121,7 +146,7 @@ function typing(){
 }
 typing();
 
-/* SLIDER + QUOTE SYNC */
+/* MANUAL SLIDER */
 let slideIndex = 0;
 
 let slides = document.getElementsByClassName("slide");
@@ -136,24 +161,32 @@ let quotes = [
   "You are the most beautiful part of my life 💖"
 ];
 
-function showSlides() {
+function showSlide(n) {
+  if (n >= slides.length) slideIndex = 0;
+  if (n < 0) slideIndex = slides.length - 1;
+
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
 
-  slideIndex++;
-  if (slideIndex > slides.length) { slideIndex = 1; }
-
-  slides[slideIndex-1].style.display = "block";
-
-  document.getElementById("quoteText").innerText = quotes[slideIndex-1];
-
-  setTimeout(showSlides, 2500);
+  slides[slideIndex].style.display = "block";
+  document.getElementById("quoteText").innerText = quotes[slideIndex];
 }
 
-window.onload = showSlides;
+function nextSlide(){
+  slideIndex++;
+  showSlide(slideIndex);
+}
 
-/* 🔥 NEXT PAGE FUNCTION */
+function prevSlide(){
+  slideIndex--;
+  showSlide(slideIndex);
+}
+
+/* FIRST LOAD */
+showSlide(slideIndex);
+
+/* NEXT PAGE */
 function goNext(){
   window.location.href = "page2.html";
 }
