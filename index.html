@@ -3,45 +3,57 @@
 <head>
   <title>For You ❤️</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
-      overflow: hidden;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       text-align: center;
       color: white;
-      background: linear-gradient(to right, pink, purple);
+      background: linear-gradient(to right, #ff9a9e, #8e2de2);
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding-top: 15vh;
     }
 
     h1 {
-      margin-top: 20vh;
-      font-size: 2.5em;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 20px;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 16px;
     }
 
-    /* Slideshow */
+    /* SLIDER */
     .slideshow {
-      position: fixed;
-      bottom: 20px;
-      width: 100%;
+      margin-top: 20px;
     }
 
     .slideshow img {
-      width: 200px;
-      height: 200px;
+      width: 80%;
+      max-width: 300px;
+      height: auto;
       border-radius: 15px;
       display: none;
-      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
-    /* Floating hearts */
+    /* HEARTS */
     .heart {
-      position: absolute;
+      position: fixed;
       color: red;
       animation: float 5s linear infinite;
+      z-index: 0;
     }
 
     @keyframes float {
@@ -54,61 +66,72 @@
 
 <body>
 
-<h1 id="text"></h1>
-<p>You are very special to me ✨</p>
-<p>This surprise is just for you 💕</p>
+<div class="container">
 
-<!-- Music -->
+  <h1 id="text"></h1>
+
+  <!-- YOUR CUSTOM TEXT -->
+  <h2>Dhrutuu..💗</h2>
+  <p>Happy Birthday My Love 🥳💫💖</p>
+
+  <!-- SLIDER -->
+  <div class="slideshow">
+    <img class="slide" src="IMG-20260401-WA0014.jpg">
+    <img class="slide" src="IMG-20260401-WA0021.jpg">
+    <img class="slide" src="IMG_20260112_175825_524~2.jpg">
+    <img class="slide" src="Snapchat-754572241.jpg">
+  </div>
+
+</div>
+
+<!-- MUSIC -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
-<!-- 4 Photos Slideshow -->
-<div class="slideshow">
-  <img src="photo1.jpg">
-  <img src="photo2.jpg">
-  <img src="photo3.jpg">
-  <img src="photo4.jpg">
-</div>
-
 <script>
 
 /* Typing effect */
-let text = "Hey 💖";
+let text = "Hey Bestie 💖";
 let i = 0;
 function typing(){
   if(i < text.length){
     document.getElementById("text").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typing, 100);
+    setTimeout(typing, 80);
   }
 }
 typing();
 
-/* Slideshow logic */
-let slideIndex = 0;
-let slides = document.querySelectorAll(".slideshow img");
+/* SLIDER FIXED */
+let index = 0;
+let slides = document.getElementsByClassName("slide");
 
 function showSlides() {
-  slides.forEach(img => img.style.display = "none");
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1;}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 2000); // 2 sec change
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  index++;
+  if (index > slides.length) { index = 1; }
+  slides[index - 1].style.display = "block";
+  setTimeout(showSlides, 2000);
 }
-showSlides();
 
-/* Floating hearts */
-setInterval(()=>{
+window.onload = showSlides;
+
+/* HEARTS */
+setInterval(() => {
   let heart = document.createElement("div");
   heart.className = "heart";
-  heart.style.left = Math.random()*100 + "vw";
+  heart.style.left = Math.random() * 100 + "vw";
   heart.innerHTML = "💖";
-  heart.style.fontSize = (Math.random()*20+10)+"px";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
   document.body.appendChild(heart);
 
-  setTimeout(()=>{heart.remove()},5000);
-},300);
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 300);
 
 </script>
 
