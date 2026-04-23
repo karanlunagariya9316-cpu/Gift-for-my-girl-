@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-  <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -127,6 +126,122 @@ h2 {
 /* ❌ shake */
 .shake {
   animation: shake 0.4s;
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  /* 🎨 MATCH PHOTO COLOR (MAROON THEME) */
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  color: white;
+}
+
+/* 🔥 SOFT GLOW BACKGROUND EFFECT */
+body::before {
+  content: "";
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 0, 100, 0.3);
+  filter: blur(120px);
+  top: 10%;
+  left: 20%;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 150, 200, 0.3);
+  filter: blur(120px);
+  bottom: 10%;
+  right: 20%;
+}
+
+/* 💎 CARD */
+.container {
+  text-align: center;
+  padding: 25px;
+  width: 90%;
+  max-width: 320px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+/* 📸 PHOTO */
+.photo {
+  width: 200px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.5),
+    0 0 25px rgba(255, 100, 150, 0.5);
+}
+
+/* ✨ TEXT */
+h2 {
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+/* 🔘 DOTS */
+.dots {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+}
+
+.dot.active {
+  background: #fff;
+  box-shadow: 0 0 10px white;
+}
+
+/* 🔢 KEYPAD */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  gap: 12px;
+  justify-content: center;
+}
+
+.key {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 🔥 STRONG HOVER EFFECT */
+.key:hover {
+  background: #ff4d88;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #ff4d88;
+}
+
+/* ❌ WRONG PASSWORD SHAKE */
+.shake {
+  animation: shake 0.4s;
 }
 
 @keyframes shake {
@@ -136,19 +251,7 @@ h2 {
   75% { transform: translateX(-6px); }
   100% { transform: translateX(0); }
 }
-
-/* 💖 floating hearts bg */
-.bg-heart {
-  position: fixed;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.6;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(100vh); }
-  100% { transform: translateY(-10vh); }
-}
+</style>
 </style>
 
     /* HEART BURST */
