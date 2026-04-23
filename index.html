@@ -68,22 +68,28 @@
       display: none;
     }
 
-    /* ARROWS */
+    /* 🔥 UPDATED ARROWS (no background + glow) */
     .arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 28px;
-      background: rgba(255,255,255,0.7);
-      color: #b57edc;
-      border-radius: 50%;
-      padding: 8px 12px;
+      font-size: 34px;
+      color: #d8b4fe; /* lavender */
       cursor: pointer;
       user-select: none;
+      transition: 0.3s;
     }
 
     .left { left: 5%; }
     .right { right: 5%; }
+
+    .arrow:hover {
+      text-shadow: 
+        0 0 10px #e0c3fc,
+        0 0 20px #c084fc,
+        0 0 30px #a855f7;
+      transform: translateY(-50%) scale(1.3);
+    }
 
     /* HEARTS */
     .heart {
