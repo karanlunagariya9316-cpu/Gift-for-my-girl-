@@ -2,32 +2,28 @@
 <html>
 <head>
   <title>For You ❤️</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       text-align: center;
       color: white;
       background: linear-gradient(to right, #ff9a9e, #8e2de2);
-      overflow-x: hidden;
     }
 
     .container {
-      padding-top: 15vh;
+      padding-top: 10vh;
     }
 
     h1 {
       font-size: 28px;
-      margin-bottom: 10px;
     }
 
     h2 {
-      font-size: 20px;
-      color: #fff;
-      margin-bottom: 20px;
+      margin-top: 10px;
+      font-size: 22px;
     }
 
     p {
@@ -36,16 +32,17 @@
 
     /* SLIDER */
     .slideshow {
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
-    .slideshow img {
+    .slide {
       width: 80%;
       max-width: 300px;
       height: auto;
       border-radius: 15px;
       display: none;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
     /* HEARTS */
@@ -53,14 +50,12 @@
       position: fixed;
       color: red;
       animation: float 5s linear infinite;
-      z-index: 0;
     }
 
     @keyframes float {
       0% {transform: translateY(100vh);}
       100% {transform: translateY(-10vh);}
     }
-
   </style>
 </head>
 
@@ -70,7 +65,6 @@
 
   <h1 id="text"></h1>
 
-  <!-- YOUR CUSTOM TEXT -->
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
@@ -91,8 +85,8 @@
 
 <script>
 
-/* Typing effect */
-let text = "Hey Bestie 💖";
+/* typing */
+let text = "Hey 💖";
 let i = 0;
 function typing(){
   if(i < text.length){
@@ -103,23 +97,23 @@ function typing(){
 }
 typing();
 
-/* SLIDER FIXED */
-let index = 0;
+/* slider */
+let slideIndex = 0;
 let slides = document.getElementsByClassName("slide");
 
 function showSlides() {
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  index++;
-  if (index > slides.length) { index = 1; }
-  slides[index - 1].style.display = "block";
+  slideIndex++;
+  if (slideIndex > slides.length) { slideIndex = 1; }
+  slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 2000);
 }
 
 window.onload = showSlides;
 
-/* HEARTS */
+/* hearts */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.className = "heart";
@@ -128,9 +122,7 @@ setInterval(() => {
   heart.style.fontSize = (Math.random() * 20 + 10) + "px";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
+  setTimeout(() => heart.remove(), 5000);
 }, 300);
 
 </script>
