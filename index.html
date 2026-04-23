@@ -83,7 +83,8 @@
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
-  <button class="button" onclick="showSecret()">Tap for surprise 💖</button>
+  <!-- ✅ NEW NEXT BUTTON -->
+  <button class="button" onclick="goNext()">Next ➡️</button>
 
   <!-- QUOTE -->
   <div id="quoteText" class="quote"></div>
@@ -145,7 +146,6 @@ function showSlides() {
 
   slides[slideIndex-1].style.display = "block";
 
-  // SYNC QUOTE
   document.getElementById("quoteText").innerText = quotes[slideIndex-1];
 
   setTimeout(showSlides, 2500);
@@ -153,9 +153,9 @@ function showSlides() {
 
 window.onload = showSlides;
 
-/* SECRET */
-function showSecret(){
-  alert("I love you so much 💖");
+/* 🔥 NEXT PAGE FUNCTION */
+function goNext(){
+  window.location.href = "page2.html";
 }
 
 /* HEARTS */
