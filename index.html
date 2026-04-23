@@ -14,7 +14,7 @@
     }
 
     .container {
-      padding-top: 10vh;
+      padding-top: 5vh;
     }
 
     h1 { font-size: 28px; }
@@ -52,12 +52,16 @@
     }
 
     .slide {
-      width: 80%;
-      max-width: 300px;
-      border-radius: 15px;
-      display: none;
-      margin: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  width: 85%;
+  max-width: 320px;
+  height: 60vh;          
+      /* 👈 fix height */
+  object-fit: cover;     
+      /* 👈 image crop thai ne perfect fit */
+  border-radius: 15px;
+  display: none;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
     .secret {
