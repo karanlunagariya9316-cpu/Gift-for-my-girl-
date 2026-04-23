@@ -18,12 +18,14 @@ body {
   color: white;
 }
 
-/* 🌸 floating particles */
+/* 🌸 particles FIX */
 .particle {
   position: fixed;
   font-size: 14px;
   animation: floatUp 6s linear infinite;
   opacity: 0.7;
+  pointer-events: none; /* 🔥 IMPORTANT FIX */
+  z-index: 1;
 }
 
 @keyframes floatUp {
@@ -33,26 +35,9 @@ body {
 }
 
 /* glow bg */
-body::before {
-  content: "";
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 0, 100, 0.3);
-  filter: blur(120px);
-  top: 10%;
-  left: 20%;
-}
-
+body::before,
 body::after {
-  content: "";
-  position: fixed;
-  width: 250px;
-  height: 250px;
-  background: rgba(255, 150, 200, 0.3);
-  filter: blur(120px);
-  bottom: 10%;
-  right: 20%;
+  pointer-events: none; /* 🔥 prevent blocking */
 }
 
 /* card */
@@ -66,6 +51,8 @@ body::after {
   backdrop-filter: blur(15px);
   box-shadow: 0 0 30px rgba(0,0,0,0.4);
   animation: fadeIn 0.8s ease;
+  position: relative;
+  z-index: 5; /* 🔥 above particles */
 }
 
 @keyframes fadeIn {
@@ -81,14 +68,9 @@ body::after {
   box-shadow: 
     0 10px 30px rgba(0,0,0,0.5),
     0 0 25px rgba(255, 100, 150, 0.5);
-  transition: 0.4s;
 }
 
-.photo:hover {
-  transform: scale(1.05);
-}
-
-/* heading glow */
+/* heading */
 h2 {
   font-weight: 500;
   animation: glow 2s infinite alternate;
@@ -127,6 +109,8 @@ h2 {
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
+  position: relative;
+  z-index: 6; /* 🔥 clickable */
 }
 
 .key {
@@ -136,17 +120,14 @@ h2 {
   border: none;
   font-size: 20px;
   background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
   color: white;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 .key:hover {
   background: #ff4d88;
   transform: scale(1.1);
-  box-shadow: 0 0 20px #ff4d88;
 }
 
 .key:active {
@@ -166,11 +147,12 @@ h2 {
   100% { transform: translateX(0); }
 }
 
-/* ❤️ heart burst */
+/* ❤️ heart */
 .heart {
   position: fixed;
   font-size: 20px;
   animation: float 2s linear forwards;
+  pointer-events: none;
 }
 
 @keyframes float {
@@ -218,7 +200,7 @@ h2 {
 let password = "2704";
 let input = "";
 
-/* particles start instantly */
+/* particles */
 setTimeout(()=>{
   setInterval(()=>{
     let p = document.createElement("div");
@@ -256,7 +238,7 @@ function check(){
 
     let rect = document.querySelector(".container").getBoundingClientRect();
 
-    for(let i=0;i<25;i++){
+    for(let i=0;i<20;i++){
       let heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
