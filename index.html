@@ -1,131 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>For You ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: linear-gradient(-45deg, #ff9a9e, #c084fc, #fbc2eb, #a18cd1);
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease infinite;
-  color: white;
-}
-
-/* 🌈 moving gradient */
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
-
-/* ✨ glass card */
-.container {
-  text-align: center;
-  padding: 25px;
-  width: 90%;
-  max-width: 320px;
-  border-radius: 25px;
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.1);
-  box-shadow: 
-    0 0 25px rgba(255,255,255,0.2),
-    0 0 60px rgba(192,132,252,0.4);
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(30px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* 📸 photo glow */
-.photo {
-  width: 200px;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  box-shadow: 
-    0 0 20px rgba(255,255,255,0.4),
-    0 0 40px rgba(255,105,180,0.5);
-  transition: 0.4s;
-}
-
-.photo:hover {
-  transform: scale(1.05);
-}
-
-/* ✨ heading glow */
-h2 {
-  font-weight: 500;
-  text-shadow: 0 0 10px pink;
-}
-
-/* 🔘 dots */
-.dots {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  margin: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  transition: 0.3s;
-}
-
-.dot.active {
-  background: white;
-  box-shadow: 0 0 10px white;
-}
-
-/* 🔢 keypad */
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 70px);
-  gap: 12px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.key {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
-
-/* 🔥 hover glow */
-.key:hover {
-  background: rgba(255,255,255,0.3);
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #ff9a9e;
-}
-
-.key:active {
-  transform: scale(0.9);
-}
-
-/* ❌ shake */
-.shake {
-  animation: shake 0.4s;
 <style>
 body {
   margin: 0;
@@ -135,13 +13,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
-  /* 🎨 MATCH PHOTO COLOR (MAROON THEME) */
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
   color: white;
 }
 
-/* 🔥 SOFT GLOW BACKGROUND EFFECT */
+/* glow background */
 body::before {
   content: "";
   position: fixed;
@@ -164,7 +40,7 @@ body::after {
   right: 20%;
 }
 
-/* 💎 CARD */
+/* card */
 .container {
   text-align: center;
   padding: 25px;
@@ -176,7 +52,7 @@ body::after {
   box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
 
-/* 📸 PHOTO */
+/* photo */
 .photo {
   width: 200px;
   border-radius: 20px;
@@ -186,13 +62,12 @@ body::after {
     0 0 25px rgba(255, 100, 150, 0.5);
 }
 
-/* ✨ TEXT */
+/* text */
 h2 {
   font-weight: 500;
-  margin-top: 10px;
 }
 
-/* 🔘 DOTS */
+/* dots */
 .dots {
   display: flex;
   justify-content: center;
@@ -212,7 +87,7 @@ h2 {
   box-shadow: 0 0 10px white;
 }
 
-/* 🔢 KEYPAD */
+/* keypad */
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 70px);
@@ -232,14 +107,13 @@ h2 {
   transition: 0.3s;
 }
 
-/* 🔥 STRONG HOVER EFFECT */
 .key:hover {
   background: #ff4d88;
   transform: scale(1.1);
   box-shadow: 0 0 20px #ff4d88;
 }
 
-/* ❌ WRONG PASSWORD SHAKE */
+/* shake */
 .shake {
   animation: shake 0.4s;
 }
@@ -251,22 +125,20 @@ h2 {
   75% { transform: translateX(-6px); }
   100% { transform: translateX(0); }
 }
+
+/* ❤️ heart burst */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: float 2s linear forwards;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-200px); opacity: 0; }
+}
 </style>
-</style>
 
-    /* HEART BURST */
-    .heart {
-      position: fixed;
-      font-size: 20px;
-      animation: float 2s linear forwards;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-200px); opacity: 0; }
-    }
-
-  </style>
 </head>
 
 <body>
@@ -279,7 +151,7 @@ h2 {
   <h2>Enter Passcode 💖</h2>
 
   <!-- DOTS -->
-  <div class="dots" id="dots">
+  <div class="dots">
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>
@@ -309,7 +181,7 @@ h2 {
 let password = "2704";
 let input = "";
 
-/* UPDATE DOTS */
+/* update dots */
 function updateDots(){
   let dots = document.querySelectorAll(".dot");
   dots.forEach((dot, i) => {
@@ -329,7 +201,7 @@ function clearPass(){
   updateDots();
 }
 
-/* CHECK PASSWORD */
+/* check password */
 function check(){
   if(input === password){
 
@@ -343,14 +215,11 @@ function check(){
       setTimeout(()=>heart.remove(),2000);
     }
 
-    /* redirect after animation */
     setTimeout(()=>{
       window.location.href = "page2.html";
     }, 1200);
 
   } else {
-
-    /* ❌ shake */
     document.querySelector(".dots").classList.add("shake");
 
     setTimeout(()=>{
