@@ -17,28 +17,27 @@
       padding-top: 10vh;
     }
 
-    h1 {
-      font-size: 28px;
-    }
+    h1 { font-size: 28px; }
+    h2 { margin-top: 10px; font-size: 22px; }
+    p { font-size: 16px; }
 
-    h2 {
-      margin-top: 10px;
-      font-size: 22px;
-    }
-
-    p {
-      font-size: 16px;
+    /* BUTTON */
+    .btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: white;
+      color: #8e2de2;
+      font-weight: bold;
     }
 
     /* SLIDER */
-    .slideshow {
-      margin-top: 30px;
-    }
+    .slideshow { margin-top: 30px; }
 
     .slide {
       width: 80%;
       max-width: 300px;
-      height: auto;
       border-radius: 15px;
       display: none;
       margin: auto;
@@ -56,10 +55,41 @@
       0% {transform: translateY(100vh);}
       100% {transform: translateY(-10vh);}
     }
+
+    /* SECRET MESSAGE */
+    .secret {
+      display: none;
+      margin-top: 15px;
+      font-size: 18px;
+      color: yellow;
+    }
+
+    /* CAKE */
+    .cake {
+      display: none;
+      font-size: 40px;
+      margin-top: 15px;
+    }
+
+    /* QUOTES */
+    .quote {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
   </style>
 </head>
 
 <body>
+
+<script>
+/* PASSWORD LOCK */
+let pass = prompt("Enter secret code 💖");
+if(pass !== "dhrutuu"){
+  document.body.innerHTML = "<h1>Not for you 😜</h1>";
+}
+</script>
 
 <div class="container">
 
@@ -68,6 +98,17 @@
   <h2>Dhrutuu..💗</h2>
   <p>Happy Birthday My Love 🥳💫💖</p>
 
+  <!-- BUTTON -->
+  <button class="btn" onclick="showSecret()">Tap for surprise 💖</button>
+
+  <!-- SECRET MESSAGE -->
+  <div class="secret" id="secretMsg">
+    You are the most beautiful part of my life 💕
+  </div>
+
+  <!-- CAKE -->
+  <div class="cake" id="cake">🎂✨</div>
+
   <!-- SLIDER -->
   <div class="slideshow">
     <img class="slide" src="IMG-20260401-WA0014.jpg">
@@ -75,6 +116,9 @@
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="Snapchat-754572241.jpg">
   </div>
+
+  <!-- QUOTES -->
+  <div class="quote" id="quoteText"></div>
 
 </div>
 
@@ -110,7 +154,6 @@ function showSlides() {
   slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 2000);
 }
-
 window.onload = showSlides;
 
 /* hearts */
@@ -121,9 +164,31 @@ setInterval(() => {
   heart.innerHTML = "💖";
   heart.style.fontSize = (Math.random() * 20 + 10) + "px";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 5000);
 }, 300);
+
+/* SECRET BUTTON */
+function showSecret(){
+  document.getElementById("secretMsg").style.display = "block";
+  document.getElementById("cake").style.display = "block";
+}
+
+/* QUOTES */
+let quotes = [
+  "You are my happiness 💖",
+  "Forever with you ✨",
+  "My best friend & my love 💫",
+  "You complete me 💕"
+];
+
+let q = 0;
+function changeQuote(){
+  document.getElementById("quoteText").innerText = quotes[q];
+  q++;
+  if(q >= quotes.length){ q = 0; }
+  setTimeout(changeQuote, 2000);
+}
+changeQuote();
 
 </script>
 
