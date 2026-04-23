@@ -14,17 +14,17 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  background: linear-gradient(135deg, #6a1b3f, #c94b7a, #ff9a9e);
   color: white;
 }
 
-/* 🌸 particles FIX */
+/* 🌸 floating flowers */
 .particle {
   position: fixed;
   font-size: 14px;
   animation: floatUp 6s linear infinite;
   opacity: 0.7;
-  pointer-events: none; /* 🔥 IMPORTANT FIX */
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -34,25 +34,40 @@ body {
   100% { transform: translateY(-10vh); opacity: 0; }
 }
 
-/* glow bg */
-body::before,
-body::after {
-  pointer-events: none; /* 🔥 prevent blocking */
-}
-
-/* card */
+/* 💎 main card */
 .container {
   text-align: center;
   padding: 25px;
   width: 90%;
   max-width: 320px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
-  animation: fadeIn 0.8s ease;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 0 25px rgba(255,255,255,0.2),
+    0 0 60px rgba(255,105,180,0.3);
   position: relative;
-  z-index: 5; /* 🔥 above particles */
+  z-index: 5;
+  animation: fadeIn 0.8s ease;
+}
+
+/* 🌸 cute corner decoration */
+.container::before,
+.container::after {
+  content: "🌸";
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.6;
+}
+
+.container::before {
+  top: 10px;
+  left: 10px;
+}
+
+.container::after {
+  bottom: 10px;
+  right: 10px;
 }
 
 @keyframes fadeIn {
@@ -60,25 +75,22 @@ body::after {
   to {opacity:1; transform: translateY(0);}
 }
 
-/* photo */
+/* 📸 photo */
 .photo {
   width: 200px;
-  border-radius: 20px;
+  border-radius: 25px;
   margin-bottom: 15px;
+  border: 3px solid rgba(255,255,255,0.4);
   box-shadow: 
     0 10px 30px rgba(0,0,0,0.5),
-    0 0 25px rgba(255, 100, 150, 0.5);
+    0 0 20px rgba(255, 120, 170, 0.6);
 }
 
-/* heading */
+/* ✨ heading */
 h2 {
   font-weight: 500;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px #fff; }
-  to { text-shadow: 0 0 20px #ff9a9e; }
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #fff;
 }
 
 /* dots */
@@ -109,8 +121,7 @@ h2 {
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
-  position: relative;
-  z-index: 6; /* 🔥 clickable */
+  z-index: 6;
 }
 
 .key {
@@ -119,15 +130,18 @@ h2 {
   border-radius: 50%;
   border: none;
   font-size: 20px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
+/* 💖 soft hover */
 .key:hover {
-  background: #ff4d88;
+  background: #ff6fa5;
   transform: scale(1.1);
+  box-shadow: 0 0 20px #ff6fa5;
 }
 
 .key:active {
