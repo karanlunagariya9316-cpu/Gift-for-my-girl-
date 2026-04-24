@@ -16,121 +16,87 @@ body{
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
-/* text */
+/* TEXT ANIMATION */
 .text{
   margin-top:60px;
-  font-size:28px;
+  font-size:30px;
   font-weight:600;
+  letter-spacing:2px;
 }
 
-/* cake container */
+.text span{
+  opacity:0;
+  display:inline-block;
+  transform:translateX(40px);
+  animation:slide 0.4s forwards;
+}
+
+@keyframes slide{
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+/* CAKE CONTAINER */
 .cake-container{
   position:relative;
   margin-top:80px;
 }
 
-/* 🎂 BASE CAKE (hidden after split) */
+/* 🎂 CAKE */
 .cake{
-  width:200px;
-  height:120px;
+  width:220px;
+  height:130px;
   margin:auto;
   position:relative;
-  border-radius:50% / 30%;
+  border-radius:50% / 35%;
   background: linear-gradient(to bottom, #ff9a9e, #ff4d6d);
-  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  transition:0.8s;
 }
 
-/* cream top */
+/* top cream */
 .cake::before{
   content:"";
   position:absolute;
-  top:-25px;
+  top:-30px;
   left:0;
   width:100%;
-  height:50px;
+  height:60px;
   border-radius:50%;
-  background:#fff;
+  background: radial-gradient(circle, #fff, #eee);
 }
 
 /* middle layer */
 .cake::after{
   content:"";
   position:absolute;
-  top:40px;
-  left:0;
-  width:100%;
-  height:30px;
+  top:50px;
+  left:10%;
+  width:80%;
+  height:25px;
   background:#ff7b8a;
   border-radius:20px;
 }
 
-/* 🎂 HALF CAKES */
-.half{
-  width:100px;
-  height:120px;
-  position:absolute;
-  top:0;
-  background: linear-gradient(to bottom, #ff9a9e, #ff4d6d);
-  box-shadow:0 15px 30px rgba(0,0,0,0.3);
-  overflow:hidden;
-  transition:0.8s;
+/* CUT HALVES */
+.left{
+  transform: translateX(-70px) rotate(-10deg);
 }
 
-/* left half */
-.left-half{
-  left:50%;
-  transform:translateX(-100%);
-  border-top-left-radius:100% 50%;
-  border-bottom-left-radius:100% 50%;
+.right{
+  transform: translateX(70px) rotate(10deg);
 }
 
-/* right half */
-.right-half{
-  left:50%;
-  transform:translateX(0%);
-  border-top-right-radius:100% 50%;
-  border-bottom-right-radius:100% 50%;
-}
-
-/* cream for halves */
-.half::before{
-  content:"";
-  position:absolute;
-  top:-25px;
-  width:100%;
-  height:50px;
-  border-radius:50%;
-  background:#fff;
-}
-
-/* middle layer halves */
-.half::after{
-  content:"";
-  position:absolute;
-  top:40px;
-  width:100%;
-  height:30px;
-  background:#ff7b8a;
-  border-radius:20px;
-}
-
-/* split animation */
-.cut-left{
-  transform: translateX(-140%) rotate(-10deg);
-}
-
-.cut-right{
-  transform: translateX(40%) rotate(10deg);
-}
-
-/* candles */
+/* CANDLES */
 .candles{
   position:absolute;
-  top:-40px;
+  top:-45px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
-  gap:10px;
+  gap:15px;
 }
 
 .candle{
@@ -158,7 +124,7 @@ body{
   to{transform:scale(1.3);}
 }
 
-/* knife */
+/* KNIFE */
 .knife{
   position:absolute;
   top:-120px;
@@ -170,8 +136,8 @@ body{
 
 @keyframes cut{
   0%{top:-120px; opacity:1;}
-  60%{top:60px;}
-  100%{top:60px; opacity:0;}
+  60%{top:70px;}
+  100%{top:70px; opacity:0;}
 }
 
 .cutting{
@@ -183,26 +149,39 @@ body{
 
 <body>
 
-<div class="text" id="mainText">Make a wish ✨</div>
+<div class="text" id="mainText"></div>
 
 <div class="cake-container">
 
-  <!-- knife -->
-  <div class="knife" id="knife">🔪</div>
-
-  <!-- candles (initial full cake) -->
-  <div class="candles" id="mainCandles">
+  <div class="candles" id="candles">
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
   </div>
 
-  <!-- full cake -->
+  <div class="knife" id="knife">🔪</div>
+
   <div class="cake" id="cake"></div>
 
 </div>
 
 <script>
+
+/* TEXT TYPE ANIMATION */
+function animateText(text){
+  let container = document.getElementById("mainText");
+  container.innerHTML = "";
+
+  text.split("").forEach((char,i)=>{
+    let span = document.createElement("span");
+    span.innerText = char;
+    span.style.animationDelay = i * 0.08 + "s";
+    container.appendChild(span);
+  });
+}
+
+/* initial text */
+animateText("Make a wish ✨");
 
 let cutDone = false;
 
@@ -213,52 +192,23 @@ document.body.addEventListener("click", function(){
 
   let knife = document.getElementById("knife");
   let cake = document.getElementById("cake");
-  let candles = document.getElementById("mainCandles");
 
   knife.style.opacity = 1;
   knife.classList.add("cutting");
 
   setTimeout(()=>{
 
-    // hide original cake + candles
-    cake.style.display = "none";
-    candles.style.display = "none";
+    /* CUT EFFECT */
+    cake.classList.add("left");
 
-    // LEFT HALF
-    let left = document.createElement("div");
-    left.className = "half left-half";
+    let clone = cake.cloneNode(true);
+    clone.classList.remove("left");
+    clone.classList.add("right");
 
-    let leftCandles = document.createElement("div");
-    leftCandles.className = "candles";
-    leftCandles.innerHTML = `
-      <div class="candle"><div class="flame"></div></div>
-    `;
-    left.appendChild(leftCandles);
+    cake.parentElement.appendChild(clone);
 
-    // RIGHT HALF
-    let right = document.createElement("div");
-    right.className = "half right-half";
-
-    let rightCandles = document.createElement("div");
-    rightCandles.className = "candles";
-    rightCandles.innerHTML = `
-      <div class="candle"><div class="flame"></div></div>
-      <div class="candle"><div class="flame"></div></div>
-    `;
-    right.appendChild(rightCandles);
-
-    document.querySelector(".cake-container").appendChild(left);
-    document.querySelector(".cake-container").appendChild(right);
-
-    // animate split
-    setTimeout(()=>{
-      left.classList.add("cut-left");
-      right.classList.add("cut-right");
-    },50);
-
-    // change text
-    document.getElementById("mainText").innerText =
-      "Happy Birthday Dhrutii 💖";
+    /* TEXT CHANGE WITH ANIMATION */
+    animateText("Happy Birthday Dhrutii 💖");
 
   },800);
 
