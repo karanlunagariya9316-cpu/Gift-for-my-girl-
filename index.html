@@ -6,13 +6,20 @@
 
 <style>
 
-body {
+/* 🔥 IMPORTANT FIX */
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
   font-family: 'Poppins', sans-serif;
   text-align: center;
   color: white;
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 /* 🌸 floating flowers */
@@ -28,7 +35,7 @@ body {
   100% { transform: translateY(-10vh); }
 }
 
-/* 📸 PHOTO FRAME (MAIN MAGIC 🔥) */
+/* 📸 PHOTO FRAME */
 .photo-frame {
   margin-top: 40px;
   display: inline-block;
@@ -41,7 +48,7 @@ body {
   position: relative;
 }
 
-/* ✨ cute top ribbon */
+/* 🎀 ribbon */
 .photo-frame::before {
   content: "🎀";
   position: absolute;
@@ -51,17 +58,16 @@ body {
   font-size: 28px;
 }
 
-/* 🌸 side decorations */
+/* 🌸 bottom decoration */
 .photo-frame::after {
   content: "🌸 🌸";
   position: absolute;
   bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 16px;
 }
 
-/* actual image */
+/* image */
 .photo {
   width: 220px;
   border-radius: 20px;
@@ -153,7 +159,7 @@ h2 {
 
 <body>
 
-<!-- 🌸 PHOTO WITH CUTE FRAME -->
+<!-- PHOTO -->
 <div class="photo-frame">
   <img src="IMG-20260401-WA0014.jpg" class="photo">
 </div>
