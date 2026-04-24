@@ -9,19 +9,19 @@
 
 *{ -webkit-tap-highlight-color: transparent; }  
 
-body{  
-  margin:0;  
-  height:100vh;  
-  display:flex;  
-  flex-direction:column;  
-  align-items:center;  
-  justify-content:center;  
-  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;  
-  color:white;  
-  overflow:hidden;  
-  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);  
-}  
-
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;  /* 🔥 upar lai gaya */
+  padding-top:40px;            /* 🔥 thodu gap */
+  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  color:white;
+  overflow:hidden;
+  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
+}
 /* TEXT */  
 .text{  
   font-size:32px;  
@@ -34,7 +34,7 @@ body{
 .teddy{
   display:block;
   margin:0 auto 10px;
-  width:140px;
+  width:180px;   /* 🔥 size vadhari */
   animation: float 2s infinite ease-in-out;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
 }
