@@ -6,7 +6,7 @@
 
 <style>
 
-/* ✅ FIX: scroll allow + responsive base */
+/* ✅ BASE FIX */
 html, body {
   margin: 0;
   padding: 0;
@@ -21,11 +21,12 @@ body {
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
-/* ✅ MAIN CONTAINER */
+/* ✅ container */
 .container {
   max-width: 420px;
   margin: auto;
   padding: 15px;
+  padding-bottom: 160px; /* 🔥 keypad space */
 }
 
 /* 🌸 floating flowers */
@@ -41,7 +42,7 @@ body {
   100% { transform: translateY(-10vh); }
 }
 
-/* 📸 PHOTO FRAME */
+/* 📸 PHOTO */
 .photo-frame {
   margin-top: 30px;
   display: inline-block;
@@ -58,30 +59,16 @@ body {
   top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 26px;
 }
 
-.photo-frame::after {
-  content: "🌸 🌸";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* ✅ IMAGE RESPONSIVE */
 .photo {
   width: 100%;
   max-width: 240px;
-  height: auto;
   border-radius: 20px;
 }
 
-/* heading */
-h2 {
-  margin-top: 20px;
-  font-size: 20px;
-}
+/* text */
+h2 { margin-top: 20px; }
 
 /* dots */
 .dots {
@@ -100,7 +87,6 @@ h2 {
 
 .dot.active {
   background: white;
-  box-shadow: 0 0 8px white;
 }
 
 /* ✅ KEYPAD */
@@ -116,7 +102,7 @@ h2 {
   transform: translateX(-50%);
 }
 
-/* ✅ BUTTON FIX + ANIMATION */
+/* ✅ PERFECT BUTTON FIX */
 .key {
   width: 70px;
   height: 70px;
@@ -129,34 +115,32 @@ h2 {
 
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  transition: 0.2s;
 }
 
 .key:focus {
   outline: none;
-  background: rgba(255,255,255,0.15);
 }
 
 .key:active {
-  background: #ff4d88;
   transform: scale(0.9);
+  background: rgba(255,255,255,0.25);
 }
 
-/* 💋 kiss animation */
+/* 💋 RADIAL BLAST ANIMATION */
 .kiss {
   position: fixed;
   font-size: 22px;
-  animation: kissFly 1s ease-out forwards;
   pointer-events: none;
+  animation: blast 1s ease-out forwards;
 }
 
-@keyframes kissFly {
+@keyframes blast {
   0% {
-    transform: translateY(0) scale(1);
+    transform: translate(0,0) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateY(-120px) scale(1.5);
+    transform: translate(var(--x), var(--y)) scale(1.6);
     opacity: 0;
   }
 }
@@ -167,14 +151,11 @@ h2 {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
   50% { transform: translateX(6px); }
-  75% { transform: translateX(-6px); }
-  100% { transform: translateX(0); }
 }
 
-/* ❤️ hearts */
+/* hearts */
 .heart {
   position: fixed;
   font-size: 20px;
@@ -182,15 +163,12 @@ h2 {
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-200px); opacity: 0; }
 }
 
-/* small device */
+/* 📱 small screen fix */
 @media (max-height: 650px) {
-  .keypad {
-    bottom: 10px;
-  }
+  .keypad { bottom: 10px; }
 }
 
 </style>
@@ -247,26 +225,34 @@ setInterval(()=>{
 
 /* dots */
 function updateDots(){
-  let dots = document.querySelectorAll(".dot");
-  dots.forEach((dot, i) => {
-    dot.classList.toggle("active", i < input.length);
+  document.querySelectorAll(".dot").forEach((d,i)=>{
+    d.classList.toggle("active", i < input.length);
   });
 }
 
-/* 💋 UPDATED PRESS FUNCTION */
+/* 💋 IMPROVED BLAST */
 function press(num){
 
-  // 💋 animation
-  for(let i = 0; i < 6; i++){
+  let centerX = window.innerWidth / 2;
+  let centerY = window.innerHeight - 120;
+
+  for(let i=0;i<25;i++){   // 🔥 MANY emojis
     let kiss = document.createElement("div");
     kiss.className = "kiss";
     kiss.innerHTML = "💋";
 
-    kiss.style.left = (Math.random()*80 + 10) + "vw";
-    kiss.style.top = (window.innerHeight - 120) + "px";
+    let angle = Math.random() * 2 * Math.PI;
+    let distance = Math.random() * 200 + 50;
+
+    let x = Math.cos(angle) * distance;
+    let y = Math.sin(angle) * distance;
+
+    kiss.style.left = centerX + "px";
+    kiss.style.top = centerY + "px";
+    kiss.style.setProperty('--x', x + "px");
+    kiss.style.setProperty('--y', y + "px");
 
     document.body.appendChild(kiss);
-
     setTimeout(()=>kiss.remove(),1000);
   }
 
@@ -285,25 +271,24 @@ function check(){
   if(input === password){
 
     for(let i=0;i<20;i++){
-      let heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random()*100 + "vw";
-      document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(),2000);
+      let h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "💖";
+      h.style.left = Math.random()*100+"vw";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),2000);
     }
 
     setTimeout(()=>{
       window.location.href = "page2.html";
-    }, 1200);
+    },1200);
 
   } else {
     document.querySelector(".dots").classList.add("shake");
-
     setTimeout(()=>{
       document.querySelector(".dots").classList.remove("shake");
       clearPass();
-    }, 400);
+    },400);
   }
 }
 
