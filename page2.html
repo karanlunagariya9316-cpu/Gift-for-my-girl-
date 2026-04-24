@@ -25,10 +25,11 @@ body{
 /* TEXT */
 .text{
   font-size:32px;
-  margin-bottom:80px;
-  min-height:40px;
+  margin-bottom:120px; /* 🔥 FIX spacing */
+  text-align:center;
 }
 
+/* ANIMATION TEXT */
 .letter{
   display:inline-block;
   opacity:0;
@@ -47,25 +48,26 @@ body{
 .cake{
   position:relative;
   width:260px;
+  height:160px;
   cursor:pointer;
 }
 
-/* TWO PARTS */
+/* CAKE PARTS */
 .cake-part{
-  width:50%;
+  width:48%;
   height:140px;
   position:absolute;
   bottom:0;
   background: linear-gradient(#ff7fa5,#ff4d7a);
   border-radius:20px;
   box-shadow:0 20px 30px rgba(0,0,0,0.3);
-  transition:0.8s;
+  transition:0.8s ease;
 }
 
 .left{ left:0; }
 .right{ right:0; }
 
-/* cream */
+/* CREAM */
 .cream{
   position:absolute;
   top:-25px;
@@ -75,13 +77,14 @@ body{
   border-radius:20px;
 }
 
-/* candles */
+/* CANDLES */
 .candles{
   position:absolute;
   top:-60px;
   width:100%;
   display:flex;
   justify-content:space-around;
+  z-index:5;
 }
 
 .candle{
@@ -92,6 +95,7 @@ body{
   position:relative;
 }
 
+/* FLAME */
 .flame{
   width:14px;
   height:20px;
@@ -100,6 +104,11 @@ body{
   position:absolute;
   top:-18px;
   left:-2px;
+
+  box-shadow:
+    0 0 10px rgba(255,200,0,0.9),
+    0 0 20px rgba(255,100,0,0.7);
+
   animation: flicker 0.2s infinite alternate;
 }
 
@@ -108,20 +117,21 @@ body{
   100%{ transform: scale(1.2); }
 }
 
-/* CUT EFFECT 🔥 */
+/* CUT EFFECT */
 .cut .left{
-  transform: translateX(-60px) rotate(-10deg);
+  transform: translateX(-80px) rotate(-15deg);
 }
 
 .cut .right{
-  transform: translateX(60px) rotate(10deg);
+  transform: translateX(80px) rotate(15deg);
 }
 
+/* 🔥 FLAME OFF AFTER CUT */
 .cut .flame{
   opacity:0;
 }
 
-/* 🎉 CONFETTI BLAST */
+/* CONFETTI */
 .confetti{
   position:fixed;
   font-size:14px;
@@ -148,18 +158,19 @@ body{
 
 <div class="cake" onclick="cutCake()">
 
+  <!-- 🔥 3 CANDLES -->
   <div class="candles">
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
   </div>
 
-  <!-- LEFT PART -->
+  <!-- LEFT -->
   <div class="cake-part left">
     <div class="cream"></div>
   </div>
 
-  <!-- RIGHT PART -->
+  <!-- RIGHT -->
   <div class="cake-part right">
     <div class="cream"></div>
   </div>
@@ -176,12 +187,13 @@ function showText(text){
   text.split("").forEach((ch,i)=>{
     let span = document.createElement("span");
     span.className="letter";
-    span.style.animationDelay = i*0.07+"s";
+    span.style.animationDelay = i*0.06+"s";
     span.innerHTML = ch===" " ? "&nbsp;" : ch;
     box.appendChild(span);
   });
 }
 
+/* FIRST TEXT */
 showText("Make a wish ✨");
 
 /* CUT */
@@ -190,19 +202,17 @@ function cutCake(){
   let cake = document.querySelector(".cake");
   cake.classList.add("cut");
 
-  /* 🎉 CENTER BLAST CONFETTI */
-  for(let i=0;i<40;i++){
+  /* 🎉 CONFETTI BLAST */
+  for(let i=0;i<50;i++){
     let c = document.createElement("div");
     c.className="confetti";
 
-    // random direction
-    let x = (Math.random()-0.5)*600 + "px";
-    let y = (Math.random()-0.5)*600 + "px";
+    let x = (Math.random()-0.5)*700 + "px";
+    let y = (Math.random()-0.5)*700 + "px";
 
     c.style.setProperty('--x', x);
     c.style.setProperty('--y', y);
 
-    // mix shapes
     let items = ["💖","✨","🥳","🎉","💗"];
     c.innerHTML = items[Math.floor(Math.random()*items.length)];
 
