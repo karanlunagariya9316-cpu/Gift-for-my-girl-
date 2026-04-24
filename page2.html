@@ -7,9 +7,7 @@
 
 <style>
 
-*{
-  -webkit-tap-highlight-color: transparent;
-}
+*{ -webkit-tap-highlight-color: transparent; }
 
 body{
   margin:0;
@@ -21,7 +19,6 @@ body{
   font-family:'Pacifico',cursive;
   color:white;
   overflow:hidden;
-
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
@@ -32,7 +29,6 @@ body{
   min-height:40px;
 }
 
-/* TEXT ANIMATION */
 .letter{
   display:inline-block;
   opacity:0;
@@ -52,21 +48,24 @@ body{
   position:relative;
   width:260px;
   cursor:pointer;
-  transition:0.4s;
 }
 
-/* BODY */
-.cake-body{
-  width:100%;
+/* TWO PARTS */
+.cake-part{
+  width:50%;
   height:140px;
+  position:absolute;
+  bottom:0;
   background: linear-gradient(#ff7fa5,#ff4d7a);
   border-radius:20px;
-  position:relative;
   box-shadow:0 20px 30px rgba(0,0,0,0.3);
-  transition:0.6s;
+  transition:0.8s;
 }
 
-/* CREAM */
+.left{ left:0; }
+.right{ right:0; }
+
+/* cream */
 .cream{
   position:absolute;
   top:-25px;
@@ -76,20 +75,7 @@ body{
   border-radius:20px;
 }
 
-/* DRIP */
-.cream::after{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:20px;
-  top:35px;
-  background:
-    radial-gradient(circle at 20% 0,#fff 20px,transparent 21px),
-    radial-gradient(circle at 50% 0,#fff 20px,transparent 21px),
-    radial-gradient(circle at 80% 0,#fff 20px,transparent 21px);
-}
-
-/* CANDLES */
+/* candles */
 .candles{
   position:absolute;
   top:-60px;
@@ -106,7 +92,6 @@ body{
   position:relative;
 }
 
-/* FLAME */
 .flame{
   width:14px;
   height:20px;
@@ -115,14 +100,7 @@ body{
   position:absolute;
   top:-18px;
   left:-2px;
-
-  box-shadow:
-    0 0 10px rgba(255,200,0,0.9),
-    0 0 20px rgba(255,100,0,0.7),
-    0 0 30px rgba(255,50,0,0.5);
-
   animation: flicker 0.2s infinite alternate;
-  transition:0.5s;
 }
 
 @keyframes flicker{
@@ -131,33 +109,32 @@ body{
 }
 
 /* CUT EFFECT 🔥 */
-.cut .cake-body{
-  transform: scaleY(0.6) rotate(-5deg);
+.cut .left{
+  transform: translateX(-60px) rotate(-10deg);
 }
 
-.cut .cake{
-  transform: scale(0.9);
+.cut .right{
+  transform: translateX(60px) rotate(10deg);
 }
 
-/* 🔥 FLAME OFF */
 .cut .flame{
   opacity:0;
-  transform: scale(0);
 }
 
-/* ✨ CONFETTI */
+/* 🎉 CONFETTI BLAST */
 .confetti{
   position:fixed;
-  width:8px;
-  height:8px;
-  background:white;
-  top:0;
-  animation: fall 3s linear forwards;
+  font-size:14px;
+  animation: blast 1.5s ease-out forwards;
 }
 
-@keyframes fall{
-  to{
-    transform: translateY(100vh) rotate(360deg);
+@keyframes blast{
+  0%{
+    transform: translate(0,0) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform: translate(var(--x), var(--y)) scale(0.5);
     opacity:0;
   }
 }
@@ -177,7 +154,13 @@ body{
     <div class="candle"><div class="flame"></div></div>
   </div>
 
-  <div class="cake-body">
+  <!-- LEFT PART -->
+  <div class="cake-part left">
+    <div class="cream"></div>
+  </div>
+
+  <!-- RIGHT PART -->
+  <div class="cake-part right">
     <div class="cream"></div>
   </div>
 
@@ -185,7 +168,7 @@ body{
 
 <script>
 
-/* TEXT FUNCTION */
+/* TEXT */
 function showText(text){
   let box = document.getElementById("text");
   box.innerHTML = "";
@@ -199,7 +182,6 @@ function showText(text){
   });
 }
 
-/* INITIAL */
 showText("Make a wish ✨");
 
 /* CUT */
@@ -208,20 +190,32 @@ function cutCake(){
   let cake = document.querySelector(".cake");
   cake.classList.add("cut");
 
-  /* 🎉 CONFETTI */
+  /* 🎉 CENTER BLAST CONFETTI */
   for(let i=0;i<40;i++){
     let c = document.createElement("div");
     c.className="confetti";
-    c.style.left = Math.random()*100+"vw";
-    c.style.background = ["#fff","#ff4d88","#ffd700"][Math.floor(Math.random()*3)];
+
+    // random direction
+    let x = (Math.random()-0.5)*600 + "px";
+    let y = (Math.random()-0.5)*600 + "px";
+
+    c.style.setProperty('--x', x);
+    c.style.setProperty('--y', y);
+
+    // mix shapes
+    let items = ["💖","✨","🥳","🎉","💗"];
+    c.innerHTML = items[Math.floor(Math.random()*items.length)];
+
+    c.style.left = "50%";
+    c.style.top = "50%";
+
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
+    setTimeout(()=>c.remove(),1500);
   }
 
-  /* TEXT CHANGE SMOOTH */
   setTimeout(()=>{
     showText("Happy Birthday Dhrutii 💖");
-  },700);
+  },600);
 }
 
 </script>
