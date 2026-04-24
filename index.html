@@ -19,6 +19,8 @@ body {
   text-align: center;
   color: white;
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  overflow-y: auto; /* ✅ scroll allow */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* container */
@@ -26,7 +28,7 @@ body {
   max-width: 420px;
   margin: auto;
   padding: 15px;
-  padding-bottom: 160px;
+  padding-bottom: 40px; /* ✅ space */
 }
 
 /* flowers */
@@ -67,7 +69,9 @@ body {
   border-radius: 20px;
 }
 
-h2 { margin-top: 20px; }
+h2 {
+  margin-top: 20px;
+}
 
 /* dots */
 .dots {
@@ -84,18 +88,17 @@ h2 { margin-top: 20px; }
   background: rgba(255,255,255,0.3);
 }
 
-.dot.active { background: white; }
+.dot.active {
+  background: white;
+}
 
-/* keypad */
+/* ✅ KEYPAD FIX (NO FIXED POSITION) */
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 20px;
 }
 
 /* button */
@@ -146,11 +149,6 @@ h2 { margin-top: 20px; }
 @keyframes shake {
   25% { transform: translateX(-6px); }
   50% { transform: translateX(6px); }
-}
-
-/* small screen */
-@media (max-height: 650px) {
-  .keypad { bottom: 10px; }
 }
 
 </style>
@@ -236,16 +234,16 @@ function clearPass(){
   updateDots();
 }
 
-/* 💖 MULTI BLAST */
+/* 💖 multi blast */
 function check(){
   if(input === password){
 
     let positions = [
-      [50,150],   // top center
-      [window.innerWidth-80,200], // right top
-      [60, window.innerHeight-200], // bottom left
-      [window.innerWidth/2, window.innerHeight/2], // center
-      [window.innerWidth-100, window.innerHeight-250] // bottom right
+      [50,150],
+      [window.innerWidth-80,200],
+      [60, window.innerHeight-200],
+      [window.innerWidth/2, window.innerHeight/2],
+      [window.innerWidth-100, window.innerHeight-250]
     ];
 
     positions.forEach((pos, index)=>{
@@ -266,7 +264,7 @@ function check(){
           document.body.appendChild(h);
           setTimeout(()=>h.remove(),1200);
         }
-      }, index*200); // 🔥 4-5 blasts delay
+      }, index*200);
     });
 
     setTimeout(()=>{
