@@ -34,11 +34,22 @@ body{
 .teddy{
   display:block;
   margin:0 auto 10px;
-  width:180px;   /* 🔥 size vadhari */
-  animation: float 2s infinite ease-in-out;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+  width:160px;
+
+  opacity:0;   /* 🔥 start invisible */
+
+  animation: 
+    float 2s infinite ease-in-out,
+    fadeIn 0.6s ease forwards;   /* 🔥 smooth entry */
 }
 
+.teddy-space{
+  height:180px;   /* teddy jetli jagya reserve */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+  
 @keyframes float{
   0%,100%{ transform:translateY(0); }
   50%{ transform:translateY(-8px); }
@@ -140,6 +151,17 @@ body{
   100%{transform:scale(1.2);}  
 }  
 
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0) scale(1);
+  }
+}
+  
 /* CUT */  
 .cut .left{ transform:translateX(-30px) rotate(-10deg); }  
 .cut .right{ transform:translateX(30px) rotate(10deg); }  
@@ -161,6 +183,7 @@ body{
 
 <body>  
 
+<div id="teddyBox" class="teddy-space"></div>
 <div id="text" class="text"></div>  
 
 <div class="cake" onclick="cutCake()">  
@@ -217,10 +240,14 @@ function showSplitText(){
   box.innerHTML="";  
 
   /* 🧸 ADD TEDDY */
-  let img = document.createElement("img");
-  img.src = "1000269952-removebg-preview.png";
-  img.className = "teddy";
-  box.appendChild(img);
+let teddyBox = document.getElementById("teddyBox");
+teddyBox.innerHTML = "";
+
+let img = document.createElement("img");
+img.src = "1000269952-removebg-preview.png";
+img.className = "teddy";
+
+teddyBox.appendChild(img);
 
   let parts=["Happyy ","Birthday ","Dhrutiii...🥳💫💝💋❤️💖💗💞🫂"];  
 
