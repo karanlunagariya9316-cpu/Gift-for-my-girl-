@@ -16,29 +16,32 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-family:'Pacifico', cursive, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   color:white;
   overflow:hidden;
-  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
 /* TEXT */
 .text{
-  font-size:30px;
-  margin-bottom:100px;
+  font-size:32px;
+  margin-bottom:120px;
   text-align:center;
 }
 
-/* LETTER ANIMATION */
+/* TEXT ANIMATION */
 .letter{
   display:inline-block;
   opacity:0;
   transform:translateX(40px);
-  animation:slide 0.4s forwards;
+  animation: slide 0.5s forwards;
 }
 
 @keyframes slide{
-  to{opacity:1; transform:translateX(0);}
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
 }
 
 /* CAKE */
@@ -49,7 +52,7 @@ body{
   cursor:pointer;
 }
 
-/* CAKE PART */
+/* CAKE PARTS */
 .cake-part{
   width:48%;
   height:140px;
@@ -58,12 +61,13 @@ body{
   background: linear-gradient(#ff7fa5,#ff4d7a);
   border-radius:20px;
   box-shadow:0 20px 30px rgba(0,0,0,0.3);
-  transition:0.7s;
+  transition:0.8s ease;
 }
 
 .left{ left:0; }
 .right{ right:0; }
 
+/* CREAM */
 .cream{
   position:absolute;
   top:-25px;
@@ -80,6 +84,8 @@ body{
   width:100%;
   display:flex;
   justify-content:space-around;
+  z-index:5;
+  transition:0.4s;
 }
 
 .candle{
@@ -90,82 +96,48 @@ body{
   position:relative;
 }
 
+/* FLAME */
 .flame{
   width:14px;
   height:20px;
-  background: radial-gradient(circle,yellow,orange,red);
+  background: radial-gradient(circle, yellow, orange, red);
   border-radius:50%;
   position:absolute;
   top:-18px;
   left:-2px;
+  animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker{
+  0%{ transform: scale(1); }
+  100%{ transform: scale(1.2); }
 }
 
 /* CUT */
-.cut .left{ transform:translateX(-30px) rotate(-10deg); }
-.cut .right{ transform:translateX(30px) rotate(10deg); }
+.cut .left{
+  transform: translateX(-30px) rotate(-10deg);
+}
+
+.cut .right{
+  transform: translateX(30px) rotate(10deg);
+}
 
 /* CONFETTI */
 .confetti{
   position:fixed;
-  font-size:32px;
-  animation:blast 1.2s forwards;
+  font-size:34px;
+  animation: blast 1.4s ease-out forwards;
 }
 
 @keyframes blast{
-  from{transform:translate(0,0); opacity:1;}
-  to{transform:translate(var(--x),var(--y)); opacity:0;}
-}
-
-/* HIDE */
-.hide{ opacity:0; transform:scale(0.8); transition:1s; }
-
-/* 🎁 CENTER CARD */
-.card{
-  position:absolute;
-  width:220px;
-  height:260px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:15px;
-  font-size:18px;
-  opacity:0;
-  transition:1s;
-}
-
-/* 🎵 PLAYLIST */
-.playlist{
-  position:absolute;
-  bottom:40px;
-  width:90%;
-  max-width:320px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius:20px;
-  padding:10px;
-  opacity:0;
-  transition:1s;
-}
-
-.song{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:10px 0;
-}
-
-.song img{
-  width:40px;
-  border-radius:10px;
-}
-
-.play{
-  font-size:20px;
-  cursor:pointer;
+  0%{
+    transform: translate(0,0) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform: translate(var(--x), var(--y)) scale(0.6);
+    opacity:0;
+  }
 }
 
 </style>
@@ -175,7 +147,7 @@ body{
 
 <div id="text" class="text"></div>
 
-<div class="cake" onclick="cutCake()" id="cake">
+<div class="cake" onclick="cutCake()">
 
   <div class="candles">
     <div class="candle"><div class="flame"></div></div>
@@ -188,102 +160,91 @@ body{
 
 </div>
 
-<!-- 💝 CARD -->
-<div class="card" id="card">
-  You are my everything 💖🥺<br><br>
-  Forever yours ❤️
-</div>
-
-<!-- 🎵 PLAYLIST -->
-<div class="playlist" id="playlist">
-
-  <div class="song">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png">
-    <span>Love Song</span>
-    <span class="play" onclick="playSong('s1')">▶️</span>
-  </div>
-
-  <div class="song">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
-    <span>Romantic Tune</span>
-    <span class="play" onclick="playSong('s2')">▶️</span>
-  </div>
-
-</div>
-
+<!-- 🔊 SONG -->
 <audio id="song" src="karan.mp3"></audio>
-<audio id="s1" src="karan.mp3"></audio>
-<audio id="s2" src="karan.mp3"></audio>
 
 <script>
 
-let done=false;
+let cutDone = false;
 
-/* TEXT */
-function showText(t){
-  let box=document.getElementById("text");
-  box.innerHTML="";
-  [...t].forEach((ch,i)=>{
-    let s=document.createElement("span");
-    s.className="letter";
-    s.style.animationDelay=i*0.04+"s";
-    s.textContent=ch;
-    box.appendChild(s);
+/* ✅ FIXED TEXT FUNCTION */
+function showText(text){
+  let box = document.getElementById("text");
+  box.innerHTML = "";
+
+  [...text].forEach((ch,i)=>{
+    let span = document.createElement("span");
+    span.className="letter";
+    span.style.animationDelay = i*0.05+"s";
+    span.textContent = ch;
+    box.appendChild(span);
   });
 }
 
+/* FIRST TEXT */
 showText("Make a wish ✨");
 
-/* 🎉 CONFETTI */
-function blast(){
-  for(let i=0;i<35;i++){
-    let c=document.createElement("div");
+/* 🎉 BLAST */
+function blastEffect(){
+  for(let i=0;i<45;i++){
+
+    let c = document.createElement("div");
     c.className="confetti";
-    c.innerHTML=["💖","🥳","✨","🎉"][Math.floor(Math.random()*4)];
-    c.style.setProperty('--x',(Math.random()-0.5)*800+"px");
-    c.style.setProperty('--y',(Math.random()-0.5)*800+"px");
-    c.style.left="50%";
-    c.style.top="50%";
+
+    let x = (Math.random()-0.5)*900 + "px";
+    let y = (Math.random()-0.5)*900 + "px";
+
+    c.style.setProperty('--x', x);
+    c.style.setProperty('--y', y);
+
+    let items = ["💖","✨","🥳","🎉","💗","💞","💘","💝"];
+    c.textContent = items[Math.floor(Math.random()*items.length)];
+
+    c.style.left = "50%";
+    c.style.top = "50%";
+
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1200);
+    setTimeout(()=>c.remove(),1400);
   }
 }
 
-/* CUT */
+/* 🎂 CUT FUNCTION */
 function cutCake(){
 
-  if(done) return;
-  done=true;
+  if(cutDone) return;
+  cutDone = true;
 
-  let cake=document.getElementById("cake");
-  let text=document.getElementById("text");
+  let cake = document.querySelector(".cake");
+  let candles = document.querySelector(".candles");
 
+  /* 🔊 PLAY SONG */
   document.getElementById("song").play();
 
-  /* 🔥 instant feel */
-  blast();
+  /* 🔥 FLAME OFF */
+  document.querySelectorAll(".flame").forEach(f=>{
+    f.style.opacity = "0";
+  });
 
-  document.querySelectorAll(".flame").forEach(f=>f.style.opacity="0");
+  /* 🔥 CANDLE REMOVE */
+  setTimeout(()=>{
+    candles.style.opacity = "0";
+  },400);
 
+  /* 🎂 CAKE CUT */
   setTimeout(()=>{
     cake.classList.add("cut");
-    showText("🥳 Happy Birthday Dhrutii 💝");
-  },200);
+  },700);
 
-  /* FINAL TRANSITION */
+  /* 🎉 BLAST WAVES */
+  blastEffect();
+  setTimeout(blastEffect,300);
+  setTimeout(blastEffect,600);
+  setTimeout(blastEffect,900);
+
+  /* 💖 FINAL TEXT */
   setTimeout(()=>{
-    cake.classList.add("hide");
-    text.classList.add("hide");
-
-    document.getElementById("card").style.opacity=1;
-    document.getElementById("playlist").style.opacity=1;
-
-  },4500);
-}
-
-/* 🎵 PLAY SONG */
-function playSong(id){
-  document.getElementById(id).play();
+    showText("🥳 Happy Birthday Dhrutii 💝");
+  },900);
 }
 
 </script>
