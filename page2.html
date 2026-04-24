@@ -167,30 +167,21 @@ body{
 
 let cutDone = false;
 
-/* TEXT FUNCTION */
-function showText("Happy Birthday Dhrutii..🥳💝");
-  {
+/* ✅ FIXED TEXT FUNCTION */
+function showText(text){
   let box = document.getElementById("text");
   box.innerHTML = "";
 
-  [...text].forEach((ch,i)=>{   // 🔥 IMPORTANT FIX
+  [...text].forEach((ch,i)=>{
     let span = document.createElement("span");
     span.className="letter";
     span.style.animationDelay = i*0.05+"s";
-    span.textContent = ch;     // 🔥 use textContent (not innerHTML)
+    span.textContent = ch;
     box.appendChild(span);
   });
 }
 
-  text.split("").forEach((ch,i)=>{
-    let span = document.createElement("span");
-    span.className="letter";
-    span.style.animationDelay = i*0.05+"s";
-    span.innerHTML = ch===" " ? "&nbsp;" : ch;
-    box.appendChild(span);
-  });
-}
-
+/* FIRST TEXT */
 showText("Make a wish ✨");
 
 /* 🎉 BLAST */
@@ -207,7 +198,7 @@ function blastEffect(){
     c.style.setProperty('--y', y);
 
     let items = ["💖","✨","🥳","🎉","💗","💞","💘","💝"];
-    c.innerHTML = items[Math.floor(Math.random()*items.length)];
+    c.textContent = items[Math.floor(Math.random()*items.length)];
 
     c.style.left = "50%";
     c.style.top = "50%";
@@ -217,7 +208,7 @@ function blastEffect(){
   }
 }
 
-/* CUT FUNCTION */
+/* 🎂 CUT FUNCTION */
 function cutCake(){
 
   if(cutDone) return;
@@ -250,7 +241,7 @@ function cutCake(){
   setTimeout(blastEffect,600);
   setTimeout(blastEffect,900);
 
-  /* 💖 TEXT CHANGE */
+  /* 💖 FINAL TEXT */
   setTimeout(()=>{
     showText("🥳 Happy Birthday Dhrutii 💝");
   },900);
