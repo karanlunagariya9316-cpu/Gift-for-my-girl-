@@ -203,8 +203,38 @@ function showSplitText(){
     box.appendChild(span);
   });
 }
+function showWishText(){
 
-showText("Make a wish ✨");
+  let box = document.getElementById("text");
+  box.innerHTML = "";
+
+  let parts = [
+    "Make ",
+    "a wish ",
+    "✨💫"
+  ];
+
+  parts.forEach((word, index)=>{
+
+    let span = document.createElement("span");
+    span.style.margin = "0 5px";
+
+    [...word].forEach((ch,i)=>{
+      let s = document.createElement("span");
+      s.className = "letter";
+
+      /* delay */
+      s.style.animationDelay = (i*0.05 + index*0.5) + "s";
+
+      s.textContent = ch;
+      span.appendChild(s);
+    });
+
+    box.appendChild(span);
+  });
+}
+  
+showWishText();
 
 /* 🎉 BLAST */
 function blastEffect(){
@@ -252,9 +282,13 @@ function cutCake(){
 
   /* 🎉 blast instantly */
   blastEffect();
-  setTimeout(blastEffect,300);
-  setTimeout(blastEffect,600);
-
+setTimeout(blastEffect,200);
+setTimeout(blastEffect,400);
+setTimeout(blastEffect,600);
+setTimeout(blastEffect,800);
+setTimeout(blastEffect,1000);
+setTimeout(blastEffect,1200);
+setTimeout(blastEffect,1400);
   /* 🎂 cut */
   setTimeout(()=>{
     cake.classList.add("cut");
