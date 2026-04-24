@@ -6,12 +6,12 @@
 
 <style>
 
-/* 🔥 IMPORTANT FIX */
+/* ✅ FIX: scroll allow + responsive base */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -19,7 +19,13 @@ body {
   text-align: center;
   color: white;
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
-  min-height: 100vh;
+}
+
+/* ✅ MAIN CONTAINER */
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 15px;
 }
 
 /* 🌸 floating flowers */
@@ -37,28 +43,24 @@ body {
 
 /* 📸 PHOTO FRAME */
 .photo-frame {
-  margin-top: 40px;
+  margin-top: 30px;
   display: inline-block;
   padding: 10px;
   border-radius: 25px;
   background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb);
-  box-shadow: 
-    0 0 25px rgba(255, 150, 200, 0.6),
-    0 0 50px rgba(255, 100, 150, 0.4);
+  box-shadow: 0 0 25px rgba(255, 150, 200, 0.6);
   position: relative;
 }
 
-/* 🎀 ribbon */
 .photo-frame::before {
   content: "🎀";
   position: absolute;
   top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 28px;
+  font-size: 26px;
 }
 
-/* 🌸 bottom decoration */
 .photo-frame::after {
   content: "🌸 🌸";
   position: absolute;
@@ -67,17 +69,18 @@ body {
   transform: translateX(-50%);
 }
 
-/* image */
+/* ✅ IMAGE RESPONSIVE */
 .photo {
-  width: 220px;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
   border-radius: 20px;
-  display: block;
 }
 
 /* heading */
 h2 {
   margin-top: 20px;
-  text-shadow: 0 0 10px #fff;
+  font-size: 20px;
 }
 
 /* dots */
@@ -88,41 +91,35 @@ h2 {
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
-  margin: 6px;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
   border-radius: 50%;
   background: rgba(255,255,255,0.3);
 }
 
 .dot.active {
   background: white;
-  box-shadow: 0 0 10px white;
+  box-shadow: 0 0 8px white;
 }
 
-/* keypad */
+/* ✅ KEYPAD RESPONSIVE */
 .keypad {
   display: grid;
-  grid-template-columns: repeat(3, 70px);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  justify-content: center;
+  margin-top: 10px;
 }
 
 .key {
-  width: 70px;
-  height: 70px;
+  width: 100%;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   background: rgba(255,255,255,0.15);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.key:hover {
-  background: #ff4d88;
-  transform: scale(1.1);
 }
 
 .key:active {
@@ -154,40 +151,51 @@ h2 {
   100% { transform: translateY(-200px); opacity: 0; }
 }
 
+/* ✅ SMALL DEVICE FIX */
+@media (max-height: 650px) {
+  .photo {
+    max-width: 180px;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- PHOTO -->
-<div class="photo-frame">
-  <img src="IMG-20260401-WA0014.jpg" class="photo">
-</div>
+<div class="container">
 
-<h2>🌸 Enter your birthdate 🌸</h2>
+  <!-- PHOTO -->
+  <div class="photo-frame">
+    <img src="IMG-20260401-WA0014.jpg" class="photo">
+  </div>
 
-<!-- dots -->
-<div class="dots">
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
-</div>
+  <h2>🌸 Enter your birthdate 🌸</h2>
 
-<!-- keypad -->
-<div class="keypad">
-  <button class="key" onclick="press(1)">1</button>
-  <button class="key" onclick="press(2)">2</button>
-  <button class="key" onclick="press(3)">3</button>
-  <button class="key" onclick="press(4)">4</button>
-  <button class="key" onclick="press(5)">5</button>
-  <button class="key" onclick="press(6)">6</button>
-  <button class="key" onclick="press(7)">7</button>
-  <button class="key" onclick="press(8)">8</button>
-  <button class="key" onclick="press(9)">9</button>
-  <button class="key" onclick="clearPass()">C</button>
-  <button class="key" onclick="press(0)">0</button>
-  <button class="key" onclick="check()">✔</button>
+  <!-- dots -->
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- keypad -->
+  <div class="keypad">
+    <button class="key" onclick="press(1)">1</button>
+    <button class="key" onclick="press(2)">2</button>
+    <button class="key" onclick="press(3)">3</button>
+    <button class="key" onclick="press(4)">4</button>
+    <button class="key" onclick="press(5)">5</button>
+    <button class="key" onclick="press(6)">6</button>
+    <button class="key" onclick="press(7)">7</button>
+    <button class="key" onclick="press(8)">8</button>
+    <button class="key" onclick="press(9)">9</button>
+    <button class="key" onclick="clearPass()">C</button>
+    <button class="key" onclick="press(0)">0</button>
+    <button class="key" onclick="check()">✔</button>
+  </div>
+
 </div>
 
 <script>
