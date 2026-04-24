@@ -22,38 +22,40 @@ body{
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
 }
 
-/* TEXT */
+/* TEXT BOX */
 .text{
-  font-size:32px;
-  margin-bottom:120px;
   text-align:center;
-  text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
-/* 🔥 TOP TEXT CLEAN STYLE */
+/* 🔥 TOP TEXT (LIKE CARD STYLE) */
 .top-text{
   position:absolute;
   top:40px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:36px;
+  width:100%;
   text-align:center;
-  width:90%;
-  line-height:1.4;
+  font-size:34px;
+  line-height:1.5;
   letter-spacing:1px;
-  text-shadow:0 0 12px rgba(255,255,255,0.6);
+  text-shadow:0 0 12px rgba(255,255,255,0.5);
+}
+
+/* MAIN TEXT */
+.main-text{
+  margin-top:100px;
+  font-size:32px;
+  text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
 /* ANIMATION */
 .letter{
   display:inline-block;
   opacity:0;
-  transform:translateX(40px);
+  transform:translateY(30px);
   animation:slide 0.5s forwards;
 }
 
 @keyframes slide{
-  to{opacity:1; transform:translateX(0);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 /* CAKE */
@@ -66,7 +68,7 @@ body{
 }
 
 .cake.down{
-  transform: translateY(60px);
+  transform: translateY(70px);
 }
 
 /* CAKE PART */
@@ -92,10 +94,9 @@ body{
   height:50px;
   background:#fff;
   border-radius:20px;
-  overflow:hidden;
 }
 
-/* 🍩 TOPPINGS */
+/* TOPPING */
 .cream::after{
   content:"";
   position:absolute;
@@ -116,8 +117,6 @@ body{
   width:100%;
   display:flex;
   justify-content:space-around;
-  z-index:5;
-  transition:0.4s;
 }
 
 .candle{
@@ -140,8 +139,8 @@ body{
 }
 
 @keyframes flicker{
-  0%{transform:scale(1);}
-  100%{transform:scale(1.2);}
+  from{transform:scale(1);}
+  to{transform:scale(1.2);}
 }
 
 /* CUT */
@@ -151,8 +150,8 @@ body{
 /* CONFETTI */
 .confetti{
   position:fixed;
-  font-size:34px;
-  animation:blast 1.4s forwards;
+  font-size:32px;
+  animation:blast 1.3s forwards;
 }
 
 @keyframes blast{
@@ -168,7 +167,6 @@ body{
 <div id="text" class="text"></div>
 
 <div class="cake" onclick="cutCake()">
-
   <div class="candles">
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
@@ -177,87 +175,88 @@ body{
 
   <div class="cake-part left"><div class="cream"></div></div>
   <div class="cake-part right"><div class="cream"></div></div>
-
 </div>
 
 <audio id="song" src="karan.mp3"></audio>
 
 <script>
 
-let cutDone=false;
+let done=false;
 
 /* 🎂 MAKE A WISH */
-function showWishText(){
+function showWish(){
   let box=document.getElementById("text");
   box.innerHTML="";
 
-  ["Make ","a wish ","✨"].forEach((word,index)=>{
+  ["Make ","a wish ","✨"].forEach((w,i)=>{
     let span=document.createElement("span");
-
-    [...word].forEach((ch,i)=>{
+    [...w].forEach((c,j)=>{
       let s=document.createElement("span");
       s.className="letter";
-      s.style.animationDelay=(i*0.05 + index*0.5)+"s";
-      s.textContent=ch;
+      s.style.animationDelay=(j*0.05 + i*0.5)+"s";
+      s.textContent=c;
       span.appendChild(s);
     });
-
     box.appendChild(span);
   });
 }
 
 /* 💖 FINAL TEXT */
-function showTopAndMainText(){
+function showFinal(){
 
   let box=document.getElementById("text");
   box.innerHTML="";
 
-  let topDiv=document.createElement("div");
-  topDiv.className="top-text";
+  /* TOP TEXT (3 LINE LIKE CARD) */
+  let top=document.createElement("div");
+  top.className="top-text";
 
-  let topLines=[
-    "Many Many Happy Returns",
-    "of the day bachha.. 🎉🎊"
+  let lines=[
+    "Many Many",
+    "Happy Returns of the",
+    "Day Bachha 🎉🎊"
   ];
 
-  topLines.forEach((line,lineIndex)=>{
+  lines.forEach((line,li)=>{
+    let div=document.createElement("div");
 
-    let lineDiv=document.createElement("div");
-
-    [...line].forEach((ch,i)=>{
+    [...line].forEach((c,i)=>{
       let s=document.createElement("span");
       s.className="letter";
-      s.style.animationDelay=(i*0.04 + lineIndex*0.8)+"s";
-      s.textContent=ch;
-      lineDiv.appendChild(s);
+      s.style.animationDelay=(i*0.04 + li*0.6)+"s";
+      s.textContent=c;
+      div.appendChild(s);
     });
 
-    topDiv.appendChild(lineDiv);
+    top.appendChild(div);
   });
 
-  box.appendChild(topDiv);
+  box.appendChild(top);
 
+  /* MAIN TEXT */
   setTimeout(()=>{
-    ["Happyy ","Birthday ","Dhrutii 🥳💝"].forEach((word,index)=>{
-      let span=document.createElement("span");
+    let main=document.createElement("div");
+    main.className="main-text";
 
-      [...word].forEach((ch,i)=>{
-        let s=document.createElement("span");
-        s.className="letter";
-        s.style.animationDelay=(i*0.05 + index*0.6)+"s";
-        s.textContent=ch;
-        span.appendChild(s);
-      });
+    let text="Happyy Birthday Dhrutii 🥳💝";
 
-      box.appendChild(span);
+    [...text].forEach((c,i)=>{
+      let s=document.createElement("span");
+      s.className="letter";
+      s.style.animationDelay=i*0.04+"s";
+      s.textContent=c;
+      main.appendChild(s);
     });
-  },2000);
+
+    box.appendChild(main);
+
+  },1800);
 }
 
-showWishText();
+showWish();
 
 /* 🎉 BLAST */
-function blastEffect(){
+function blast(){
   for(let i=0;i<40;i++){
     let c=document.createElement("div");
     c.className="confetti";
@@ -265,50 +264,38 @@ function blastEffect(){
     c.style.setProperty('--x',(Math.random()-0.5)*800+"px");
     c.style.setProperty('--y',(Math.random()-0.5)*800+"px");
 
-    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
-    c.textContent=items[Math.floor(Math.random()*items.length)];
+    let arr=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
+    c.textContent=arr[Math.floor(Math.random()*arr.length)];
 
     c.style.left="50%";
     c.style.top="50%";
 
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1400);
+    setTimeout(()=>c.remove(),1300);
   }
 }
 
-/* 🎂 CUT */
+/* CUT */
 function cutCake(){
 
-  if(cutDone) return;
-  cutDone=true;
-
-  let cake=document.querySelector(".cake");
-  let candles=document.querySelector(".candles");
+  if(done) return;
+  done=true;
 
   document.getElementById("song").play();
 
   document.querySelectorAll(".flame").forEach(f=>f.style.opacity="0");
 
-  setTimeout(()=>candles.style.opacity="0",300);
-
-  /* 🎉 MULTI BLAST (8 waves) */
-  blastEffect();
-  setTimeout(blastEffect,200);
-  setTimeout(blastEffect,400);
-  setTimeout(blastEffect,600);
-  setTimeout(blastEffect,800);
-  setTimeout(blastEffect,1000);
-  setTimeout(blastEffect,1200);
-  setTimeout(blastEffect,1400);
-
   setTimeout(()=>{
-    cake.classList.add("cut");
-    cake.classList.add("down");
+    document.querySelector(".cake").classList.add("cut");
+    document.querySelector(".cake").classList.add("down");
   },200);
 
-  setTimeout(()=>{
-    showTopAndMainText();
-  },300);
+  /* MULTI BLAST */
+  for(let i=0;i<8;i++){
+    setTimeout(blast,i*200);
+  }
+
+  setTimeout(showFinal,300);
 }
 
 </script>
