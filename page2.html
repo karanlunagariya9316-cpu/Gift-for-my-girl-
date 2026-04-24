@@ -2,10 +2,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday 🎂</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,79 +14,88 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  background: linear-gradient(135deg,#89f7fe,#66a6ff);
-  overflow:hidden;
+  font-family:'Pacifico',cursive;
   color:white;
+
+  /* 🔥 SAME BACKGROUND AS PAGE 1 */
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
-/* 🎬 TEXT */
+/* TEXT */
 .text{
   font-size:32px;
-  font-family: 'Pacifico', cursive;
-  margin-bottom:30px;
+  margin-bottom:40px;
   text-align:center;
+  text-shadow:0 0 10px rgba(255,255,255,0.6);
 }
 
-/* gradient text */
-.gradient{
-  background: linear-gradient(45deg,#ff4d88,#ffcc70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* letter animation */
+/* animation */
 .letter{
   display:inline-block;
   opacity:0;
-  transform: translateX(40px);
+  transform:translateX(40px);
   animation: slide 0.4s forwards;
 }
 
 @keyframes slide{
   to{
     opacity:1;
-    transform: translateX(0);
+    transform:translateX(0);
   }
 }
 
-/* 🎂 cake */
+/* 🎂 REALISTIC CAKE */
 .cake{
   position:relative;
   width:220px;
-  margin-top:20px;
+  height:180px;
   cursor:pointer;
 }
 
-/* cake halves */
+/* cake base */
+.cake-base{
+  width:100%;
+  height:120px;
+  background: linear-gradient(#ff9eb5,#ff6f91);
+  border-radius:30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* cream top */
+.cake-top{
+  position:absolute;
+  top:-30px;
+  width:100%;
+  height:60px;
+  background: #fff0f5;
+  border-radius:30px;
+}
+
+/* ✂️ CUT EFFECT */
+.cut .cake-left{
+  transform:translateX(-40px) rotate(-6deg);
+}
+.cut .cake-right{
+  transform:translateX(40px) rotate(6deg);
+}
+
+/* split */
 .cake-left, .cake-right{
+  position:absolute;
   width:50%;
-  float:left;
+  height:100%;
+  overflow:hidden;
   transition:0.6s;
 }
 
-.layer{
-  height:60px;
-  border-radius:20px;
-  margin:5px;
+.cake-right{
+  right:0;
 }
 
-.layer1{ background:#ffc0cb; }
-.layer2{ background:#ffb6c1; }
-.layer3{ background:#ffe4e1; }
-
-/* ✂️ cutting effect */
-.cut .cake-left{
-  transform: translateX(-40px) rotate(-5deg);
-}
-.cut .cake-right{
-  transform: translateX(40px) rotate(5deg);
-}
-
-/* 🕯 candles */
+/* candles */
 .candles{
   position:absolute;
-  top:-30px;
-  left:0;
+  top:-50px;
   width:100%;
   display:flex;
   justify-content:space-around;
@@ -98,22 +105,31 @@ body{
   width:10px;
   height:30px;
   background:white;
+  border-radius:3px;
   position:relative;
 }
 
+/* 🔥 CINEMATIC FLAME */
 .flame{
-  width:10px;
-  height:10px;
-  background:yellow;
+  width:12px;
+  height:18px;
+  background: radial-gradient(circle, yellow, orange, red);
   border-radius:50%;
   position:absolute;
-  top:-10px;
-  animation:flicker 0.3s infinite alternate;
+  top:-15px;
+  left:-1px;
+
+  box-shadow:
+    0 0 10px rgba(255,200,0,0.8),
+    0 0 20px rgba(255,100,0,0.6),
+    0 0 30px rgba(255,50,0,0.4);
+
+  animation: flicker 0.2s infinite alternate;
 }
 
 @keyframes flicker{
-  from{ transform:scale(1); }
-  to{ transform:scale(1.3); }
+  0%{ transform: scale(1) rotate(0deg); }
+  100%{ transform: scale(1.2) rotate(3deg); }
 }
 
 </style>
@@ -132,43 +148,42 @@ body{
     <div class="candle"><div class="flame"></div></div>
   </div>
 
-  <!-- cake split -->
+  <!-- split cake -->
   <div class="cake-left">
-    <div class="layer layer1"></div>
-    <div class="layer layer2"></div>
-    <div class="layer layer3"></div>
+    <div class="cake-top"></div>
+    <div class="cake-base"></div>
   </div>
 
   <div class="cake-right">
-    <div class="layer layer1"></div>
-    <div class="layer layer2"></div>
-    <div class="layer layer3"></div>
+    <div class="cake-top"></div>
+    <div class="cake-base"></div>
   </div>
 
 </div>
 
 <script>
 
-/* 🎬 TEXT FUNCTION */
-function showText(message){
-  let container = document.getElementById("text");
-  container.innerHTML = "";
+/* TEXT FUNCTION */
+function showText(text){
+  let box = document.getElementById("text");
+  box.innerHTML = "";
 
-  message.split("").forEach((char,i)=>{
+  text.split("").forEach((ch,i)=>{
     let span = document.createElement("span");
-    span.className = "letter gradient";
-    span.style.animationDelay = i * 0.08 + "s";
-    span.innerHTML = char === " " ? "&nbsp;" : char;
-    container.appendChild(span);
+    span.className="letter";
+    span.style.animationDelay = i*0.08+"s";
+
+    span.innerHTML = ch === " " ? "&nbsp;" : ch;
+
+    box.appendChild(span);
   });
 }
 
 /* first text */
 showText("Make a wish ✨");
 
-/* 🎂 CUT */
+/* CUT */
 function cutCake(){
-
   let cake = document.querySelector(".cake");
   cake.classList.add("cut");
 
