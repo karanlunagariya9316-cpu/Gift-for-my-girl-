@@ -29,7 +29,13 @@ body{
   text-align:center;
   text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
-
+.top-text
+  {
+  display:block;
+  font-size:38px; /* 🔥 mota font */
+  margin-bottom:10px;
+}
+  
 /* TEXT ANIMATION */
 .letter{
   display:inline-block;
@@ -204,6 +210,56 @@ function showSplitText(){
   });
 }
 
+  function showTopAndMainText(){
+
+  let box = document.getElementById("text");
+  box.innerHTML = "";
+
+  /* 🔥 TOP LINE */
+  let topLine = "Many Many Happy Returns of day bachha..🎉🎊";
+  let topDiv = document.createElement("div");
+  topDiv.className = "top-text";
+
+  [...topLine].forEach((ch,i)=>{
+    let s = document.createElement("span");
+    s.className = "letter";
+    s.style.animationDelay = i*0.04 + "s";
+    s.textContent = ch;
+    topDiv.appendChild(s);
+  });
+
+  box.appendChild(topDiv);
+
+  /* 🔥 BOTTOM TEXT DELAY (after top complete) */
+  setTimeout(()=>{
+
+    let parts = [
+      "Happyy ",
+      "Birthday ",
+      "Dhrutii 🥳💝"
+    ];
+
+    parts.forEach((word, index)=>{
+
+      let span = document.createElement("span");
+      span.style.margin = "0 5px";
+
+      [...word].forEach((ch,i)=>{
+        let s = document.createElement("span");
+        s.className = "letter";
+
+        s.style.animationDelay = (i*0.05 + index*0.6) + "s";
+        s.textContent = ch;
+
+        span.appendChild(s);
+      });
+
+      box.appendChild(span);
+    });
+
+  }, 2000); /* 🔥 wait for top line */
+  }
+
   function showWishText(){
 
   let box = document.getElementById("text");
@@ -298,7 +354,7 @@ setTimeout(blastEffect,1400);
 
   /* 💖 text */
   setTimeout(()=>{
-    showSplitText();
+    showTopAndMainText();
   },300);
 
 }
