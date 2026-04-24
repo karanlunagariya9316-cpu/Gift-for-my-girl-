@@ -1,119 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Birthday 🎂</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 
+*{
+  -webkit-tap-highlight-color: transparent; /* 🔥 REMOVE SQUARE TAP */
+}
+
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  text-align:center;
-  color:white;
   height:100vh;
-  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Pacifico',cursive;
+  color:white;
+
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
-/* TEXT (same as before) */
+/* TEXT */
 .text{
-  margin-top:70px;
   font-size:32px;
-  font-family:cursive;
-  transition:0.5s;
+  margin-bottom:80px;
 }
 
-/* CAKE */
-.cake-container{
-  position:relative;
-  margin-top:80px;
+/* animation */
+.letter{
+  display:inline-block;
+  opacity:0;
+  transform:translateX(40px);
+  animation: slide 0.4s forwards;
 }
 
+@keyframes slide{
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+/* 🎂 REAL CAKE */
 .cake{
-  width:220px;
-  height:130px;
-  margin:auto;
   position:relative;
-  border-radius:50% / 40%;
-  background: linear-gradient(to bottom, #ff9a9e, #ff4d6d);
-  box-shadow:0 20px 40px rgba(0,0,0,0.4);
-  transition:0.8s;
+  width:260px;
+  cursor:pointer;
 }
 
-/* top */
-.cake::before{
+/* CAKE BODY */
+.cake-body{
+  width:100%;
+  height:140px;
+  background: linear-gradient(#ff7fa5,#ff4d7a);
+  border-radius:20px;
+  position:relative;
+  box-shadow:0 20px 30px rgba(0,0,0,0.3);
+}
+
+/* CREAM TOP */
+.cream{
+  position:absolute;
+  top:-25px;
+  width:100%;
+  height:50px;
+  background:#fff;
+  border-radius:20px;
+}
+
+/* DRIP EFFECT */
+.cream::after{
   content:"";
   position:absolute;
-  top:-30px;
-  left:0;
   width:100%;
-  height:60px;
-  border-radius:50%;
-  background:#fff;
-}
-
-/* CUT */
-.left{
-  transform: translateX(-70px) rotate(-10deg);
-}
-.right{
-  transform: translateX(70px) rotate(10deg);
+  height:20px;
+  top:35px;
+  background:
+    radial-gradient(circle at 20% 0,#fff 20px,transparent 21px),
+    radial-gradient(circle at 50% 0,#fff 20px,transparent 21px),
+    radial-gradient(circle at 80% 0,#fff 20px,transparent 21px);
 }
 
 /* CANDLES */
 .candles{
   position:absolute;
-  top:-40px;
-  left:50%;
-  transform:translateX(-50%);
+  top:-60px;
+  width:100%;
   display:flex;
-  gap:18px;
+  justify-content:space-around;
 }
 
 .candle{
-  width:6px;
-  height:30px;
+  width:10px;
+  height:35px;
   background:white;
-  border-radius:3px;
+  border-radius:4px;
   position:relative;
 }
 
+/* FLAME */
 .flame{
-  width:12px;
-  height:12px;
-  background:orange;
+  width:14px;
+  height:20px;
+  background: radial-gradient(circle, yellow, orange, red);
   border-radius:50%;
   position:absolute;
-  top:-10px;
-  left:-3px;
-  box-shadow:0 0 20px orange;
-  animation:flicker 0.3s infinite alternate;
+  top:-18px;
+  left:-2px;
+
+  box-shadow:
+    0 0 10px rgba(255,200,0,0.9),
+    0 0 20px rgba(255,100,0,0.7),
+    0 0 30px rgba(255,50,0,0.5);
+
+  animation: flicker 0.2s infinite alternate;
 }
 
 @keyframes flicker{
-  from{transform:scale(1);}
-  to{transform:scale(1.2);}
+  0%{ transform: scale(1); }
+  100%{ transform: scale(1.2); }
 }
 
-/* KNIFE */
-.knife{
-  position:absolute;
-  top:-120px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:40px;
-  opacity:0;
-}
-
-@keyframes cut{
-  0%{top:-120px; opacity:1;}
-  60%{top:80px;}
-  100%{top:80px; opacity:0;}
-}
-
-.cutting{
-  animation:cut 1s forwards;
+/* CUT EFFECT */
+.cut .cake-body{
+  transform: scaleX(0.7);
+  opacity:0.8;
 }
 
 </style>
@@ -121,56 +136,49 @@ body{
 
 <body>
 
-<div class="text" id="mainText">Make a wish ✨</div>
+<div id="text" class="text"></div>
 
-<div class="cake-container">
+<div class="cake" onclick="cutCake()">
 
-  <div class="candles" id="candles">
+  <div class="candles">
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
   </div>
 
-  <div class="knife" id="knife">🔪</div>
-
-  <div class="cake" id="cake"></div>
+  <div class="cake-body">
+    <div class="cream"></div>
+  </div>
 
 </div>
 
 <script>
 
-let cutDone = false;
+/* TEXT */
+function showText(text){
+  let box = document.getElementById("text");
+  box.innerHTML = "";
 
-document.body.addEventListener("click", function(){
+  text.split("").forEach((ch,i)=>{
+    let span = document.createElement("span");
+    span.className="letter";
+    span.style.animationDelay = i*0.08+"s";
+    span.innerHTML = ch===" " ? "&nbsp;" : ch;
+    box.appendChild(span);
+  });
+}
 
-  if(cutDone) return;
-  cutDone = true;
+/* first text */
+showText("Make a wish ✨");
 
-  let knife = document.getElementById("knife");
-  let cake = document.getElementById("cake");
-
-  knife.style.opacity = 1;
-  knife.classList.add("cutting");
+/* CUT */
+function cutCake(){
+  document.querySelector(".cake").classList.add("cut");
 
   setTimeout(()=>{
-
-    // LEFT PART
-    cake.classList.add("left");
-
-    // RIGHT PART
-    let clone = cake.cloneNode(true);
-    clone.classList.remove("left");
-    clone.classList.add("right");
-
-    cake.parentElement.appendChild(clone);
-
-    // TEXT CHANGE (same smooth)
-    document.getElementById("mainText").innerText =
-      "Happy Birthday Dhrutii 💖";
-
-  },800);
-
-});
+    showText("Happy Birthday Dhrutii 💖");
+  },600);
+}
 
 </script>
 
