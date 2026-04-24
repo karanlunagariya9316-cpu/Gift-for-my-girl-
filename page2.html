@@ -8,12 +8,11 @@
 
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI', sans-serif;
   text-align:center;
   color:white;
   height:100vh;
   overflow:hidden;
-
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
@@ -22,22 +21,51 @@ body{
   margin-top:60px;
   font-size:28px;
   font-weight:600;
-  letter-spacing:2px;
 }
 
-/* cake */
+/* cake container */
 .cake-container{
   position:relative;
-  margin-top:60px;
+  margin-top:80px;
 }
 
-/* cake image */
+/* 🎂 CAKE (3D look) */
 .cake{
-  width:260px;
-  transition: transform 0.8s ease;
+  width:200px;
+  height:120px;
+  margin:auto;
+  position:relative;
+  border-radius:50% / 30%;
+  background: linear-gradient(to bottom, #ff9a9e, #ff4d6d);
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  transition:0.8s;
 }
 
-/* split effect */
+/* cream top */
+.cake::before{
+  content:"";
+  position:absolute;
+  top:-25px;
+  left:0;
+  width:100%;
+  height:50px;
+  border-radius:50%;
+  background:#fff;
+}
+
+/* middle layer */
+.cake::after{
+  content:"";
+  position:absolute;
+  top:40px;
+  left:0;
+  width:100%;
+  height:30px;
+  background:#ff7b8a;
+  border-radius:20px;
+}
+
+/* split animation */
 .left{
   transform: translateX(-60px) rotate(-8deg);
 }
@@ -46,31 +74,10 @@ body{
   transform: translateX(60px) rotate(8deg);
 }
 
-/* knife */
-.knife{
-  position:absolute;
-  top:-120px;
-  left:50%;
-  transform: translateX(-50%);
-  font-size:40px;
-  opacity:0;
-}
-
-/* knife animation */
-@keyframes cut{
-  0%{ top:-120px; opacity:1; }
-  60%{ top:80px; }
-  100%{ top:80px; opacity:0; }
-}
-
-.cutting{
-  animation: cut 1s ease forwards;
-}
-
 /* candles */
 .candles{
   position:absolute;
-  top:-20px;
+  top:-40px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
@@ -79,27 +86,47 @@ body{
 
 .candle{
   width:6px;
-  height:25px;
+  height:30px;
   background:white;
   border-radius:3px;
   position:relative;
 }
 
 .flame{
-  width:10px;
-  height:10px;
+  width:12px;
+  height:12px;
   background:orange;
   border-radius:50%;
   position:absolute;
-  top:-8px;
-  left:-2px;
-  animation: flicker 0.3s infinite alternate;
-  box-shadow:0 0 15px orange;
+  top:-10px;
+  left:-3px;
+  box-shadow:0 0 20px orange;
+  animation:flicker 0.3s infinite alternate;
 }
 
 @keyframes flicker{
-  from{ transform: scale(1);}
-  to{ transform: scale(1.2);}
+  from{transform:scale(1);}
+  to{transform:scale(1.3);}
+}
+
+/* knife */
+.knife{
+  position:absolute;
+  top:-120px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:40px;
+  opacity:0;
+}
+
+@keyframes cut{
+  0%{top:-120px; opacity:1;}
+  60%{top:60px;}
+  100%{top:60px; opacity:0;}
+}
+
+.cutting{
+  animation:cut 1s forwards;
 }
 
 </style>
@@ -121,8 +148,8 @@ body{
   <!-- knife -->
   <div class="knife" id="knife">🔪</div>
 
-  <!-- cake -->
-  <img src="sweet-birthday-cake-with-candles_18591-82310.jpg" class="cake" id="cake">
+  <!-- 🎂 cake -->
+  <div class="cake" id="cake"></div>
 
 </div>
 
@@ -133,31 +160,26 @@ let cutDone = false;
 document.body.addEventListener("click", function(){
 
   if(cutDone) return;
-
   cutDone = true;
 
   let knife = document.getElementById("knife");
   let cake = document.getElementById("cake");
 
-  // show knife
   knife.style.opacity = 1;
   knife.classList.add("cutting");
 
-  // after knife cut
   setTimeout(()=>{
 
-    // split cake
     cake.classList.add("left");
 
-    // clone for right side
     let clone = cake.cloneNode(true);
     clone.classList.remove("left");
     clone.classList.add("right");
 
     cake.parentElement.appendChild(clone);
 
-    // change text
-    document.getElementById("mainText").innerText = "Happy Birthday Dhrutii 💖";
+    document.getElementById("mainText").innerText =
+      "Happy Birthday Dhrutii 💖";
 
   },800);
 
