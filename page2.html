@@ -16,7 +16,7 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  font-family:'Pacifico',cursive;
+  font-family:'Pacifico', cursive, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   color:white;
   overflow:hidden;
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
@@ -113,7 +113,7 @@ body{
   100%{ transform: scale(1.2); }
 }
 
-/* 🔥 CUT */
+/* CUT */
 .cut .left{
   transform: translateX(-30px) rotate(-10deg);
 }
@@ -122,10 +122,10 @@ body{
   transform: translateX(30px) rotate(10deg);
 }
 
-/* CONFETTI + EMOJI */
+/* CONFETTI */
 .confetti{
   position:fixed;
-  font-size:34px; /* 🔥 BIGGER */
+  font-size:34px;
   animation: blast 1.4s ease-out forwards;
 }
 
@@ -160,14 +160,14 @@ body{
 
 </div>
 
-<!-- 🔊 AUDIO -->
+<!-- 🔊 SONG -->
 <audio id="song" src="karan.mp3"></audio>
 
 <script>
 
 let cutDone = false;
 
-/* TEXT */
+/* TEXT FUNCTION */
 function showText(text){
   let box = document.getElementById("text");
   box.innerHTML = "";
@@ -207,10 +207,10 @@ function blastEffect(){
   }
 }
 
-/* CUT */
+/* CUT FUNCTION */
 function cutCake(){
 
-  if(cutDone) return; // 🔥 prevent repeat
+  if(cutDone) return;
   cutDone = true;
 
   let cake = document.querySelector(".cake");
@@ -219,22 +219,22 @@ function cutCake(){
   /* 🔊 PLAY SONG */
   document.getElementById("song").play();
 
-  /* 🔥 STEP 1: flame off */
+  /* 🔥 FLAME OFF */
   document.querySelectorAll(".flame").forEach(f=>{
     f.style.opacity = "0";
   });
 
-  /* 🔥 STEP 2: candles fade */
+  /* 🔥 CANDLE REMOVE */
   setTimeout(()=>{
     candles.style.opacity = "0";
   },400);
 
-  /* 🔥 STEP 3: cake split */
+  /* 🎂 CAKE CUT */
   setTimeout(()=>{
     cake.classList.add("cut");
   },700);
 
-  /* 🎉 MULTI BLAST WAVES */
+  /* 🎉 BLAST WAVES */
   blastEffect();
   setTimeout(blastEffect,300);
   setTimeout(blastEffect,600);
