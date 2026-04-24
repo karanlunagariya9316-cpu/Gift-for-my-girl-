@@ -106,9 +106,14 @@ h2 {
 /* ✅ KEYPAD RESPONSIVE */
 .keypad {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 70px);
   gap: 12px;
-  margin-top: 10px;
+  justify-content: center;
+
+  position: fixed;   /* 🔥 add */
+  bottom: 20px;      /* 🔥 adjust distance from bottom */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .key {
@@ -153,8 +158,8 @@ h2 {
 
 /* ✅ SMALL DEVICE FIX */
 @media (max-height: 650px) {
-  .photo {
-    max-width: 180px;
+  .keypad {
+    bottom: 10px;
   }
 }
 
