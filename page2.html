@@ -16,10 +16,10 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  font-family:'Pacifico', cursive, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
   color:white;
   overflow:hidden;
-  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
 }
 
 /* TEXT */
@@ -27,6 +27,7 @@ body{
   font-size:32px;
   margin-bottom:120px;
   text-align:center;
+  text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
 /* TEXT ANIMATION */
@@ -34,14 +35,11 @@ body{
   display:inline-block;
   opacity:0;
   transform:translateX(40px);
-  animation: slide 0.5s forwards;
+  animation:slide 0.5s forwards;
 }
 
 @keyframes slide{
-  to{
-    opacity:1;
-    transform:translateX(0);
-  }
+  to{opacity:1; transform:translateX(0);}
 }
 
 /* CAKE */
@@ -91,7 +89,7 @@ body{
     radial-gradient(circle at 80% 40%, #ff66cc 6px, transparent 7px),
     radial-gradient(circle at 30% 70%, #ff9933 6px, transparent 7px);
 }
-  
+
 /* CANDLES */
 .candles{
   position:absolute;
@@ -115,44 +113,33 @@ body{
 .flame{
   width:14px;
   height:20px;
-  background: radial-gradient(circle, yellow, orange, red);
+  background: radial-gradient(circle,yellow,orange,red);
   border-radius:50%;
   position:absolute;
   top:-18px;
   left:-2px;
-  animation: flicker 0.2s infinite alternate;
+  animation:flicker 0.2s infinite alternate;
 }
 
 @keyframes flicker{
-  0%{ transform: scale(1); }
-  100%{ transform: scale(1.2); }
+  0%{transform:scale(1);}
+  100%{transform:scale(1.2);}
 }
 
 /* CUT */
-.cut .left{
-  transform: translateX(-30px) rotate(-10deg);
-}
-
-.cut .right{
-  transform: translateX(30px) rotate(10deg);
-}
+.cut .left{ transform:translateX(-30px) rotate(-10deg); }
+.cut .right{ transform:translateX(30px) rotate(10deg); }
 
 /* CONFETTI */
 .confetti{
   position:fixed;
   font-size:34px;
-  animation: blast 1.4s ease-out forwards;
+  animation:blast 1.4s forwards;
 }
 
 @keyframes blast{
-  0%{
-    transform: translate(0,0) scale(1);
-    opacity:1;
-  }
-  100%{
-    transform: translate(var(--x), var(--y)) scale(0.6);
-    opacity:0;
-  }
+  from{transform:translate(0,0); opacity:1;}
+  to{transform:translate(var(--x),var(--y)); opacity:0;}
 }
 
 </style>
@@ -175,39 +162,41 @@ body{
 
 </div>
 
-<!-- 🔊 SONG -->
 <audio id="song" src="karan.mp3"></audio>
 
 <script>
 
 let cutDone = false;
 
-/* ✅ FIXED TEXT FUNCTION */
+/* INITIAL TEXT */
+function showText(text){
+  let box=document.getElementById("text");
+  box.innerHTML="";
+  [...text].forEach((ch,i)=>{
+    let s=document.createElement("span");
+    s.className="letter";
+    s.style.animationDelay=i*0.05+"s";
+    s.textContent=ch;
+    box.appendChild(s);
+  });
+}
+
+/* SPLIT TEXT */
 function showSplitText(){
+  let box=document.getElementById("text");
+  box.innerHTML="";
 
-  let box = document.getElementById("text");
-  box.innerHTML = "";
+  let parts=["Happyy ","Birthday ","Dhrutii 🥳💝"];
 
-  let parts = [
-    "Happyy ",
-    "Birthday ",
-    "Dhrutii..🥳💝"
-  ];
-
-  parts.forEach((word, index)=>{
-
-    let span = document.createElement("span");
-    span.style.display = "inline-block";
-    span.style.margin = "0 5px";
+  parts.forEach((word,index)=>{
+    let span=document.createElement("span");
+    span.style.margin="0 5px";
 
     [...word].forEach((ch,i)=>{
-      let s = document.createElement("span");
-      s.className = "letter";
-
-      /* 🔥 delay alag alag */
-      s.style.animationDelay = (i*0.05 + index*0.6) + "s";
-
-      s.textContent = ch;
+      let s=document.createElement("span");
+      s.className="letter";
+      s.style.animationDelay=(i*0.05 + index*0.6)+"s";
+      s.textContent=ch;
       span.appendChild(s);
     });
 
@@ -215,71 +204,68 @@ function showSplitText(){
   });
 }
 
-/* FIRST TEXT */
 showText("Make a wish ✨");
 
 /* 🎉 BLAST */
 function blastEffect(){
-  for(let i=0;i<45;i++){
-
-    let c = document.createElement("div");
+  for(let i=0;i<40;i++){
+    let c=document.createElement("div");
     c.className="confetti";
 
-    let x = (Math.random()-0.5)*900 + "px";
-    let y = (Math.random()-0.5)*900 + "px";
+    let x=(Math.random()-0.5)*800+"px";
+    let y=(Math.random()-0.5)*800+"px";
 
-    c.style.setProperty('--x', x);
-    c.style.setProperty('--y', y);
+    c.style.setProperty('--x',x);
+    c.style.setProperty('--y',y);
 
-    let items = ["💖","✨","🥳","🎉","💗","💞","💘","💝"];
-    c.textContent = items[Math.floor(Math.random()*items.length)];
+    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
+    c.textContent=items[Math.floor(Math.random()*items.length)];
 
-    c.style.left = "50%";
-    c.style.top = "50%";
+    c.style.left="50%";
+    c.style.top="50%";
 
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),1400);
   }
 }
 
-/* 🎂 CUT FUNCTION */
+/* CUT */
 function cutCake(){
 
   if(cutDone) return;
-  cutDone = true;
+  cutDone=true;
 
-  let cake = document.querySelector(".cake");
-  let candles = document.querySelector(".candles");
+  let cake=document.querySelector(".cake");
+  let candles=document.querySelector(".candles");
 
-  /* 🔊 PLAY SONG */
   document.getElementById("song").play();
 
-  /* 🔥 FLAME OFF */
+  /* 🔥 flames off */
   document.querySelectorAll(".flame").forEach(f=>{
-    f.style.opacity = "0";
+    f.style.opacity="0";
   });
 
-  /* 🔥 CANDLE REMOVE */
+  /* candles hide */
   setTimeout(()=>{
-    candles.style.opacity = "0";
-  },400);
+    candles.style.opacity="0";
+  },300);
 
-  /* 🎂 CAKE CUT */
-  setTimeout(()=>{
-    cake.classList.add("cut");
-  },700);
-
-  /* 🎉 BLAST WAVES */
+  /* 🎉 blast instantly */
   blastEffect();
   setTimeout(blastEffect,300);
   setTimeout(blastEffect,600);
-  setTimeout(blastEffect,900);
 
-  /* 💖 FINAL TEXT */
+  /* 🎂 cut */
   setTimeout(()=>{
-  cake.classList.add("cut");
-  showSplitText();   // 🔥 NEW FUNCTION
-},200);
+    cake.classList.add("cut");
+  },200);
+
+  /* 💖 text */
+  setTimeout(()=>{
+    showSplitText();
+  },300);
+
+}
 
 </script>
 
