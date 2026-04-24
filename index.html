@@ -9,76 +9,69 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  text-align: center;
   color: white;
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  overflow: hidden;
 }
 
-/* 🌸 particles FIX */
+/* 🌸 floating flowers */
 .particle {
   position: fixed;
   font-size: 14px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.7;
-  pointer-events: none; /* 🔥 IMPORTANT FIX */
-  z-index: 1;
+  animation: float 6s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(100vh); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
+@keyframes float {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-10vh); }
 }
 
-/* glow bg */
-body::before,
-body::after {
-  pointer-events: none; /* 🔥 prevent blocking */
-}
-
-/* card */
-.container {
-  text-align: center;
-  padding: 25px;
-  width: 90%;
-  max-width: 320px;
+/* 📸 PHOTO FRAME (MAIN MAGIC 🔥) */
+.photo-frame {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 10px;
   border-radius: 25px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
-  animation: fadeIn 0.8s ease;
-  position: relative;
-  z-index: 5; /* 🔥 above particles */
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(30px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-/* photo */
-.photo {
-  width: 200px;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb);
   box-shadow: 
-    0 10px 30px rgba(0,0,0,0.5),
-    0 0 25px rgba(255, 100, 150, 0.5);
+    0 0 25px rgba(255, 150, 200, 0.6),
+    0 0 50px rgba(255, 100, 150, 0.4);
+  position: relative;
+}
+
+/* ✨ cute top ribbon */
+.photo-frame::before {
+  content: "🎀";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+}
+
+/* 🌸 side decorations */
+.photo-frame::after {
+  content: "🌸 🌸";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
+
+/* actual image */
+.photo {
+  width: 220px;
+  border-radius: 20px;
+  display: block;
 }
 
 /* heading */
 h2 {
-  font-weight: 500;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px #fff; }
-  to { text-shadow: 0 0 20px #ff9a9e; }
+  margin-top: 20px;
+  text-shadow: 0 0 10px #fff;
 }
 
 /* dots */
@@ -94,12 +87,10 @@ h2 {
   margin: 6px;
   border-radius: 50%;
   background: rgba(255,255,255,0.3);
-  transition: 0.3s;
 }
 
 .dot.active {
-  background: #fff;
-  transform: scale(1.2);
+  background: white;
   box-shadow: 0 0 10px white;
 }
 
@@ -109,8 +100,6 @@ h2 {
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
-  position: relative;
-  z-index: 6; /* 🔥 clickable */
 }
 
 .key {
@@ -147,15 +136,14 @@ h2 {
   100% { transform: translateX(0); }
 }
 
-/* ❤️ heart */
+/* ❤️ hearts */
 .heart {
   position: fixed;
   font-size: 20px;
-  animation: float 2s linear forwards;
-  pointer-events: none;
+  animation: floatUp 2s linear forwards;
 }
 
-@keyframes float {
+@keyframes floatUp {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-200px); opacity: 0; }
 }
@@ -165,34 +153,35 @@ h2 {
 
 <body>
 
-<div class="container">
-
+<!-- 🌸 PHOTO WITH CUTE FRAME -->
+<div class="photo-frame">
   <img src="IMG-20260401-WA0014.jpg" class="photo">
+</div>
 
-  <h2>🌸 Enter your birthdate 🌸</h2>
+<h2>🌸 Enter your birthdate 🌸</h2>
 
-  <div class="dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+<!-- dots -->
+<div class="dots">
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
 
-  <div class="keypad">
-    <button class="key" onclick="press(1)">1</button>
-    <button class="key" onclick="press(2)">2</button>
-    <button class="key" onclick="press(3)">3</button>
-    <button class="key" onclick="press(4)">4</button>
-    <button class="key" onclick="press(5)">5</button>
-    <button class="key" onclick="press(6)">6</button>
-    <button class="key" onclick="press(7)">7</button>
-    <button class="key" onclick="press(8)">8</button>
-    <button class="key" onclick="press(9)">9</button>
-    <button class="key" onclick="clearPass()">C</button>
-    <button class="key" onclick="press(0)">0</button>
-    <button class="key" onclick="check()">✔</button>
-  </div>
-
+<!-- keypad -->
+<div class="keypad">
+  <button class="key" onclick="press(1)">1</button>
+  <button class="key" onclick="press(2)">2</button>
+  <button class="key" onclick="press(3)">3</button>
+  <button class="key" onclick="press(4)">4</button>
+  <button class="key" onclick="press(5)">5</button>
+  <button class="key" onclick="press(6)">6</button>
+  <button class="key" onclick="press(7)">7</button>
+  <button class="key" onclick="press(8)">8</button>
+  <button class="key" onclick="press(9)">9</button>
+  <button class="key" onclick="clearPass()">C</button>
+  <button class="key" onclick="press(0)">0</button>
+  <button class="key" onclick="check()">✔</button>
 </div>
 
 <script>
@@ -200,17 +189,15 @@ h2 {
 let password = "2704";
 let input = "";
 
-/* particles */
-setTimeout(()=>{
-  setInterval(()=>{
-    let p = document.createElement("div");
-    p.className = "particle";
-    p.innerHTML = "🌸";
-    p.style.left = Math.random()*100 + "vw";
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),6000);
-  }, 300);
-}, 500);
+/* flowers */
+setInterval(()=>{
+  let p = document.createElement("div");
+  p.className = "particle";
+  p.innerHTML = "🌸";
+  p.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),5000);
+}, 300);
 
 /* dots */
 function updateDots(){
@@ -236,16 +223,11 @@ function clearPass(){
 function check(){
   if(input === password){
 
-    let rect = document.querySelector(".container").getBoundingClientRect();
-
     for(let i=0;i<20;i++){
       let heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
-
-      heart.style.left = rect.left + rect.width/2 + "px";
-      heart.style.top = rect.top + rect.height/2 + "px";
-
+      heart.style.left = Math.random()*100 + "vw";
       document.body.appendChild(heart);
       setTimeout(()=>heart.remove(),2000);
     }
