@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Surprise 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: sans-serif;
+  color: white;
+  text-align: center;
+}
+
+/* 🎂 cake */
+.cake {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.layer {
+  position: absolute;
+  width: 200px;
+  height: 60px;
+  background: #ffb6c1;
+  border-radius: 20px;
+}
+
+.layer1 { bottom: 0; }
+.layer2 { bottom: 50px; background: #ffc0cb; }
+.layer3 { bottom: 100px; background: #ffe4e1; }
+
+/* candles */
+.candle {
+  position: absolute;
+  width: 10px;
+  height: 30px;
+  background: white;
+  top: -30px;
+}
+
+.flame {
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  border-radius: 50%;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1); }
+  to { transform: scale(1.3); }
+}
+
+/* text */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* button */
+button {
+  margin-top: 40px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4d88;
+  color: white;
+  font-size: 16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday 🎉</h1>
+
+<div class="cake">
+
+  <div class="layer layer1"></div>
+  <div class="layer layer2"></div>
+  <div class="layer layer3"></div>
+
+  <!-- candles -->
+  <div class="candle" style="left:30px;">
+    <div class="flame"></div>
+  </div>
+
+  <div class="candle" style="left:80px;">
+    <div class="flame"></div>
+  </div>
+
+  <div class="candle" style="left:130px;">
+    <div class="flame"></div>
+  </div>
+
+</div>
+
+<button onclick="nextPage()">Next 💖</button>
+
+<script>
+
+function nextPage(){
+  window.location.href = "page3.html";
+}
+
+</script>
+
+</body>
+</html>
