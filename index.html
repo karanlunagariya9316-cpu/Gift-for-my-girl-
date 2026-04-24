@@ -103,32 +103,62 @@ h2 {
   box-shadow: 0 0 8px white;
 }
 
-/* ✅ KEYPAD RESPONSIVE */
+/* ✅ KEYPAD */
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
 
-  position: fixed;   /* 🔥 add */
-  bottom: 20px;      /* 🔥 adjust distance from bottom */
+  position: fixed;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
 
+/* ✅ BUTTON FIX + ANIMATION */
 .key {
-  width: 100%;
-  aspect-ratio: 1/1;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: none;
   font-size: 18px;
   background: rgba(255,255,255,0.15);
   color: white;
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: 0.2s;
+}
+
+.key:focus {
+  outline: none;
+  background: rgba(255,255,255,0.15);
 }
 
 .key:active {
+  background: #ff4d88;
   transform: scale(0.9);
+}
+
+/* 💋 kiss animation */
+.kiss {
+  position: fixed;
+  font-size: 22px;
+  animation: kissFly 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes kissFly {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px) scale(1.5);
+    opacity: 0;
+  }
 }
 
 /* shake */
@@ -156,7 +186,7 @@ h2 {
   100% { transform: translateY(-200px); opacity: 0; }
 }
 
-/* ✅ SMALL DEVICE FIX */
+/* small device */
 @media (max-height: 650px) {
   .keypad {
     bottom: 10px;
@@ -170,14 +200,12 @@ h2 {
 
 <div class="container">
 
-  <!-- PHOTO -->
   <div class="photo-frame">
     <img src="IMG-20260401-WA0014.jpg" class="photo">
   </div>
 
   <h2>🌸 Enter your birthdate 🌸</h2>
 
-  <!-- dots -->
   <div class="dots">
     <div class="dot"></div>
     <div class="dot"></div>
@@ -185,7 +213,6 @@ h2 {
     <div class="dot"></div>
   </div>
 
-  <!-- keypad -->
   <div class="keypad">
     <button class="key" onclick="press(1)">1</button>
     <button class="key" onclick="press(2)">2</button>
@@ -226,7 +253,23 @@ function updateDots(){
   });
 }
 
+/* 💋 UPDATED PRESS FUNCTION */
 function press(num){
+
+  // 💋 animation
+  for(let i = 0; i < 6; i++){
+    let kiss = document.createElement("div");
+    kiss.className = "kiss";
+    kiss.innerHTML = "💋";
+
+    kiss.style.left = (Math.random()*80 + 10) + "vw";
+    kiss.style.top = (window.innerHeight - 120) + "px";
+
+    document.body.appendChild(kiss);
+
+    setTimeout(()=>kiss.remove(),1000);
+  }
+
   if(input.length < 4){
     input += num;
     updateDots();
@@ -238,7 +281,6 @@ function clearPass(){
   updateDots();
 }
 
-/* check */
 function check(){
   if(input === password){
 
