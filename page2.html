@@ -204,7 +204,38 @@ function showSplitText(){
   });
 }
 
-showText("Make a wish ✨");
+  function showWishText(){
+
+  let box = document.getElementById("text");
+  box.innerHTML = "";
+
+  let parts = [
+    "Make ",
+    "a wish ",
+    "✨"
+  ];
+
+  parts.forEach((word, index)=>{
+
+    let span = document.createElement("span");
+    span.style.margin = "0 5px";
+
+    [...word].forEach((ch,i)=>{
+      let s = document.createElement("span");
+      s.className = "letter";
+
+      /* delay */
+      s.style.animationDelay = (i*0.05 + index*0.5) + "s";
+
+      s.textContent = ch;
+      span.appendChild(s);
+    });
+
+    box.appendChild(span);
+  });
+  }
+  
+showWishText();
 
 /* 🎉 BLAST */
 function blastEffect(){
