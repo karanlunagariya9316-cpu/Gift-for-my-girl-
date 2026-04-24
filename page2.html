@@ -168,9 +168,19 @@ body{
 let cutDone = false;
 
 /* TEXT FUNCTION */
-function showText(text){
+function showText("Happy Birthday Dhrutii..🥳💝");
+  {
   let box = document.getElementById("text");
   box.innerHTML = "";
+
+  [...text].forEach((ch,i)=>{   // 🔥 IMPORTANT FIX
+    let span = document.createElement("span");
+    span.className="letter";
+    span.style.animationDelay = i*0.05+"s";
+    span.textContent = ch;     // 🔥 use textContent (not innerHTML)
+    box.appendChild(span);
+  });
+}
 
   text.split("").forEach((ch,i)=>{
     let span = document.createElement("span");
