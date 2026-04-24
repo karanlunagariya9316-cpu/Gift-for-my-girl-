@@ -1,308 +1,301 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">  
 
-<style>
+<style>  
 
-*{ -webkit-tap-highlight-color: transparent; }
+*{ -webkit-tap-highlight-color: transparent; }  
 
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
-  color:white;
-  overflow:hidden;
-  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
+body{  
+  margin:0;  
+  height:100vh;  
+  display:flex;  
+  flex-direction:column;  
+  align-items:center;  
+  justify-content:center;  
+  font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;  
+  color:white;  
+  overflow:hidden;  
+  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);  
+}  
+
+/* TEXT */  
+.text{  
+  font-size:32px;  
+  margin-bottom:120px;  
+  text-align:center;  
+  text-shadow:0 0 10px rgba(255,255,255,0.4);  
+}  
+
+/* 🧸 TEDDY */
+.teddy{
+  display:block;
+  margin:0 auto 10px;
+  width:90px;
+  animation: float 2s infinite ease-in-out;
 }
 
-/* TEXT */
-.text{
-  font-size:32px;
-  margin-bottom:120px;
-  text-align:center;
-  text-shadow:0 0 10px rgba(255,255,255,0.4);
+@keyframes float{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
 }
 
-/* TEXT ANIMATION */
-.letter{
-  display:inline-block;
-  opacity:0;
-  transform:translateX(40px);
-  animation:slide 0.5s forwards;
-}
+/* TEXT ANIMATION */  
+.letter{  
+  display:inline-block;  
+  opacity:0;  
+  transform:translateX(40px);  
+  animation:slide 0.5s forwards;  
+}  
 
-@keyframes slide{
-  to{opacity:1; transform:translateX(0);}
-}
+@keyframes slide{  
+  to{opacity:1; transform:translateX(0);}  
+}  
 
-/* CAKE */
-.cake{
-  position:relative;
-  width:260px;
-  height:160px;
-  cursor:pointer;
-}
+/* CAKE */  
+.cake{  
+  position:relative;  
+  width:260px;  
+  height:160px;  
+  cursor:pointer;  
+}  
 
-/* CAKE PARTS */
-.cake-part{
-  width:48%;
-  height:140px;
-  position:absolute;
-  bottom:0;
-  background: linear-gradient(#ff7fa5,#ff4d7a);
-  border-radius:20px;
-  box-shadow:0 20px 30px rgba(0,0,0,0.3);
-  transition:0.8s ease;
-}
+/* CAKE PARTS */  
+.cake-part{  
+  width:48%;  
+  height:140px;  
+  position:absolute;  
+  bottom:0;  
+  background: linear-gradient(#ff7fa5,#ff4d7a);  
+  border-radius:20px;  
+  box-shadow:0 20px 30px rgba(0,0,0,0.3);  
+  transition:0.8s ease;  
+}  
 
-.left{ left:0; }
-.right{ right:0; }
+.left{ left:0; }  
+.right{ right:0; }  
 
-/* CREAM */
-.cream{
-  position:absolute;
-  top:-25px;
-  width:100%;
-  height:50px;
-  background:#fff;
-  border-radius:20px;
-  overflow:hidden;
-}
+/* CREAM */  
+.cream{  
+  position:absolute;  
+  top:-25px;  
+  width:100%;  
+  height:50px;  
+  background:#fff;  
+  border-radius:20px;  
+  overflow:hidden;  
+}  
 
-/* 🍩 TOPPINGS */
-.cream::after{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:
-    radial-gradient(circle at 20% 50%, #ff4d7a 6px, transparent 7px),
-    radial-gradient(circle at 40% 30%, #ffd700 6px, transparent 7px),
-    radial-gradient(circle at 60% 60%, #00e6e6 6px, transparent 7px),
-    radial-gradient(circle at 80% 40%, #ff66cc 6px, transparent 7px),
-    radial-gradient(circle at 30% 70%, #ff9933 6px, transparent 7px);
-}
+/* 🍩 TOPPINGS */  
+.cream::after{  
+  content:"";  
+  position:absolute;  
+  width:100%;  
+  height:100%;  
+  background:  
+    radial-gradient(circle at 20% 50%, #ff4d7a 6px, transparent 7px),  
+    radial-gradient(circle at 40% 30%, #ffd700 6px, transparent 7px),  
+    radial-gradient(circle at 60% 60%, #00e6e6 6px, transparent 7px),  
+    radial-gradient(circle at 80% 40%, #ff66cc 6px, transparent 7px),  
+    radial-gradient(circle at 30% 70%, #ff9933 6px, transparent 7px);  
+}  
 
-/* CANDLES */
-.candles{
-  position:absolute;
-  top:-60px;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  z-index:5;
-  transition:0.4s;
-}
+/* CANDLES */  
+.candles{  
+  position:absolute;  
+  top:-60px;  
+  width:100%;  
+  display:flex;  
+  justify-content:space-around;  
+  z-index:5;  
+  transition:0.4s;  
+}  
 
-.candle{
-  width:10px;
-  height:35px;
-  background:white;
-  border-radius:4px;
-  position:relative;
-}
+.candle{  
+  width:10px;  
+  height:35px;  
+  background:white;  
+  border-radius:4px;  
+  position:relative;  
+}  
 
-/* FLAME */
-.flame{
-  width:14px;
-  height:20px;
-  background: radial-gradient(circle,yellow,orange,red);
-  border-radius:50%;
-  position:absolute;
-  top:-18px;
-  left:-2px;
-  animation:flicker 0.2s infinite alternate;
-}
+/* FLAME */  
+.flame{  
+  width:14px;  
+  height:20px;  
+  background: radial-gradient(circle,yellow,orange,red);  
+  border-radius:50%;  
+  position:absolute;  
+  top:-18px;  
+  left:-2px;  
+  animation:flicker 0.2s infinite alternate;  
+}  
 
-@keyframes flicker{
-  0%{transform:scale(1);}
-  100%{transform:scale(1.2);}
-}
+@keyframes flicker{  
+  0%{transform:scale(1);}  
+  100%{transform:scale(1.2);}  
+}  
 
-/* CUT */
-.cut .left{ transform:translateX(-30px) rotate(-10deg); }
-.cut .right{ transform:translateX(30px) rotate(10deg); }
+/* CUT */  
+.cut .left{ transform:translateX(-30px) rotate(-10deg); }  
+.cut .right{ transform:translateX(30px) rotate(10deg); }  
 
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  font-size:34px;
-  animation:blast 1.4s forwards;
-}
+/* CONFETTI */  
+.confetti{  
+  position:fixed;  
+  font-size:34px;  
+  animation:blast 1.4s forwards;  
+}  
 
-@keyframes blast{
-  from{transform:translate(0,0); opacity:1;}
-  to{transform:translate(var(--x),var(--y)); opacity:0;}
-}
+@keyframes blast{  
+  from{transform:translate(0,0); opacity:1;}  
+  to{transform:translate(var(--x),var(--y)); opacity:0;}  
+}  
 
-</style>
-</head>
+</style>  
+</head>  
 
-<body>
+<body>  
 
-<div id="text" class="text"></div>
+<div id="text" class="text"></div>  
 
-<div class="cake" onclick="cutCake()">
+<div class="cake" onclick="cutCake()">  
 
-  <div class="candles">
-    <div class="candle"><div class="flame"></div></div>
-    <div class="candle"><div class="flame"></div></div>
-    <div class="candle"><div class="flame"></div></div>
-  </div>
+  <div class="candles">  
+    <div class="candle"><div class="flame"></div></div>  
+    <div class="candle"><div class="flame"></div></div>  
+    <div class="candle"><div class="flame"></div></div>  
+  </div>  
 
-  <div class="cake-part left"><div class="cream"></div></div>
-  <div class="cake-part right"><div class="cream"></div></div>
+  <div class="cake-part left"><div class="cream"></div></div>  
+  <div class="cake-part right"><div class="cream"></div></div>  
 
-</div>
+</div>  
 
-<audio id="song" src="karan.mp3"></audio>
+<audio id="song" src="karan.mp3"></audio>  
 
-<script>
+<script>  
 
-let cutDone = false;
+let cutDone = false;  
 
-/* INITIAL TEXT */
-function showText(text){
-  let box=document.getElementById("text");
-  box.innerHTML="";
-  [...text].forEach((ch,i)=>{
-    let s=document.createElement("span");
-    s.className="letter";
-    s.style.animationDelay=i*0.05+"s";
-    s.textContent=ch;
-    box.appendChild(s);
-  });
-}
+/* WISH TEXT */  
+function showWishText(){  
+  let box = document.getElementById("text");  
+  box.innerHTML = "";  
 
-/* SPLIT TEXT */
-function showSplitText(){
-  let box=document.getElementById("text");
-  box.innerHTML="";
+  let parts = ["Make ", "a ", "wish ", "✨💫"];  
 
-  let parts=["Happyy ","Birthday ","Dhrutiii...🥳💫💝💋❤️💖💗💞🫂"];
+  parts.forEach((word,index)=>{  
+    let span=document.createElement("span");  
 
-  parts.forEach((word,index)=>{
-    let span=document.createElement("span");
-    span.style.margin="0 5px";
+    [...word].forEach((ch,i)=>{  
+      let s=document.createElement("span");  
+      s.className="letter";  
+      s.style.animationDelay=(i*0.05 + index*0.5)+"s";  
+      s.textContent=ch;  
+      span.appendChild(s);  
+    });  
 
-    [...word].forEach((ch,i)=>{
-      let s=document.createElement("span");
-      s.className="letter";
-      s.style.animationDelay=(i*0.05 + index*0.6)+"s";
-      s.textContent=ch;
-      span.appendChild(s);
-    });
+    box.appendChild(span);  
+  });  
+}  
 
-    box.appendChild(span);
-  });
-}
-function showWishText(){
+/* 🎂 FINAL TEXT WITH TEDDY */
+function showSplitText(){  
+  let box=document.getElementById("text");  
+  box.innerHTML="";  
 
-  let box = document.getElementById("text");
-  box.innerHTML = "";
+  /* 🧸 ADD TEDDY */
+  let img = document.createElement("img");
+  img.src = "1000269952-removebg-preview.png";
+  img.className = "teddy";
+  box.appendChild(img);
 
-  let parts = [
-    "Make ",
-    "a",
-    "wish",
-    "✨💫"
-  ];
+  let parts=["Happyy ","Birthday ","Dhrutiii...🥳💫💝💋❤️💖💗💞🫂"];  
 
-  parts.forEach((word, index)=>{
+  parts.forEach((word,index)=>{  
+    let span=document.createElement("span");  
+    span.style.margin="0 5px";  
 
-    let span = document.createElement("span");
-    span.style.margin = "0 5px";
+    [...word].forEach((ch,i)=>{  
+      let s=document.createElement("span");  
+      s.className="letter";  
+      s.style.animationDelay=(i*0.05 + index*0.6)+"s";  
+      s.textContent=ch;  
+      span.appendChild(s);  
+    });  
 
-    [...word].forEach((ch,i)=>{
-      let s = document.createElement("span");
-      s.className = "letter";
+    box.appendChild(span);  
+  });  
+}  
 
-      /* delay */
-      s.style.animationDelay = (i*0.05 + index*0.5) + "s";
+showWishText();  
 
-      s.textContent = ch;
-      span.appendChild(s);
-    });
+/* 🎉 BLAST */  
+function blastEffect(){  
+  for(let i=0;i<40;i++){  
+    let c=document.createElement("div");  
+    c.className="confetti";  
 
-    box.appendChild(span);
-  });
-}
-  
-showWishText();
+    let x=(Math.random()-0.5)*800+"px";  
+    let y=(Math.random()-0.5)*800+"px";  
 
-/* 🎉 BLAST */
-function blastEffect(){
-  for(let i=0;i<40;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
+    c.style.setProperty('--x',x);  
+    c.style.setProperty('--y',y);  
 
-    let x=(Math.random()-0.5)*800+"px";
-    let y=(Math.random()-0.5)*800+"px";
+    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];  
+    c.textContent=items[Math.floor(Math.random()*items.length)];  
 
-    c.style.setProperty('--x',x);
-    c.style.setProperty('--y',y);
+    c.style.left="50%";  
+    c.style.top="50%";  
 
-    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
-    c.textContent=items[Math.floor(Math.random()*items.length)];
+    document.body.appendChild(c);  
+    setTimeout(()=>c.remove(),1400);  
+  }  
+}  
 
-    c.style.left="50%";
-    c.style.top="50%";
+/* CUT */  
+function cutCake(){  
 
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1400);
-  }
-}
+  if(cutDone) return;  
+  cutDone=true;  
 
-/* CUT */
-function cutCake(){
+  let cake=document.querySelector(".cake");  
+  let candles=document.querySelector(".candles");  
 
-  if(cutDone) return;
-  cutDone=true;
+  document.getElementById("song").play();  
 
-  let cake=document.querySelector(".cake");
-  let candles=document.querySelector(".candles");
+  document.querySelectorAll(".flame").forEach(f=>{  
+    f.style.opacity="0";  
+  });  
 
-  document.getElementById("song").play();
+  setTimeout(()=>{  
+    candles.style.opacity="0";  
+  },300);  
 
-  /* 🔥 flames off */
-  document.querySelectorAll(".flame").forEach(f=>{
-    f.style.opacity="0";
-  });
+  blastEffect();  
+  setTimeout(blastEffect,200);  
+  setTimeout(blastEffect,400);  
+  setTimeout(blastEffect,600);  
+  setTimeout(blastEffect,800);  
+  setTimeout(blastEffect,1000);  
+  setTimeout(blastEffect,1200);  
+  setTimeout(blastEffect,1400);  
 
-  /* candles hide */
-  setTimeout(()=>{
-    candles.style.opacity="0";
-  },300);
+  setTimeout(()=>{  
+    cake.classList.add("cut");  
+  },200);  
 
-  /* 🎉 blast instantly */
-  blastEffect();
-setTimeout(blastEffect,200);
-setTimeout(blastEffect,400);
-setTimeout(blastEffect,600);
-setTimeout(blastEffect,800);
-setTimeout(blastEffect,1000);
-setTimeout(blastEffect,1200);
-setTimeout(blastEffect,1400);
-  /* 🎂 cut */
-  setTimeout(()=>{
-    cake.classList.add("cut");
-  },200);
+  setTimeout(()=>{  
+    showSplitText();  
+  },300);  
 
-  /* 💖 text */
-  setTimeout(()=>{
-    showSplitText();
-  },300);
+}  
 
-}
+</script>  
 
-</script>
-
-</body>
+</body>  
 </html>
