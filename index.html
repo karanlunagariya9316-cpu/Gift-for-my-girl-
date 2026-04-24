@@ -6,7 +6,7 @@
 
 <style>
 
-/* ✅ BASE FIX */
+/* BASE */
 html, body {
   margin: 0;
   padding: 0;
@@ -21,15 +21,15 @@ body {
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
 }
 
-/* ✅ container */
+/* container */
 .container {
   max-width: 420px;
   margin: auto;
   padding: 15px;
-  padding-bottom: 160px; /* 🔥 keypad space */
+  padding-bottom: 160px;
 }
 
-/* 🌸 floating flowers */
+/* flowers */
 .particle {
   position: fixed;
   font-size: 14px;
@@ -42,7 +42,7 @@ body {
   100% { transform: translateY(-10vh); }
 }
 
-/* 📸 PHOTO */
+/* photo */
 .photo-frame {
   margin-top: 30px;
   display: inline-block;
@@ -68,7 +68,9 @@ body {
 }
 
 /* text */
-h2 { margin-top: 20px; }
+h2 {
+  margin-top: 20px;
+}
 
 /* dots */
 .dots {
@@ -89,7 +91,7 @@ h2 { margin-top: 20px; }
   background: white;
 }
 
-/* ✅ KEYPAD */
+/* keypad */
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 70px);
@@ -102,7 +104,7 @@ h2 { margin-top: 20px; }
   transform: translateX(-50%);
 }
 
-/* ✅ PERFECT BUTTON FIX */
+/* button */
 .key {
   width: 70px;
   height: 70px;
@@ -126,7 +128,7 @@ h2 { margin-top: 20px; }
   background: rgba(255,255,255,0.25);
 }
 
-/* 💋 RADIAL BLAST ANIMATION */
+/* 💋 blast */
 .kiss {
   position: fixed;
   font-size: 22px;
@@ -166,7 +168,7 @@ h2 { margin-top: 20px; }
   100% { transform: translateY(-200px); opacity: 0; }
 }
 
-/* 📱 small screen fix */
+/* small screen */
 @media (max-height: 650px) {
   .keypad { bottom: 10px; }
 }
@@ -192,17 +194,17 @@ h2 { margin-top: 20px; }
   </div>
 
   <div class="keypad">
-    <button class="key" onclick="press(1)">1</button>
-    <button class="key" onclick="press(2)">2</button>
-    <button class="key" onclick="press(3)">3</button>
-    <button class="key" onclick="press(4)">4</button>
-    <button class="key" onclick="press(5)">5</button>
-    <button class="key" onclick="press(6)">6</button>
-    <button class="key" onclick="press(7)">7</button>
-    <button class="key" onclick="press(8)">8</button>
-    <button class="key" onclick="press(9)">9</button>
+    <button class="key" onclick="press(1, this)">1</button>
+    <button class="key" onclick="press(2, this)">2</button>
+    <button class="key" onclick="press(3, this)">3</button>
+    <button class="key" onclick="press(4, this)">4</button>
+    <button class="key" onclick="press(5, this)">5</button>
+    <button class="key" onclick="press(6, this)">6</button>
+    <button class="key" onclick="press(7, this)">7</button>
+    <button class="key" onclick="press(8, this)">8</button>
+    <button class="key" onclick="press(9, this)">9</button>
     <button class="key" onclick="clearPass()">C</button>
-    <button class="key" onclick="press(0)">0</button>
+    <button class="key" onclick="press(0, this)">0</button>
     <button class="key" onclick="check()">✔</button>
   </div>
 
@@ -230,13 +232,15 @@ function updateDots(){
   });
 }
 
-/* 💋 IMPROVED BLAST */
-function press(num){
+/* 💋 exact button blast */
+function press(num, el){
 
-  let centerX = window.innerWidth / 2;
-  let centerY = window.innerHeight - 120;
+  let rect = el.getBoundingClientRect();
 
-  for(let i=0;i<25;i++){   // 🔥 MANY emojis
+  let centerX = rect.left + rect.width / 2;
+  let centerY = rect.top + rect.height / 2;
+
+  for(let i=0;i<25;i++){
     let kiss = document.createElement("div");
     kiss.className = "kiss";
     kiss.innerHTML = "💋";
@@ -249,6 +253,7 @@ function press(num){
 
     kiss.style.left = centerX + "px";
     kiss.style.top = centerY + "px";
+
     kiss.style.setProperty('--x', x + "px");
     kiss.style.setProperty('--y', y + "px");
 
