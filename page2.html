@@ -22,40 +22,24 @@ body{
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
 }
 
-/* TEXT BOX */
+/* TEXT */
 .text{
-  text-align:center;
-}
-
-/* 🔥 TOP TEXT (LIKE CARD STYLE) */
-.top-text{
-  position:absolute;
-  top:40px;
-  width:100%;
-  text-align:center;
-  font-size:34px;
-  line-height:1.5;
-  letter-spacing:1px;
-  text-shadow:0 0 12px rgba(255,255,255,0.5);
-}
-
-/* MAIN TEXT */
-.main-text{
-  margin-top:100px;
   font-size:32px;
+  margin-bottom:120px;
+  text-align:center;
   text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
-/* ANIMATION */
+/* TEXT ANIMATION */
 .letter{
   display:inline-block;
   opacity:0;
-  transform:translateY(30px);
+  transform:translateX(40px);
   animation:slide 0.5s forwards;
 }
 
 @keyframes slide{
-  to{opacity:1; transform:translateY(0);}
+  to{opacity:1; transform:translateX(0);}
 }
 
 /* CAKE */
@@ -64,14 +48,9 @@ body{
   width:260px;
   height:160px;
   cursor:pointer;
-  transition: transform 0.8s ease;
 }
 
-.cake.down{
-  transform: translateY(70px);
-}
-
-/* CAKE PART */
+/* CAKE PARTS */
 .cake-part{
   width:48%;
   height:140px;
@@ -94,9 +73,10 @@ body{
   height:50px;
   background:#fff;
   border-radius:20px;
+  overflow:hidden;
 }
 
-/* TOPPING */
+/* 🍩 TOPPINGS */
 .cream::after{
   content:"";
   position:absolute;
@@ -117,6 +97,8 @@ body{
   width:100%;
   display:flex;
   justify-content:space-around;
+  z-index:5;
+  transition:0.4s;
 }
 
 .candle{
@@ -127,6 +109,7 @@ body{
   position:relative;
 }
 
+/* FLAME */
 .flame{
   width:14px;
   height:20px;
@@ -139,8 +122,8 @@ body{
 }
 
 @keyframes flicker{
-  from{transform:scale(1);}
-  to{transform:scale(1.2);}
+  0%{transform:scale(1);}
+  100%{transform:scale(1.2);}
 }
 
 /* CUT */
@@ -150,8 +133,8 @@ body{
 /* CONFETTI */
 .confetti{
   position:fixed;
-  font-size:32px;
-  animation:blast 1.3s forwards;
+  font-size:34px;
+  animation:blast 1.4s forwards;
 }
 
 @keyframes blast{
@@ -167,6 +150,7 @@ body{
 <div id="text" class="text"></div>
 
 <div class="cake" onclick="cutCake()">
+
   <div class="candles">
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
@@ -175,127 +159,112 @@ body{
 
   <div class="cake-part left"><div class="cream"></div></div>
   <div class="cake-part right"><div class="cream"></div></div>
+
 </div>
 
 <audio id="song" src="karan.mp3"></audio>
 
 <script>
 
-let done=false;
+let cutDone = false;
 
-/* 🎂 MAKE A WISH */
-function showWish(){
+/* INITIAL TEXT */
+function showText(text){
+  let box=document.getElementById("text");
+  box.innerHTML="";
+  [...text].forEach((ch,i)=>{
+    let s=document.createElement("span");
+    s.className="letter";
+    s.style.animationDelay=i*0.05+"s";
+    s.textContent=ch;
+    box.appendChild(s);
+  });
+}
+
+/* SPLIT TEXT */
+function showSplitText(){
   let box=document.getElementById("text");
   box.innerHTML="";
 
-  ["Make ","a wish ","✨"].forEach((w,i)=>{
+  let parts=["Happyy ","Birthday ","Dhrutii 🥳💝"];
+
+  parts.forEach((word,index)=>{
     let span=document.createElement("span");
-    [...w].forEach((c,j)=>{
+    span.style.margin="0 5px";
+
+    [...word].forEach((ch,i)=>{
       let s=document.createElement("span");
       s.className="letter";
-      s.style.animationDelay=(j*0.05 + i*0.5)+"s";
-      s.textContent=c;
+      s.style.animationDelay=(i*0.05 + index*0.6)+"s";
+      s.textContent=ch;
       span.appendChild(s);
     });
+
     box.appendChild(span);
   });
 }
 
-/* 💖 FINAL TEXT */
-function showFinal(){
-
-  let box=document.getElementById("text");
-  box.innerHTML="";
-
-  /* TOP TEXT (3 LINE LIKE CARD) */
-  let top=document.createElement("div");
-  top.className="top-text";
-
-  let lines=[
-    "Many Many",
-    "Happy Returns of the",
-    "Day Bachha 🎉🎊"
-  ];
-
-  lines.forEach((line,li)=>{
-    let div=document.createElement("div");
-
-    [...line].forEach((c,i)=>{
-      let s=document.createElement("span");
-      s.className="letter";
-      s.style.animationDelay=(i*0.04 + li*0.6)+"s";
-      s.textContent=c;
-      div.appendChild(s);
-    });
-
-    top.appendChild(div);
-  });
-
-  box.appendChild(top);
-
-  /* MAIN TEXT */
-  setTimeout(()=>{
-    let main=document.createElement("div");
-    main.className="main-text";
-
-    let text="Happyy Birthday Dhrutii 🥳💝";
-
-    [...text].forEach((c,i)=>{
-      let s=document.createElement("span");
-      s.className="letter";
-      s.style.animationDelay=i*0.04+"s";
-      s.textContent=c;
-      main.appendChild(s);
-    });
-
-    box.appendChild(main);
-
-  },1800);
-}
-
-showWish();
+showText("Make a wish ✨");
 
 /* 🎉 BLAST */
-function blast(){
+function blastEffect(){
   for(let i=0;i<40;i++){
     let c=document.createElement("div");
     c.className="confetti";
 
-    c.style.setProperty('--x',(Math.random()-0.5)*800+"px");
-    c.style.setProperty('--y',(Math.random()-0.5)*800+"px");
+    let x=(Math.random()-0.5)*800+"px";
+    let y=(Math.random()-0.5)*800+"px";
 
-    let arr=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
-    c.textContent=arr[Math.floor(Math.random()*arr.length)];
+    c.style.setProperty('--x',x);
+    c.style.setProperty('--y',y);
+
+    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];
+    c.textContent=items[Math.floor(Math.random()*items.length)];
 
     c.style.left="50%";
     c.style.top="50%";
 
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1300);
+    setTimeout(()=>c.remove(),1400);
   }
 }
 
 /* CUT */
 function cutCake(){
 
-  if(done) return;
-  done=true;
+  if(cutDone) return;
+  cutDone=true;
+
+  let cake=document.querySelector(".cake");
+  let candles=document.querySelector(".candles");
 
   document.getElementById("song").play();
 
-  document.querySelectorAll(".flame").forEach(f=>f.style.opacity="0");
+  /* 🔥 flames off */
+  document.querySelectorAll(".flame").forEach(f=>{
+    f.style.opacity="0";
+  });
 
+  /* candles hide */
   setTimeout(()=>{
-    document.querySelector(".cake").classList.add("cut");
-    document.querySelector(".cake").classList.add("down");
+    candles.style.opacity="0";
+  },300);
+
+  /* 🎉 blast instantly */
+  blastEffect();
+  setTimeout(blastEffect,300);
+  setTimeout(blastEffect,600);
+
+  /* 🎂 cut */
+  setTimeout(()=>{
+    cake.classList.add("cut");
   },200);
 
-  /* MULTI BLAST */
-  for(let i=0;i<8;i++){
-    setTimeout(blast,i*200);
-  }
+  /* 💖 text */
+  setTimeout(()=>{
+    showSplitText();
+  },300);
 
-  setTimeout(showFinal,300);
 }
 
 </script>
