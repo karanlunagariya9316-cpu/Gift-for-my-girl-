@@ -67,10 +67,7 @@ body {
   border-radius: 20px;
 }
 
-/* text */
-h2 {
-  margin-top: 20px;
-}
+h2 { margin-top: 20px; }
 
 /* dots */
 .dots {
@@ -87,9 +84,7 @@ h2 {
   background: rgba(255,255,255,0.3);
 }
 
-.dot.active {
-  background: white;
-}
+.dot.active { background: white; }
 
 /* keypad */
 .keypad {
@@ -97,7 +92,6 @@ h2 {
   grid-template-columns: repeat(3, 70px);
   gap: 12px;
   justify-content: center;
-
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -114,12 +108,7 @@ h2 {
   background: rgba(255,255,255,0.15);
   color: white;
   cursor: pointer;
-
   -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-
-.key:focus {
   outline: none;
 }
 
@@ -136,15 +125,17 @@ h2 {
   animation: blast 1s ease-out forwards;
 }
 
+/* 💖 BIG blast */
+.big-heart {
+  position: fixed;
+  font-size: 40px;
+  pointer-events: none;
+  animation: blast 1.2s ease-out forwards;
+}
+
 @keyframes blast {
-  0% {
-    transform: translate(0,0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--x), var(--y)) scale(1.6);
-    opacity: 0;
-  }
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.8); opacity: 0; }
 }
 
 /* shake */
@@ -155,17 +146,6 @@ h2 {
 @keyframes shake {
   25% { transform: translateX(-6px); }
   50% { transform: translateX(6px); }
-}
-
-/* hearts */
-.heart {
-  position: fixed;
-  font-size: 20px;
-  animation: floatUp 2s linear forwards;
-}
-
-@keyframes floatUp {
-  100% { transform: translateY(-200px); opacity: 0; }
 }
 
 /* small screen */
@@ -215,16 +195,6 @@ h2 {
 let password = "2704";
 let input = "";
 
-/* flowers */
-setInterval(()=>{
-  let p = document.createElement("div");
-  p.className = "particle";
-  p.innerHTML = "🌸";
-  p.style.left = Math.random()*100 + "vw";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),5000);
-}, 300);
-
 /* dots */
 function updateDots(){
   document.querySelectorAll(".dot").forEach((d,i)=>{
@@ -232,33 +202,27 @@ function updateDots(){
   });
 }
 
-/* 💋 exact button blast */
+/* 💋 button blast */
 function press(num, el){
-
   let rect = el.getBoundingClientRect();
+  let cx = rect.left + rect.width/2;
+  let cy = rect.top + rect.height/2;
 
-  let centerX = rect.left + rect.width / 2;
-  let centerY = rect.top + rect.height / 2;
+  for(let i=0;i<20;i++){
+    let k = document.createElement("div");
+    k.className = "kiss";
+    k.innerHTML = "💋";
 
-  for(let i=0;i<25;i++){
-    let kiss = document.createElement("div");
-    kiss.className = "kiss";
-    kiss.innerHTML = "💋";
+    let a = Math.random()*2*Math.PI;
+    let d = Math.random()*200+50;
 
-    let angle = Math.random() * 2 * Math.PI;
-    let distance = Math.random() * 200 + 50;
+    k.style.left = cx+"px";
+    k.style.top = cy+"px";
+    k.style.setProperty('--x', Math.cos(a)*d+"px");
+    k.style.setProperty('--y', Math.sin(a)*d+"px");
 
-    let x = Math.cos(angle) * distance;
-    let y = Math.sin(angle) * distance;
-
-    kiss.style.left = centerX + "px";
-    kiss.style.top = centerY + "px";
-
-    kiss.style.setProperty('--x', x + "px");
-    kiss.style.setProperty('--y', y + "px");
-
-    document.body.appendChild(kiss);
-    setTimeout(()=>kiss.remove(),1000);
+    document.body.appendChild(k);
+    setTimeout(()=>k.remove(),1000);
   }
 
   if(input.length < 4){
@@ -272,21 +236,42 @@ function clearPass(){
   updateDots();
 }
 
+/* 💖 MULTI BLAST */
 function check(){
   if(input === password){
 
-    for(let i=0;i<20;i++){
-      let h = document.createElement("div");
-      h.className = "heart";
-      h.innerHTML = "💖";
-      h.style.left = Math.random()*100+"vw";
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(),2000);
-    }
+    let positions = [
+      [50,150],   // top center
+      [window.innerWidth-80,200], // right top
+      [60, window.innerHeight-200], // bottom left
+      [window.innerWidth/2, window.innerHeight/2], // center
+      [window.innerWidth-100, window.innerHeight-250] // bottom right
+    ];
+
+    positions.forEach((pos, index)=>{
+      setTimeout(()=>{
+        for(let i=0;i<25;i++){
+          let h = document.createElement("div");
+          h.className = "big-heart";
+          h.innerHTML = "💖";
+
+          let a = Math.random()*2*Math.PI;
+          let d = Math.random()*250+80;
+
+          h.style.left = pos[0]+"px";
+          h.style.top = pos[1]+"px";
+          h.style.setProperty('--x', Math.cos(a)*d+"px");
+          h.style.setProperty('--y', Math.sin(a)*d+"px");
+
+          document.body.appendChild(h);
+          setTimeout(()=>h.remove(),1200);
+        }
+      }, index*200); // 🔥 4-5 blasts delay
+    });
 
     setTimeout(()=>{
       window.location.href = "page2.html";
-    },1200);
+    },1500);
 
   } else {
     document.querySelector(".dots").classList.add("shake");
