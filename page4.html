@@ -31,7 +31,7 @@
       z-index: 5;
     }
 
-    /* 💋 Clean Kiss Animation */
+    /* 💋 Fast & Clean Kiss Animation */
     .kiss-bg {
       position: absolute;
       font-size: 100px;
@@ -43,7 +43,6 @@
       animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
     }
 
-    /* ધીમેથી આવશે, રોકાશે, અને ગાયબ થશે */
     @keyframes kissBreath {
       0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
       20% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
@@ -195,13 +194,12 @@
     // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ માટે ફિક્સ ઝોન (ઓવરલેપ ન થાય તે માટે)
     let bgContainer = document.getElementById("bg-container");
     
-    // અલગ અલગ જગ્યાઓ (Fix safe zones)
     const kissZones = [
-      {x: 10, y: 10}, {x: 80, y: 10}, // ઉપરના ખૂણા
-      {x: 45, y: 8},                  // ઉપર વચ્ચે
-      {x: 10, y: 35}, {x: 80, y: 35}, // વચ્ચે સાઈડમાં
-      {x: 10, y: 70}, {x: 80, y: 70}, // નીચેના ખૂણા
-      {x: 45, y: 80}                  // નીચે વચ્ચે
+      {x: 10, y: 10}, {x: 80, y: 10}, 
+      {x: 45, y: 8},                  
+      {x: 10, y: 35}, {x: 80, y: 35}, 
+      {x: 10, y: 70}, {x: 80, y: 70}, 
+      {x: 45, y: 80}                  
     ];
 
     kissZones.forEach((zone) => {
@@ -209,14 +207,14 @@
       kiss.className = "kiss-bg";
       kiss.innerText = "💋";
       
-      // ઝોનની અંદર થોડું જ આઘું પાછું થાય એટલે ઓવરલેપ ન થાય
       let randomX = zone.x + (Math.random() * 6 - 3); 
       let randomY = zone.y + (Math.random() * 6 - 3); 
       let randomRotate = Math.floor(Math.random() * 360);
       let randomScale = (Math.random() * 0.4) + 0.6; 
       
-      let animDuration = (Math.random() * 3) + 5; // 5 થી 8 સેકન્ડ
-      let animDelay = Math.random() * 5; // 0 થી 5 સેકન્ડ ડીલે
+      // ✨ NEW: સ્પીડ વધારી દીધી છે (Fast Animation)
+      let animDuration = (Math.random() * 1.5) + 2; // 2 થી 3.5 સેકન્ડ (પહેલા 5 થી 8 હતું)
+      let animDelay = Math.random() * 2; // 0 થી 2 સેકન્ડ ડીલે (પહેલા 5 હતું)
       
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
@@ -245,7 +243,6 @@
 
     applyPositions();
 
-    // ફોટા અનંત સુધી ફર્યા કરશે
     function rotatePhotos() {
       let first = positions.shift(); 
       positions.push(first); 
@@ -258,7 +255,7 @@
     // ✨ 15 સેકન્ડ પછી જ બટન દેખાડવાનું લોજિક
     setTimeout(() => {
       document.getElementById("restartBtn").style.display = "block";
-    }, 15000); // 15000 ms = 15 Seconds
+    }, 15000); 
 
   </script>
 
