@@ -13,17 +13,21 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;   /* 🔥 center નહિ, top align */
+  padding-top:100px;            /* 🔥 thodu upar lai gaya */
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Pacifico', cursive;
 }
 
 /* 🎁 CARD */
 .card{
-  width:260px;
-  height:180px;
+  width:300px;        /* 🔥 size vadhaari */
+  height:200px;       /* 🔥 size vadhaari */
   perspective:1200px;
   margin-bottom:40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 /* INNER */
@@ -33,11 +37,7 @@ body{
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
-}
-
-/* FLIP */
-.card.flip .card-inner{
-  transform:rotateY(180deg);
+  transform-origin:center;   /* 🔥 IMPORTANT FIX */
 }
 
 /* FRONT & BACK */
