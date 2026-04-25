@@ -11,17 +11,20 @@ body{
   margin:0;
   height:100vh;
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;   /* 🔥 TOP layout */
+  padding-top:90px;             /* 🔥 upar space */
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
 }
 
 /* 🎁 CARD */
 .card{
-  width:330px;
-  height:420px;              /* 🔥 FIXED HEIGHT */
+  width:300px;          /* 🔥 balanced size */
+  height:380px;
   perspective:1200px;
+  margin-bottom:30px;
 }
 
 /* 🔄 INNER */
@@ -76,7 +79,7 @@ body{
   color:#a8325f;
   transform:rotateY(180deg);
 
-  font-size:15px;        /* 🔥 compact */
+  font-size:15px;
   line-height:1.35;
   padding:18px;
 }
@@ -98,6 +101,20 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
+/* 🎵 SONG AREA BACK */
+.song-area{
+  display:flex;
+  gap:20px;
+}
+
+.song-box{
+  width:120px;
+  height:60px;
+  background:rgba(255,255,255,0.2);
+  border-radius:15px;
+  backdrop-filter:blur(5px);
+}
+
 </style>
 </head>
 
@@ -115,6 +132,12 @@ body{
     </div>
 
   </div>
+</div>
+
+<!-- 🎵 BACK TO ORIGINAL -->
+<div class="song-area">
+  <div class="song-box"></div>
+  <div class="song-box"></div>
 </div>
 
 <script>
