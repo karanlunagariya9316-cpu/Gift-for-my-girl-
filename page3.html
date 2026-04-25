@@ -14,9 +14,10 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:90px;
-  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
-  font-family:'Poppins', sans-serif;
+  padding-top:80px;
+
+  /* 🔥 CENTER FIX */
+  overflow-x:hidden;
 }
 
 /* 🎁 CARD */
@@ -24,7 +25,8 @@ body{
   width:300px;
   height:380px;
   perspective:1500px;
-  margin-bottom:30px;
+  margin:0 auto 30px auto; /* 🔥 CENTER ALIGN FIX */
+  display:block;
 }
 
 /* 🔄 INNER */
@@ -33,8 +35,8 @@ body{
   height:100%;
   position:relative;
   transform-style:preserve-3d;
-  transition: transform 0.8s ease;
-  transform-origin:center;
+  transition: transform 0.7s ease-in-out;
+  transform-origin: 50% 50%;
 }
 
 /* 🔥 THIS WAS MISSING (MAIN FIX) */
