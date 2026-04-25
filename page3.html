@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
+  font-family:'Pacifico', cursive;
+}
+
+/* 🎁 CARD CONTAINER */
+.card{
+  width:260px;
+  height:180px;
+  perspective:1000px;
+  margin-bottom:40px;
+}
+
+/* INNER */
+.card-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:0.8s;
+}
+
+/* FLIP */
+.card.flip .card-inner{
+  transform:rotateY(180deg);
+}
+
+/* FRONT & BACK */
+.card-front, .card-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:20px;
+  backface-visibility:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:15px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* FRONT DESIGN 🎁 */
+.card-front{
+  background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
+  color:white;
+  font-size:22px;
+}
+
+/* RIBBON */
+.card-front::before{
+  content:"🎀";
+  font-size:40px;
+  position:absolute;
+  top:10px;
+}
+
+/* BACK MESSAGE 💌 */
+.card-back{
+  background:white;
+  color:#a8325f;
+  transform:rotateY(180deg);
+  font-size:18px;
+}
+
+/* 🎵 FUTURE SONG AREA */
+.song-area{
+  display:flex;
+  gap:20px;
+}
+
+.song-box{
+  width:120px;
+  height:60px;
+  background:rgba(255,255,255,0.2);
+  border-radius:15px;
+  backdrop-filter:blur(5px);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎁 FLIP CARD -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner">
+
+    <!-- FRONT -->
+    <div class="card-front">
+      Tap to Open 🎁
+    </div>
+
+    <!-- BACK -->
+    <div class="card-back">
+      💖 Happy Birthday Dhruti 💖<br><br>
+      Tu mara mate khub special che... 💕<br>
+      I Love You 💘
+    </div>
+
+  </div>
+</div>
+
+<!-- 🎵 FUTURE SPACE -->
+<div class="song-area">
+  <div class="song-box"></div>
+  <div class="song-box"></div>
+</div>
+
+<script>
+
+function flipCard(card){
+  card.classList.toggle("flip");
+}
+
+</script>
+
+</body>
+</html>
