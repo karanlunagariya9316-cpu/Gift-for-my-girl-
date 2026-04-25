@@ -14,7 +14,7 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:90px;   /* thodu balance */
+  padding-top:90px;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Pacifico', cursive;
 }
@@ -22,8 +22,8 @@ body{
 /* 🎁 CARD */
 .card{
   transform: translateZ(0);
-  width:320px;          /* 🔥 bigger */
-  height:210px;         /* 🔥 bigger */
+  width:320px;
+  height:210px;
   perspective:1200px;
   margin-bottom:40px;
 }
@@ -36,14 +36,14 @@ body{
   transform-style:preserve-3d;
   transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
 
-  display:flex;                /* 🔥 ADD */
-  align-items:center;          /* 🔥 ADD */
-  justify-content:center;      /* 🔥 ADD */
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  transform-origin:center;     /* already good */
+  transform-origin:center;
 }
 
-/* ✅ THIS WAS MISSING */
+/* FLIP */
 .card.flip .card-inner{
   transform: rotateY(180deg);
 }
@@ -59,18 +59,17 @@ body{
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:20px;                /* 🔥 थोड़ा increase */
+  padding:20px;
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* FRONT 🎁 */
+/* FRONT */
 .card-front{
   background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
   color:white;
   font-size:22px;
 }
 
-/* 🎀 RIBBON FIXED CENTER */
 .card-front::before{
   content:"🎀";
   font-size:42px;
@@ -80,7 +79,7 @@ body{
   transform:translateX(-50%);
 }
 
-/* BACK 💌 */
+/* BACK */
 .card-back{
   background:white;
   color:#a8325f;
@@ -88,14 +87,19 @@ body{
   font-size:18px;
   line-height:1.6;
 
-  font-family: 'Poppins', sans-serif;   /* 🔥 NEW FONT */
+  font-family: 'Poppins', sans-serif;
   font-weight:400;
   letter-spacing:0.5px;
 
   box-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-/* ✨ GLOW WHEN OPEN */
+/* ✨ Highlight first line */
+.card-back b{
+  font-size:20px;
+}
+
+/* ✨ Glow */
 .card.flip .card-back{
   animation: glow 1s ease;
 }
@@ -120,7 +124,12 @@ body{
   backdrop-filter:blur(5px);
 }
 
-/* ❤️ TYPING EFFECT */
+/* ❤️ TEXT CENTER FIX */
+#message{
+  text-align:center;
+}
+
+/* ❤️ TYPING */
 .typing{
   border-right:2px solid #a8325f;
   white-space:pre-line;
@@ -132,16 +141,13 @@ body{
 
 <body>
 
-<!-- 🎁 CARD -->
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
 
-    <!-- FRONT -->
     <div class="card-front">
       Tap to Open 🎁
     </div>
 
-    <!-- BACK -->
     <div class="card-back">
       <div id="message" class="typing"></div>
     </div>
@@ -149,7 +155,6 @@ body{
   </div>
 </div>
 
-<!-- 🎵 SPACE -->
 <div class="song-area">
   <div class="song-box"></div>
   <div class="song-box"></div>
@@ -157,13 +162,12 @@ body{
 
 <script>
 
-/* ❤️ CHANGE MESSAGE HERE ONLY */
-let text = `💖 Happy Birthday Dhruti 💖
+/* ❤️ CHANGE MESSAGE HERE */
+let text = `<b>💖 Happy Birthday Dhruti 💖</b>
 
 Tu mara mate khub special che... 💕
 I Love You 💘`;
 
-/* FLIP */
 function flipCard(card){
   card.classList.toggle("flip");
 
@@ -172,7 +176,6 @@ function flipCard(card){
   }
 }
 
-/* ✍️ TYPING EFFECT */
 function typeText(){
   let i = 0;
   let speed = 40;
