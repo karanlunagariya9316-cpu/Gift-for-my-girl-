@@ -15,7 +15,7 @@ body{
   padding-top:90px;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
-  overflow-x: hidden; 
+  overflow-x: hidden; /* કોન્ફેટી સ્ક્રીનની બહાર ન જાય એના માટે */
 }
 
 /* 🎁 CARD */
@@ -68,37 +68,13 @@ body{
   font-size:22px;
 }
 
-/* ✨ NEW: PHYSICAL RIBBON EFFECT */
 .card-front::before{
-  content:"";
+  content:"🎀";
+  font-size:40px;
   position:absolute;
-  width:35px; /* રીબિનની પહોળાઈ */
-  height:100%;
-  background: linear-gradient(135deg, #fad0c4, #ffd1dc); /* સુંદર લાઈટ રીબિન કલર */
-  top:0;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
-  z-index: 1; /* ટેક્સ્ટની નીચે */
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* એનિમેશન માટે transition */
-  border-radius: 20px; /* કાર્ડની સાથે ગોળ કરવા માટે */
-}
-
-/* ✨ NEW: RIBBON "CHUTE" (BREAKING/UNWINDING) ANIMATION */
-.card.ribbon-chute .card-front::before {
-  transform: translate(-50%, -20px) scale(0.1) rotate(45deg); /* એનિમેટેડ બર્સ્ટ/ટેયર ઇફેક્ટ */
-  opacity: 0;
-}
-
-/* FRONT TEXT (ON RIBBON) */
-.card-front .front-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2; /* રીબિનની ઉપર */
-  color: white; /* Contrast */
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-  width: 100%; /* For centering in text-align */
 }
 
 /* BACK */
@@ -162,7 +138,7 @@ body{
   backdrop-filter:blur(5px);
 }
 
-/* 🎉 CONFETTI PARTY BLAST STYLES (KISS EFFECT) */
+/* 🎉 NEW: CONFETTI PARTY BLAST STYLES */
 .confetti {
   position: fixed; 
   font-size: 24px;
@@ -191,7 +167,7 @@ body{
   <div class="card-inner">
 
     <div class="card-front">
-      <div class="front-text">Tap to Open Surprise</div>
+      Tap to Open Surprise 🎁
     </div>
 
     <div class="card-back">
@@ -222,57 +198,52 @@ And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
 
-/* 🔄 FLIP, CHUTE RIBBON, AND ANIMATE */
+/* 🔄 FLIP AND ANIMATE */
 function flipCard(card){
+  card.classList.toggle("flip");
   
-  // ✨ NEW: Chute the ribbon first with an animation
-  card.classList.add("ribbon-chute");
+  let msgDiv = document.getElementById("message");
+  msgDiv.innerHTML = ""; 
 
-  // ✨ NEW: Delay the rest of the logic to match the ribbon break animation
-  setTimeout(() => {
-    card.classList.toggle("flip");
+  if(card.classList.contains("flip")){
     
-    let msgDiv = document.getElementById("message");
-    msgDiv.innerHTML = ""; 
+    // Text animation delay
+    setTimeout(() => {
+      lines.forEach((line, i) => {
+        let div = document.createElement("div");
+        div.className = "msg-line";
+        
+        if(line.trim() === ""){
+          div.style.height = "12px"; 
+        } else {
+          div.innerText = line.trim();
+        }
+        
+        div.style.animationDelay = (i * 0.25) + "s"; 
+        msgDiv.appendChild(div);
+      });
+    }, 400); 
 
-    if(card.classList.contains("flip")){
-      // Text animation start (0.4s into flip, total delay is perfect)
-      setTimeout(() => {
-        lines.forEach((line, i) => {
-          let div = document.createElement("div");
-          div.className = "msg-line";
-          
-          if(line.trim() === ""){
-            div.style.height = "12px"; 
-          } else {
-            div.innerText = line.trim();
-          }
-          
-          div.style.animationDelay = (i * 0.25) + "s"; 
-          msgDiv.appendChild(div);
-        });
-      }, 400); 
-
-      // 🎉 Call Confetti Blast function
-      confettiBlast(card);
-    }
-  }, 400); // ૪૦૦ મિલીસેકન્ડ રીબિન એનિમેશનનો સમય
+    // 🎉 NEW: Call Confetti Blast function
+    confettiBlast(card);
+  }
 }
 
-/* 🎉 Confetti Blast Function (KISS EFFECT) */
+/* 🎉 NEW: Confetti Blast Function */
 function confettiBlast(cardEl) {
   let rect = cardEl.getBoundingClientRect();
   let centerX = rect.left + rect.width / 2;
   let centerY = rect.top + rect.height / 2;
 
-  // 🎉 UPDATED: Confetti types using kiss emojis like in screenshot
-  let confettiItems = ["💋", "💏", "👩‍❤️‍💋‍👩", "👩‍❤️‍💋‍👨", "💞", "✨"];
+  // Confetti types using emoji
+  let confettiItems = ["🎉", "🎊", "💗", "✨", "💫", "💖", "💞"];
 
   for (let i = 0; i < 60; i++) {
     let c = document.createElement("div");
     c.className = "confetti";
     c.textContent = confettiItems[Math.floor(Math.random() * confettiItems.length)];
 
+    // Set random start/end properties using CSS variables
     let a = Math.random() * 2 * Math.PI; // random angle
     let d = Math.random() * 400 + 100; // random distance
 
@@ -283,7 +254,7 @@ function confettiBlast(cardEl) {
 
     document.body.appendChild(c);
     
-    // Clean up particles
+    // Clean up particles after animation finishes
     setTimeout(() => c.remove(), 1500);
   }
 }
