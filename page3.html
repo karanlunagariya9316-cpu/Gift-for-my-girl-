@@ -13,10 +13,11 @@ body{
   align-items:center;
   justify-content:flex-start;
   padding-top:90px;
-  padding-bottom:50px; 
+  padding-bottom:80px; /* ગિફ્ટ બોક્સ માટે નીચે વધુ જગ્યા */
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
   overflow-x: hidden; 
+  scroll-behavior: smooth;
 }
 
 /* 🎁 CARD */
@@ -59,7 +60,6 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* ✨ ATTRACTIVE FRONT DESIGN */
 .card-front{
   background:linear-gradient(135deg, #ff4d7a, #ff9a9e, #ff7fa5);
   background-size: 200% 200%;
@@ -103,7 +103,7 @@ body{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
-  font-size:14px; /* મેસેજ થોડો લાંબો છે એટલે સાઈઝ થોડી એડજસ્ટ કરી છે */
+  font-size:14px; 
   line-height:1.4;
   padding:15px;
   display:flex;
@@ -135,7 +135,7 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 4 MINI PLAYERS AREA (GRID) */
+/* 🎵 4 MINI PLAYERS AREA */
 .song-area{
   display:flex;
   flex-wrap: wrap; 
@@ -147,7 +147,6 @@ body{
   margin-top:35px; 
 }
 
-/* 🟥 SQUARE BOX DESIGN */
 .song-box{
   width: 155px; 
   height: 155px; 
@@ -163,14 +162,13 @@ body{
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
-  opacity: 0.7; /* નોર્મલ સ્થિતિમાં થોડા ઝાંખા */
+  opacity: 0.7; 
 }
 
 .song-box:active {
   transform: scale(0.95);
 }
 
-/* ✨ ACTIVE PLAYING GLOW ANIMATION */
 .song-box.highlight {
   animation: boxPulseGlow 2s infinite ease-in-out;
   opacity: 1;
@@ -228,6 +226,7 @@ body{
   justify-content: center;
 }
 
+/* 🎉 CONFETTI */
 .confetti {
   position: fixed; 
   font-size: 24px;
@@ -240,6 +239,65 @@ body{
   0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
   100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
 }
+
+/* 🎁 INSTAGRAM STYLE GIFT SECTION */
+.gift-section {
+  display: none; /* શરૂઆતમાં છુપાયેલું */
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 320px;
+  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.gift-btn {
+  background: linear-gradient(135deg, #ff4d7a, #ff7fa5);
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 20px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: pulseGift 2s infinite ease-in-out;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.gift-message {
+  display: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  animation: revealMsg 0.6s ease-out forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseGift {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(-3deg); }
+  75% { transform: scale(1.05) rotate(3deg); }
+}
+
+@keyframes revealMsg {
+  0% { transform: translateY(20px) scale(0.8); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
 </style>
 </head>
 
@@ -293,7 +351,7 @@ body{
       </div>
       <div class="play-btn" id="icon3">▶</div>
     </div>
-    <audio id="audio3" src="karan.mp3"></audio>
+    <audio id="audio3" src="song3.mp3"></audio>
   </div>
 
   <div class="song-box" id="box4" onclick="toggleSong(4)">
@@ -305,13 +363,22 @@ body{
       </div>
       <div class="play-btn" id="icon4">▶</div>
     </div>
-    <audio id="audio4" src="karan.mp3"></audio>
+    <audio id="audio4" src="song4.mp3"></audio>
   </div>
 
 </div>
 
+<div class="gift-section" id="giftSection">
+  <div class="gift-btn" id="giftBtn" onclick="openGift()">
+    🎁 Tap to Unwrap
+  </div>
+  <div class="gift-message" id="giftMessage">
+    Sorry babe songs nu knowledge che naii....😁<br><br>
+    Pan jetli khbr paydi etlu kayru che...🤭
+  </div>
+</div>
+
 <script>
-// ✨ નવો રોમેન્ટિક મેસેજ
 let rawText = `Hyeee dhrutii...
 
 These are special lines for your special day bachha..💝
@@ -334,7 +401,7 @@ let lines = rawText.split('\n');
 let isFlipped = false;
 
 function flipCard(card){
-  if(isFlipped) return; // એક વાર ઓપન થયા પછી બીજી વાર ક્લિક રોકવા
+  if(isFlipped) return; 
   isFlipped = true;
   card.classList.toggle("flip");
   
@@ -343,7 +410,6 @@ function flipCard(card){
 
   if(card.classList.contains("flip")){
     
-    // મેસેજ ટાઈપિંગ એનિમેશન
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
@@ -357,13 +423,12 @@ function flipCard(card){
 
     confettiBlast(card);
 
-    // ✨ કાર્ડ ફ્લિપ થતા જ ઓટોમેટિક પહેલું સોંગ વાગવાનું શરૂ થશે
     playSong(1);
   }
 }
 
-function confettiBlast(cardEl) {
-  let rect = cardEl.getBoundingClientRect();
+function confettiBlast(element) {
+  let rect = element.getBoundingClientRect();
   let centerX = rect.left + rect.width / 2;
   let centerY = rect.top + rect.height / 2;
   let confettiItems = ["💋", "💏", "👩‍❤️‍💋‍👩", "👩‍❤️‍💋‍👨", "💞", "✨"];
@@ -383,31 +448,36 @@ function confettiBlast(cardEl) {
   }
 }
 
-// 🎵 નવું ઓટો પ્લેયર લોજિક
 function playSong(num) {
-  if (num > 4) return; // ચારેય ગીત પૂરા થાય તો અટકી જશે
+  // ૪ ગીતો પૂરા થઈ જાય પછી ગિફ્ટ બોક્સ દેખાશે
+  if (num > 4) {
+    let giftSec = document.getElementById("giftSection");
+    giftSec.style.display = "flex";
+    // પેજને નીચે સ્ક્રોલ કરશે જેથી ગિફ્ટ દેખાય
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 500);
+    return; 
+  }
 
-  // પહેલા બધા ગીતો સ્ટોપ કરો અને ગ્લો હટાવો
   for(let i = 1; i <= 4; i++) {
     let a = document.getElementById("audio" + i);
     let ic = document.getElementById("icon" + i);
     let bx = document.getElementById("box" + i);
     a.pause();
-    a.currentTime = 0; // શરૂઆતથી ચાલુ કરવા
+    a.currentTime = 0; 
     ic.innerHTML = "▶";
     bx.classList.remove("highlight");
   }
 
-  // જે ગીત પ્લે કરવાનું છે તેનું સેટિંગ
   let audio = document.getElementById("audio" + num);
   let icon = document.getElementById("icon" + num);
   let box = document.getElementById("box" + num);
 
   audio.play();
   icon.innerHTML = "⏸";
-  box.classList.add("highlight"); // ગ્લો ઇફેક્ટ ચાલુ
+  box.classList.add("highlight"); 
 
-  // જ્યારે ગીત પૂરું થાય ત્યારે ઓટોમેટિક નેક્સ્ટ ગીત ચાલુ થશે!
   audio.onended = function() {
     icon.innerHTML = "▶";
     box.classList.remove("highlight");
@@ -415,19 +485,27 @@ function playSong(num) {
   };
 }
 
-// જો યુઝર મેન્યુઅલ કોઈ બોક્સ પર ક્લિક કરે તો
 function toggleSong(songNum) {
   let audio = document.getElementById("audio" + songNum);
   
   if (!audio.paused) {
-    // જો ચાલી રહ્યું છે અને ક્લિક કરે તો પોઝ (pause) થાય
     audio.pause();
     document.getElementById("icon" + songNum).innerHTML = "▶";
     document.getElementById("box" + songNum).classList.remove("highlight");
   } else {
-    // બીજા ગીત પર ક્લિક કરે તો નવેસરથી પ્લે થાય
     playSong(songNum);
   }
+}
+
+// 🎁 ગિફ્ટ ઓપન કરવાનું ફંક્શન
+function openGift() {
+  let btn = document.getElementById("giftBtn");
+  let msg = document.getElementById("giftMessage");
+  
+  btn.style.display = "none";
+  msg.style.display = "block";
+  
+  confettiBlast(msg); // ઓપન થાય ત્યારે નાનો સેલિબ્રેશન બ્લાસ્ટ
 }
 </script>
 
