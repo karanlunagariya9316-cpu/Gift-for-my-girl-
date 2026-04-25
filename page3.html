@@ -169,17 +169,15 @@ body{
   transform: scale(0.95);
 }
 
-/* 🔒 LOCKED STATE (બીજે ક્યાંય ટચ ન થાય એના માટે) */
 .song-box.locked {
-  pointer-events: none; /* ટચ બ્લોક કરશે */
-  opacity: 0.55; /* ઝાંખુ દેખાશે જેથી ખબર પડે કે લોક છે */
+  pointer-events: none; 
+  opacity: 0.55; 
   filter: grayscale(30%);
 }
 
-/* ✨ HIGHLIGHT GLOW ANIMATION (15 સેકન્ડ પછી એક્ટિવ થવા માટે) */
 .song-box.highlight {
   animation: boxPulseGlow 1.5s infinite ease-in-out;
-  pointer-events: auto; /* ટચ ઓપન કરશે */
+  pointer-events: auto; 
   opacity: 1;
   filter: grayscale(0%);
   border: 1px solid rgba(255, 255, 255, 0.6);
@@ -277,7 +275,7 @@ body{
       </div>
       <div class="play-btn" id="icon1">▶</div>
     </div>
-    <audio id="audio1" src="karan.mp3"></audio>
+    <audio id="audio1" src="song1.mp3"></audio>
   </div>
 
   <div class="song-box locked" id="box2" onclick="toggleSong(2)">
@@ -289,7 +287,7 @@ body{
       </div>
       <div class="play-btn" id="icon2">▶</div>
     </div>
-    <audio id="audio2" src="karan.mp3"></audio>
+    <audio id="audio2" src="song2.mp3"></audio>
   </div>
 
   <div class="song-box locked" id="box3" onclick="toggleSong(3)">
@@ -333,7 +331,6 @@ And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
 
-// ટાઈમર ટ્રેક કરવા માટે
 let timerStarted = false;
 let boxUnlocked = [false, false, false, false, false]; 
 
@@ -345,7 +342,6 @@ function flipCard(card){
 
   if(card.classList.contains("flip")){
     
-    // મેસેજ ટાઈપિંગ એનિમેશન
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
@@ -359,19 +355,18 @@ function flipCard(card){
 
     confettiBlast(card);
 
-    // ✨ 15 સેકન્ડ પછી પહેલું બોક્સ ગ્લો થશે 
     if(!timerStarted) {
       timerStarted = true;
+      // ✨ બદલાવેલો ટાઈમ: ૧૫૦૦૦ (15s) થી ૧૦૦૦૦ (10s)
       setTimeout(() => {
         unlockBox(1);
-      }, 15000); // 15000ms = 15 seconds
+      }, 10000); 
     }
   }
 }
 
-// બોક્સ અનલોક કરવાનું ફંક્શન
 function unlockBox(num) {
-  if(num > 4 || boxUnlocked[num]) return; // જો 4 થી વધુ હોય યા પહેલેથી અનલોક હોય તો રિટર્ન
+  if(num > 4 || boxUnlocked[num]) return; 
   boxUnlocked[num] = true;
   let box = document.getElementById("box" + num);
   box.classList.remove("locked");
@@ -407,7 +402,6 @@ function toggleSong(songNum) {
   let icon = document.getElementById("icon" + songNum);
   let box = document.getElementById("box" + songNum);
 
-  // ક્લિક કર્યા પછી ગ્લો/પલ્સ ઇફેક્ટ બંધ કરવા
   box.classList.remove("highlight");
 
   if (currentAudio === audio) {
@@ -435,11 +429,9 @@ function toggleSong(songNum) {
     icon.innerHTML = "▶";
   };
 
-  // ✨ ઓડિયો પ્લે થતો હોય ત્યારે સતત ટાઈમ ચેક કરશે
   audio.ontimeupdate = function() {
-    // જો ગીત પૂરું થવામાં 2 સેકન્ડ કે તેથી ઓછો સમય બાકી હોય તો...
     if (audio.duration > 0 && (audio.duration - audio.currentTime <= 2.0)) {
-      unlockBox(songNum + 1); // નેક્સ્ટ બોક્સ અનલોક થશે
+      unlockBox(songNum + 1); 
     }
   };
 }
