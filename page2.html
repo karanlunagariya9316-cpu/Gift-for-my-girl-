@@ -31,7 +31,7 @@ body{
   text-shadow:0 0 10px rgba(255,255,255,0.4);  
 }  
 
-/* 🧸 TEDDY */
+/* TEDDY */
 .teddy{
   display:block;
   margin:0 auto 10px;
@@ -46,7 +46,7 @@ body{
   align-items:center;
   justify-content:center;
 }
-  
+
 @keyframes float{
   0%,100%{ transform:translateY(0); }
   50%{ transform:translateY(-8px); }
@@ -64,7 +64,7 @@ body{
   to{opacity:1; transform:translateX(0);}  
 }  
 
-/* CAKE */ 
+/* CAKE */  
 .cake{
   position:relative;
   width:260px;
@@ -125,7 +125,6 @@ body{
   height:35px;  
   background:white;  
   border-radius:4px;  
-  position:relative;  
 }  
 
 .flame{  
@@ -140,18 +139,13 @@ body{
 }  
 
 @keyframes flicker{  
-  0%{transform:scale(1);}  
   100%{transform:scale(1.2);}  
 }  
 
-@keyframes fadeIn{
-  from{opacity:0; transform: translateY(20px) scale(0.8);}
-  to{opacity:1; transform: translateY(0) scale(1);}
-}
-  
 .cut .left{ transform:translateX(-30px) rotate(-10deg); }  
 .cut .right{ transform:translateX(30px) rotate(10deg); }  
 
+/* EMOJI BLAST */
 .confetti{  
   position:fixed;  
   font-size:34px;  
@@ -159,7 +153,6 @@ body{
 }  
 
 @keyframes blast{  
-  from{transform:translate(0,0); opacity:1;}  
   to{transform:translate(var(--x),var(--y)); opacity:0;}  
 }  
 
@@ -173,10 +166,7 @@ body{
   height:70px;
   border-radius:50%;
   border:2px solid rgba(255,255,255,0.7);
-  box-shadow:0 0 20px rgba(255,255,255,0.4);
-  backdrop-filter: blur(4px);
   animation: pulse 1.5s infinite;
-  z-index:10;
 }
 
 .tap-hint::after{
@@ -192,9 +182,7 @@ body{
 }
 
 @keyframes pulse{
-  0%{ transform:translate(-50%,-50%) scale(1); opacity:1;}
   70%{ transform:translate(-50%,-50%) scale(1.4); opacity:0.4;}
-  100%{ transform:translate(-50%,-50%) scale(1); opacity:1;}
 }
 
 /* BUTTON */
@@ -212,12 +200,17 @@ body{
   box-shadow:0 10px 20px rgba(0,0,0,0.3);
   opacity:0;
   cursor:pointer;
-  transition: all 0.6s ease;
+  transition: all 0.4s ease;
 }
 
 .surprise-btn.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
+}
+
+.surprise-btn:active{
+  transform:translateX(-50%) scale(0.95);
+  box-shadow:0 5px 10px rgba(0,0,0,0.4);
 }
 
 </style>  
@@ -229,45 +222,28 @@ body{
 <div id="text" class="text"></div>  
 
 <div class="cake" onclick="cutCake()">  
-
   <div class="candles">  
     <div class="candle"><div class="flame"></div></div>  
     <div class="candle"><div class="flame"></div></div>  
     <div class="candle"><div class="flame"></div></div>  
   </div>  
-
   <div class="tap-hint" id="tapHint"></div>
-
   <div class="cake-part left"><div class="cream"></div></div>  
   <div class="cake-part right"><div class="cream"></div></div>  
-
 </div>  
 
 <audio id="song" src="karan.mp3"></audio>  
-
-<!-- ✅ ONLY CHANGE -->
-<button id="surpriseBtn" class="surprise-btn" onclick="goToPage3()">
-  Ready To Surprise 🎁
-</button>
+<button id="surpriseBtn" class="surprise-btn" onclick="handleSurprise()">Ready To Surprise 🎁</button>
 
 <script>  
 
 let cutDone = false;  
 
-function goToPage3(){
-  window.location.href = "page3.html";
-}
-
 function showWishText(){  
   let box = document.getElementById("text");  
-  box.innerHTML = "";  
-
   let parts = ["Make ","a ","wish ","✨💫"];
-
   parts.forEach((word,index)=>{
     let span = document.createElement("span");
-    span.style.margin = "0 6px";
-
     [...word].forEach((ch,i)=>{
       let s = document.createElement("span");
       s.className="letter";
@@ -275,110 +251,79 @@ function showWishText(){
       s.textContent=ch;
       span.appendChild(s);
     });
-
     box.appendChild(span);
   });
 }
 
-function showSplitText(){  
-  let box=document.getElementById("text");  
-  box.innerHTML="";  
+showWishText();
 
-  let teddyBox = document.getElementById("teddyBox");
-  teddyBox.innerHTML = "";
-
-  let img = document.createElement("img");
-  img.src = "1000269952-removebg-preview.png";
-  img.className = "teddy";
-
-  teddyBox.appendChild(img);
-
-  let parts=["Happyy ","Birthday ","Dhrutiii...🥳💫💝💋❤️💖💗💞🫂"];  
-
-  parts.forEach((word,index)=>{  
-    let span=document.createElement("span");  
-    span.style.margin="0 5px";  
-
-    [...word].forEach((ch,i)=>{  
-      let s=document.createElement("span");  
-      s.className="letter";  
-      s.style.animationDelay=(i*0.05 + index*0.6)+"s";  
-      s.textContent=ch;  
-      span.appendChild(s);  
-    });  
-
-    box.appendChild(span);  
-  });  
-}  
-
-showWishText();  
-
-function blastEffect(){  
-  for(let i=0;i<40;i++){  
-    let c=document.createElement("div");  
-    c.className="confetti";  
-
-    let x=(Math.random()-0.5)*800+"px";  
-    let y=(Math.random()-0.5)*800+"px";  
-
-    c.style.setProperty('--x',x);  
-    c.style.setProperty('--y',y);  
-
-    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];  
-    c.textContent=items[Math.floor(Math.random()*items.length)];  
-
-    c.style.left="50%";  
-    c.style.top="50%";  
-
-    document.body.appendChild(c);  
-    setTimeout(()=>c.remove(),1400);  
-  }  
-}  
-
+/* 🎂 CAKE CUT */
 function cutCake(){  
 
   if(cutDone) return;  
   cutDone=true;  
 
-  document.getElementById("tapHint").style.display = "none";
+  document.getElementById("tapHint").style.display="none";
 
   let cake=document.querySelector(".cake");  
-  let candles=document.querySelector(".candles");  
-
-  let song = document.getElementById("song");
   let btn = document.getElementById("surpriseBtn");
 
-  song.play();
-
-  function showButton(){
-    let showTime = (song.duration - 3) * 1000;
-    setTimeout(()=>{ btn.classList.add("show"); }, showTime);
+  // 🔥 emoji blast (OLD ONE BACK)
+  for(let i=0;i<40;i++){  
+    let c=document.createElement("div");  
+    c.className="confetti";  
+    let x=(Math.random()-0.5)*800+"px";  
+    let y=(Math.random()-0.5)*800+"px";  
+    c.style.setProperty('--x',x);  
+    c.style.setProperty('--y',y);  
+    let items=["💖","✨","🥳","🎉","💗","💞","💘","💝"];  
+    c.textContent=items[Math.floor(Math.random()*items.length)];  
+    c.style.left="50%";  
+    c.style.top="50%";  
+    document.body.appendChild(c);  
+    setTimeout(()=>c.remove(),1400);  
   }
-
-  if(song.readyState > 0){
-    showButton();
-  }else{
-    song.addEventListener("loadedmetadata", showButton);
-  }
-
-  document.querySelectorAll(".flame").forEach(f=>{  
-    f.style.opacity="0";  
-  });  
-
-  setTimeout(()=>{ candles.style.opacity="0"; },300);  
-
-  blastEffect();  
-  setTimeout(blastEffect,200);  
-  setTimeout(blastEffect,400);  
-  setTimeout(blastEffect,600);  
-  setTimeout(blastEffect,800);  
-  setTimeout(blastEffect,1000);  
-  setTimeout(blastEffect,1200);  
-  setTimeout(blastEffect,1400);  
 
   setTimeout(()=>{ cake.classList.add("cut"); },200);  
-  setTimeout(()=>{ showSplitText(); },300);  
-}  
+
+  setTimeout(()=>{ btn.classList.add("show"); },2000);
+}
+
+/* 🎁 BUTTON CONFETTI */
+function handleSurprise(){
+
+  let btn = document.getElementById("surpriseBtn");
+  let rect = btn.getBoundingClientRect();
+
+  for(let i=0;i<60;i++){
+    let c=document.createElement("div");
+    c.style.position="fixed";
+    c.style.width="6px";
+    c.style.height="12px";
+    c.style.background=["#ff4d7a","#ffd700","#00e6e6","#ff66cc","#ff9933"][Math.floor(Math.random()*5)];
+    c.style.left = rect.left + rect.width/2 + "px";
+    c.style.top = rect.top + "px";
+    c.style.borderRadius="2px";
+
+    let angle = (Math.random()*Math.PI) - Math.PI/2;
+    let distance = Math.random()*400 + 200;
+
+    let x = Math.cos(angle)*distance;
+    let y = -Math.abs(Math.sin(angle)*distance);
+
+    c.animate([
+      {transform:'translate(0,0)', opacity:1},
+      {transform:`translate(${x}px,${y}px)`, opacity:0}
+    ],{duration:1200,easing:"ease-out"});
+
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1200);
+  }
+
+  setTimeout(()=>{
+    window.location.href="page3.html";
+  },2000);
+}
 
 </script>  
 
