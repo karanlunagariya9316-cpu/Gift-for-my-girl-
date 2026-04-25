@@ -120,29 +120,32 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 MINI SPOTIFY PLAYER AREA */
+/* 🎵 SQUARE MINI PLAYERS AREA */
 .song-area{
   display:flex;
   justify-content:center; 
   align-items:center;
-  gap:15px; /* બોક્સ વચ્ચેની જગ્યા */
+  gap:15px; /* બંને બોક્સ વચ્ચેની જગ્યા */
   width:100%;
-  margin-top:40px; 
+  max-width: 330px; /* સ્ક્રીનની બહાર ન જાય તે માટે */
+  margin-top:30px; 
 }
 
-/* SPOTIFY BOX DESIGN */
+/* 🟥 SQUARE BOX DESIGN */
 .song-box{
-  width:145px;
-  height:55px;
-  background:rgba(0, 0, 0, 0.4); /* થોડો ડાર્ક કલર Spotify ફીલ માટે */
-  border-radius:12px;
-  backdrop-filter:blur(5px);
+  width: 140px; /* બોક્સની પહોળાઈ */
+  height: 140px; /* બોક્સની લંબાઈ (ચોરસ આકાર માટે) */
+  background:rgba(0, 0, 0, 0.35); 
+  border-radius:18px;
+  backdrop-filter:blur(8px);
   display: flex;
-  align-items: center;
-  padding: 6px;
+  flex-direction: column;
+  align-items: center; /* ફોટાને વચ્ચે રાખવા */
+  justify-content: space-between; 
+  padding: 12px;
   box-sizing: border-box;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   transition: transform 0.2s;
 }
 
@@ -150,45 +153,53 @@ body{
   transform: scale(0.95);
 }
 
-/* TEDDY IMAGE (ALBUM ART) */
+/* 🖼️ TEDDY IMAGE CENTERED */
 .teddy-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px; /* ચોરસ જેવો શેપ */
+  width: 70px;
+  height: 70px;
+  border-radius: 12px; 
   object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin-top: 2px;
 }
 
-/* TEXT AREA */
+/* 📝 TEXT AND BUTTON AREA (BELOW PHOTO) */
+.song-controls {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between; /* નામ ડાબી બાજુ, બટન જમણી બાજુ */
+  margin-top: 5px;
+}
+
 .song-info {
-  margin-left: 8px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   text-align: left;
 }
 
 .song-title {
-  font-size: 11px;
+  font-size: 12px;
   color: white;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 55px;
+  max-width: 80px; 
 }
 
 .song-artist {
-  font-size: 8px;
-  color: #b3b3b3; /* Spotify ગ્રે કલર */
+  font-size: 9px;
+  color: #d1d1d1;
 }
 
-/* PLAY BUTTON */
+/* ▶️ PLAY BUTTON */
 .play-btn {
   color: white;
-  font-size: 16px;
-  margin-right: 5px;
-  width: 20px;
-  text-align: center;
+  font-size: 20px; /* બટન થોડું મોટું કર્યું */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 🎉 CONFETTI PARTY BLAST STYLES */
@@ -232,22 +243,26 @@ body{
 <div class="song-area">
   
   <div class="song-box" onclick="toggleSong(1)">
-    <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
-    <div class="song-info">
-      <span class="song-title">Song 1</span>
-      <span class="song-artist">For Dhruti</span>
+    <img src="627f083b4a4ad03654f45135230ed0b9.jpg" class="teddy-img">
+    <div class="song-controls">
+      <div class="song-info">
+        <span class="song-title">Song 1</span>
+        <span class="song-artist">For Dhruti</span>
+      </div>
+      <div class="play-btn" id="icon1">▶</div>
     </div>
-    <div class="play-btn" id="icon1">▶</div>
     <audio id="audio1" src="karan.mp3"></audio>
   </div>
 
   <div class="song-box" onclick="toggleSong(2)">
-    <img src="627f083b4a4ad03654f45135230ed0 b9.jpg" class="teddy-img">
-    <div class="song-info">
-      <span class="song-title">Song 2</span>
-      <span class="song-artist">From Karan</span>
+    <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
+    <div class="song-controls">
+      <div class="song-info">
+        <span class="song-title">Song 2</span>
+        <span class="song-artist">From Karan</span>
+      </div>
+      <div class="play-btn" id="icon2">▶</div>
     </div>
-    <div class="play-btn" id="icon2">▶</div>
     <audio id="audio2" src="karan.mp3"></audio>
   </div>
 
@@ -333,7 +348,6 @@ function toggleSong(songNum) {
   let audio = document.getElementById("audio" + songNum);
   let icon = document.getElementById("icon" + songNum);
 
-  // જો પહેલેથી જ પ્લે થતું ગીત ફરીથી દબાવે
   if (currentAudio === audio) {
     if (audio.paused) {
       audio.play();
@@ -345,19 +359,16 @@ function toggleSong(songNum) {
     return;
   }
 
-  // જો બીજું કોઈ ગીત વાગતું હોય તો તેને બંધ કરો
   if (currentAudio) {
     currentAudio.pause();
     currentIcon.innerHTML = "▶";
   }
 
-  // નવું ગીત પ્લે કરો
   audio.play();
   icon.innerHTML = "⏸";
   currentAudio = audio;
   currentIcon = icon;
 
-  // ગીત પૂરું થાય ત્યારે પાછો Play આઈકન આવી જાય
   audio.onended = function() {
     icon.innerHTML = "▶";
   };
