@@ -156,10 +156,13 @@ body{
 <script>
 
 /* ❤️ 👉 AHIA TAMARO MESSAGE CHANGE KARO 👇 */
-let text = `💖 Happy Birthday My Love 💖
-
-Tu mara life no best part che... 💕
-Forever with you 💘`;
+let textLines = [
+  "💖 Happy Birthday My Love 💖",
+  "Tu mara mate khub special che 💕",
+  "Tari sathe hoy to badhu perfect lage che",
+  "Tu mari life ni best feeling che",
+  "Forever with you 💘"
+];
 
 /* FLIP */
 function flipCard(card){
@@ -172,19 +175,33 @@ function flipCard(card){
 
 /* ✍️ TYPING EFFECT */
 function typeText(){
-  let i = 0;
-  let speed = 40;
   let msgBox = document.getElementById("message");
   msgBox.innerHTML = "";
 
-  function typing(){
-    if(i < text.length){
-      msgBox.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
+  let lineIndex = 0;
+  let charIndex = 0;
+  let speed = 40;
+
+  function typeLine(){
+    if(lineIndex < textLines.length){
+
+      let line = textLines[lineIndex];
+
+      if(charIndex < line.length){
+        msgBox.innerHTML += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, speed);
+      }else{
+        msgBox.innerHTML += "<br><br>";  // 🔥 line break
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeLine, 300);
+      }
+
     }
   }
-  typing();
+
+  typeLine();
 }
 
 </script>
