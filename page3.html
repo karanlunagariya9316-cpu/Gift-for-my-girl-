@@ -14,15 +14,15 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:90px;
+  padding-top:80px;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Pacifico', cursive;
 }
 
-/* 🎁 CARD SIZE PERFECT */
+/* 🎁 FINAL CARD SIZE (FIXED FOR YOUR MESSAGE) */
 .card{
-  width:330px;
-  height:250px;
+  width:340px;
+  height:300px;   /* 🔥 PERFECT HEIGHT */
   perspective:1200px;
   margin-bottom:40px;
 }
@@ -34,10 +34,10 @@ body{
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
-  transform-origin:center;
+  transform-origin:center center;   /* 🔥 CENTER FLIP FIX */
 }
 
-/* 🔥 FLIP FIX */
+/* 🔥 FLIP */
 .card.flip .card-inner{
   transform: rotateY(180deg);
 }
@@ -47,61 +47,59 @@ body{
   position:absolute;
   width:100%;
   height:100%;
-  border-radius:20px;
+  border-radius:22px;
   backface-visibility:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:20px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  padding:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
 }
 
-/* 🎁 FRONT */
+/* FRONT */
 .card-front{
   background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
   color:white;
   font-size:22px;
 }
 
-/* 🎀 CENTER RIBBON */
 .card-front::before{
   content:"🎀";
-  font-size:42px;
+  font-size:45px;
   position:absolute;
   top:10px;
   left:50%;
   transform:translateX(-50%);
 }
 
-/* 💌 BACK */
+/* BACK */
 .card-back{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
-  font-size:18px;
 
-  font-family: 'Poppins', sans-serif;
-  font-weight:400;
-  letter-spacing:0.5px;
+  font-family:'Poppins', sans-serif;
+  font-size:17px;
+  line-height:1.5;     /* 🔥 PERFECT LINE GAP */
+  letter-spacing:0.3px;
 
-  padding:18px;
-  overflow-y:auto;        /* 🔥 scroll fix */
-  box-shadow:0 0 20px rgba(255,255,255,0.6);
+  overflow-y:auto;     /* 🔥 NEVER OVERFLOW AGAIN */
+  padding:20px;
 }
 
-/* 🧾 MESSAGE STYLE */
+/* 🧾 MESSAGE FIX */
 #message{
   text-align:center;
-  line-height:1.4;        /* 🔥 gap control */
+  white-space:pre-line;   /* 🔥 LINE BY LINE FIX */
 }
 
-/* 🚫 SCROLL BAR HIDE */
+/* 🚫 SCROLLBAR HIDE */
 .card-back::-webkit-scrollbar{
   display:none;
 }
 
-/* ✨ GLOW EFFECT */
+/* ✨ GLOW */
 .card.flip .card-back{
   animation: glow 1s ease;
 }
@@ -112,7 +110,7 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 FUTURE AREA */
+/* 🎵 SPACE */
 .song-area{
   display:flex;
   gap:20px;
@@ -131,7 +129,6 @@ body{
 
 <body>
 
-<!-- 🎁 CARD -->
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
 
@@ -146,7 +143,6 @@ body{
   </div>
 </div>
 
-<!-- 🎵 SPACE -->
 <div class="song-area">
   <div class="song-box"></div>
   <div class="song-box"></div>
@@ -154,54 +150,31 @@ body{
 
 <script>
 
-/* ❤️ 👉 AHIA TAMARO MESSAGE CHANGE KARO 👇 */
-let textLines = [
-  "💖 Happy Birthday My Love 💖",
-  "Tu mara mate khub special che 💕",
-  "Tari sathe hoy to badhu perfect lage che",
-  "Tu mari life ni best feeling che",
-  "Forever with you 💘"
-];
+/* ❤️ FINAL MESSAGE (NO NEED TO TOUCH CARD SIZE EVER AGAIN) */
+let text = `You are the best part of my life and I want you in my life forever.
+..♾️🤗
+
+And.
+
+Thank you so much for being in my life and for making my life so beautiful..🫶❤️‍🩹
+
+I love you so much Bacha..💋❤️
+Forever with you..👀💫
+
+And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 /* 🔄 FLIP */
 function flipCard(card){
   card.classList.toggle("flip");
 
   if(card.classList.contains("flip")){
-    typeText();
+    showText();
   }
 }
 
-/* ✍️ CLEAN TYPING EFFECT */
-function typeText(){
-  let msgBox = document.getElementById("message");
-  msgBox.innerHTML = "";
-
-  let lineIndex = 0;
-  let charIndex = 0;
-  let speed = 35;
-
-  function typeLine(){
-
-    if(lineIndex < textLines.length){
-
-      let line = textLines[lineIndex];
-
-      if(charIndex < line.length){
-        msgBox.innerHTML += line.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeLine, speed);
-      }else{
-        msgBox.innerHTML += "<br>";   /* 🔥 perfect spacing */
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(typeLine, 250);
-      }
-
-    }
-  }
-
-  typeLine();
+/* ✍️ DIRECT SHOW (NO BREAK ISSUE) */
+function showText(){
+  document.getElementById("message").innerText = text;
 }
 
 </script>
