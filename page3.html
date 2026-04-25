@@ -103,9 +103,9 @@ body{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
-  font-size:15px;
+  font-size:14px; /* મેસેજ થોડો લાંબો છે એટલે સાઈઝ થોડી એડજસ્ટ કરી છે */
   line-height:1.4;
-  padding:18px;
+  padding:15px;
   display:flex;
   flex-direction:column; 
 }
@@ -163,29 +163,23 @@ body{
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
+  opacity: 0.7; /* નોર્મલ સ્થિતિમાં થોડા ઝાંખા */
 }
 
 .song-box:active {
   transform: scale(0.95);
 }
 
-.song-box.locked {
-  pointer-events: none; 
-  opacity: 0.55; 
-  filter: grayscale(30%);
-}
-
+/* ✨ ACTIVE PLAYING GLOW ANIMATION */
 .song-box.highlight {
-  animation: boxPulseGlow 1.5s infinite ease-in-out;
-  pointer-events: auto; 
+  animation: boxPulseGlow 2s infinite ease-in-out;
   opacity: 1;
-  filter: grayscale(0%);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 @keyframes boxPulseGlow {
   0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 77, 122, 0.8); }
+  50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 77, 122, 0.6); }
 }
 
 .teddy-img {
@@ -266,7 +260,7 @@ body{
 
 <div class="song-area">
   
-  <div class="song-box locked" id="box1" onclick="toggleSong(1)">
+  <div class="song-box" id="box1" onclick="toggleSong(1)">
     <img src="627f083b4a4ad03654f45135230ed0b9.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -278,7 +272,7 @@ body{
     <audio id="audio1" src="song1.mp3"></audio>
   </div>
 
-  <div class="song-box locked" id="box2" onclick="toggleSong(2)">
+  <div class="song-box" id="box2" onclick="toggleSong(2)">
     <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -290,7 +284,7 @@ body{
     <audio id="audio2" src="song2.mp3"></audio>
   </div>
 
-  <div class="song-box locked" id="box3" onclick="toggleSong(3)">
+  <div class="song-box" id="box3" onclick="toggleSong(3)">
     <img src="6fd54a10dbcb7173e77320e2e5bf4f60.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -302,7 +296,7 @@ body{
     <audio id="audio3" src="karan.mp3"></audio>
   </div>
 
-  <div class="song-box locked" id="box4" onclick="toggleSong(4)">
+  <div class="song-box" id="box4" onclick="toggleSong(4)">
     <img src="7e6091b9b3a45b0ab5bfead9d3b8be17.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -317,24 +311,31 @@ body{
 </div>
 
 <script>
-let rawText = `You are the best part of my life and I want you in my life forever.
-..♾️🤗
+// ✨ નવો રોમેન્ટિક મેસેજ
+let rawText = `Hyeee dhrutii...
 
-And.
+These are special lines for your special day bachha..💝
+
+You are the best part of my life and I want you in my life forever.
+..♾️🤗 
+
+And And And...
 
 Thank you so much for being in my life and for making my life so beautiful..🫶❤️‍🩹
 
-I love you so much Bacha..💋❤️
+I love you...
+I love you so much...
+I love you so so much Bacha..💋❤️
 Forever with you..👀💫
 
 And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
-
-let timerStarted = false;
-let boxUnlocked = [false, false, false, false, false]; 
+let isFlipped = false;
 
 function flipCard(card){
+  if(isFlipped) return; // એક વાર ઓપન થયા પછી બીજી વાર ક્લિક રોકવા
+  isFlipped = true;
   card.classList.toggle("flip");
   
   let msgDiv = document.getElementById("message");
@@ -342,35 +343,23 @@ function flipCard(card){
 
   if(card.classList.contains("flip")){
     
+    // મેસેજ ટાઈપિંગ એનિમેશન
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
         div.className = "msg-line";
-        if(line.trim() === ""){ div.style.height = "12px"; } 
+        if(line.trim() === ""){ div.style.height = "10px"; } 
         else { div.innerText = line.trim(); }
-        div.style.animationDelay = (i * 0.25) + "s"; 
+        div.style.animationDelay = (i * 0.3) + "s"; 
         msgDiv.appendChild(div);
       });
     }, 400); 
 
     confettiBlast(card);
 
-    if(!timerStarted) {
-      timerStarted = true;
-      // ✨ બદલાવેલો ટાઈમ: ૧૫૦૦૦ (15s) થી ૧૦૦૦૦ (10s)
-      setTimeout(() => {
-        unlockBox(1);
-      }, 10000); 
-    }
+    // ✨ કાર્ડ ફ્લિપ થતા જ ઓટોમેટિક પહેલું સોંગ વાગવાનું શરૂ થશે
+    playSong(1);
   }
-}
-
-function unlockBox(num) {
-  if(num > 4 || boxUnlocked[num]) return; 
-  boxUnlocked[num] = true;
-  let box = document.getElementById("box" + num);
-  box.classList.remove("locked");
-  box.classList.add("highlight");
 }
 
 function confettiBlast(cardEl) {
@@ -394,46 +383,51 @@ function confettiBlast(cardEl) {
   }
 }
 
-let currentAudio = null;
-let currentIcon = null;
+// 🎵 નવું ઓટો પ્લેયર લોજિક
+function playSong(num) {
+  if (num > 4) return; // ચારેય ગીત પૂરા થાય તો અટકી જશે
 
-function toggleSong(songNum) {
-  let audio = document.getElementById("audio" + songNum);
-  let icon = document.getElementById("icon" + songNum);
-  let box = document.getElementById("box" + songNum);
-
-  box.classList.remove("highlight");
-
-  if (currentAudio === audio) {
-    if (audio.paused) {
-      audio.play();
-      icon.innerHTML = "⏸";
-    } else {
-      audio.pause();
-      icon.innerHTML = "▶";
-    }
-    return;
+  // પહેલા બધા ગીતો સ્ટોપ કરો અને ગ્લો હટાવો
+  for(let i = 1; i <= 4; i++) {
+    let a = document.getElementById("audio" + i);
+    let ic = document.getElementById("icon" + i);
+    let bx = document.getElementById("box" + i);
+    a.pause();
+    a.currentTime = 0; // શરૂઆતથી ચાલુ કરવા
+    ic.innerHTML = "▶";
+    bx.classList.remove("highlight");
   }
 
-  if (currentAudio) {
-    currentAudio.pause();
-    currentIcon.innerHTML = "▶";
-  }
+  // જે ગીત પ્લે કરવાનું છે તેનું સેટિંગ
+  let audio = document.getElementById("audio" + num);
+  let icon = document.getElementById("icon" + num);
+  let box = document.getElementById("box" + num);
 
   audio.play();
   icon.innerHTML = "⏸";
-  currentAudio = audio;
-  currentIcon = icon;
+  box.classList.add("highlight"); // ગ્લો ઇફેક્ટ ચાલુ
 
+  // જ્યારે ગીત પૂરું થાય ત્યારે ઓટોમેટિક નેક્સ્ટ ગીત ચાલુ થશે!
   audio.onended = function() {
     icon.innerHTML = "▶";
+    box.classList.remove("highlight");
+    playSong(num + 1); 
   };
+}
 
-  audio.ontimeupdate = function() {
-    if (audio.duration > 0 && (audio.duration - audio.currentTime <= 2.0)) {
-      unlockBox(songNum + 1); 
-    }
-  };
+// જો યુઝર મેન્યુઅલ કોઈ બોક્સ પર ક્લિક કરે તો
+function toggleSong(songNum) {
+  let audio = document.getElementById("audio" + songNum);
+  
+  if (!audio.paused) {
+    // જો ચાલી રહ્યું છે અને ક્લિક કરે તો પોઝ (pause) થાય
+    audio.pause();
+    document.getElementById("icon" + songNum).innerHTML = "▶";
+    document.getElementById("box" + songNum).classList.remove("highlight");
+  } else {
+    // બીજા ગીત પર ક્લિક કરે તો નવેસરથી પ્લે થાય
+    playSong(songNum);
+  }
 }
 </script>
 
