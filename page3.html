@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -42,7 +42,7 @@ body{
   transform: rotateY(180deg);
 }
 
-/* 🎴 FRONT & BACK */
+/* 🎴 FRONT & BACK BASE */
 .card-front, .card-back{
   position:absolute;
   top:0;  
@@ -61,11 +61,22 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* FRONT */
+/* ✨ ATTRACTIVE FRONT DESIGN */
 .card-front{
-  background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
+  /* મૂવિંગ ગ્રેડિયન્ટ કલર */
+  background:linear-gradient(135deg, #ff4d7a, #ff9a9e, #ff7fa5);
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease infinite alternate;
   color:white;
   font-size:22px;
+  /* અંદરની સાઈડ પ્રીમિયમ બોર્ડર */
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,0.35), 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* ગ્રેડિયન્ટ મૂવિંગ એનિમેશન */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .card-front::before{
@@ -75,6 +86,22 @@ body{
   top:10px;
   left:50%;
   transform:translateX(-50%);
+}
+
+/* ફ્રન્ટ ટેક્સ્ટ પલ્સ (Pulse) એનિમેશન */
+.front-text-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: pulseText 1.5s infinite ease-in-out;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  font-weight: 500;
+}
+
+@keyframes pulseText {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); } /* થોડું મોટું થશે */
 }
 
 /* BACK */
@@ -103,10 +130,7 @@ body{
 }
 
 @keyframes slideInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 /* ✨ GLOW */
@@ -120,29 +144,29 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 SQUARE MINI PLAYERS AREA */
+/* 🎵 SQUARE MINI PLAYERS AREA (LARGER) */
 .song-area{
   display:flex;
   justify-content:center; 
   align-items:center;
-  gap:15px; /* બંને બોક્સ વચ્ચેની જગ્યા */
+  gap:18px; /* ગેપ થોડો વધાર્યો */
   width:100%;
-  max-width: 330px; /* સ્ક્રીનની બહાર ન જાય તે માટે */
-  margin-top:30px; 
+  max-width: 350px; 
+  margin-top:35px; 
 }
 
-/* 🟥 SQUARE BOX DESIGN */
+/* 🟥 SQUARE BOX DESIGN (LARGER) */
 .song-box{
-  width: 140px; /* બોક્સની પહોળાઈ */
-  height: 140px; /* બોક્સની લંબાઈ (ચોરસ આકાર માટે) */
+  width: 155px; /* સાઈઝ વધારી (140 -> 155) */
+  height: 155px; /* સાઈઝ વધારી (140 -> 155) */
   background:rgba(0, 0, 0, 0.35); 
-  border-radius:18px;
+  border-radius:20px;
   backdrop-filter:blur(8px);
   display: flex;
   flex-direction: column;
-  align-items: center; /* ફોટાને વચ્ચે રાખવા */
+  align-items: center; 
   justify-content: space-between; 
-  padding: 12px;
+  padding: 15px; /* પેડિંગ વધાર્યું */
   box-sizing: border-box;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
@@ -153,23 +177,23 @@ body{
   transform: scale(0.95);
 }
 
-/* 🖼️ TEDDY IMAGE CENTERED */
+/* 🖼️ TEDDY IMAGE CENTERED (LARGER) */
 .teddy-img {
-  width: 70px;
-  height: 70px;
-  border-radius: 12px; 
+  width: 85px;  /* ફોટો મોટો કર્યો (70 -> 85) */
+  height: 85px; 
+  border-radius: 14px; 
   object-fit: cover;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   margin-top: 2px;
 }
 
-/* 📝 TEXT AND BUTTON AREA (BELOW PHOTO) */
+/* 📝 TEXT AND BUTTON AREA */
 .song-controls {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between; /* નામ ડાબી બાજુ, બટન જમણી બાજુ */
-  margin-top: 5px;
+  justify-content: space-between; 
+  margin-top: 8px;
 }
 
 .song-info {
@@ -179,24 +203,24 @@ body{
 }
 
 .song-title {
-  font-size: 12px;
+  font-size: 13px; /* ફોન્ટ સાઈઝ વધારી */
   color: white;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80px; 
+  max-width: 85px; 
 }
 
 .song-artist {
-  font-size: 9px;
+  font-size: 10px; /* ફોન્ટ સાઈઝ વધારી */
   color: #d1d1d1;
 }
 
-/* ▶️ PLAY BUTTON */
+/* ▶️ PLAY BUTTON (LARGER) */
 .play-btn {
   color: white;
-  font-size: 20px; /* બટન થોડું મોટું કર્યું */
+  font-size: 24px; /* આઈકન મોટો કર્યો */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,14 +236,8 @@ body{
 }
 
 @keyframes confettiBlast {
-  0% {
-    transform: translate(0, 0) scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--x), var(--y)) scale(1.5);
-    opacity: 0;
-  }
+  0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
 }
 </style>
 </head>
@@ -230,7 +248,9 @@ body{
   <div class="card-inner">
 
     <div class="card-front">
-      Tap to Open Surprise 🎁
+      <div class="front-text-box">
+        Tap to Open Surprise <br> 🎁
+      </div>
     </div>
 
     <div class="card-back">
