@@ -3,137 +3,196 @@
 <head>
   <title>For You ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: Arial;
+      font-family: 'Poppins', sans-serif;
       text-align: center;
       color: white;
-      background: linear-gradient(to right, #ff9a9e, #8e2de2);
+      /* રોમેન્ટિક ડ્યુઅલ ગ્રેડિયન્ટ બેકગ્રાઉન્ડ */
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 40%, #c084fc 100%);
       overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 40px;
     }
 
     .container {
       padding-top: 5vh;
     }
 
-    /* 🔥 NEW HEADER DESIGN */
+    /* 🔥 PREMIUM HEADER DESIGN */
     .header-box {
-      width: 85%;
+      width: 88%;
       margin: auto;
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #ff9a9e, #c084fc);
-      backdrop-filter: blur(10px);
-      box-shadow: 
-        0 0 20px rgba(255, 154, 158, 0.5),
-        0 0 30px rgba(192, 132, 252, 0.4);
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: 0.3s;
+      padding: 25px 15px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transition: transform 0.3s ease;
     }
 
     .header-box:hover {
-      transform: scale(1.03);
+      transform: translateY(-5px);
     }
 
     .header-box h1 {
-      font-size: 32px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.6);
+      font-size: 28px;
+      margin: 0;
+      font-weight: 600;
+      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+      min-height: 42px; /* ટાઇપિંગ વખતે બોક્સ હલે નહીં તે માટે */
     }
 
     .header-box h2 {
-      margin-top: 5px;
+      margin-top: 10px;
       font-size: 22px;
-      opacity: 0.9;
+      font-weight: 500;
+      color: #fff0f5;
     }
 
     .header-box p {
       margin-top: 8px;
-      font-size: 16px;
-      opacity: 0.85;
+      font-size: 15px;
+      opacity: 0.9;
+      font-weight: 300;
     }
 
-    .button {
-      display: none;
-      margin: 20px auto;
-      padding: 12px 25px;
-      border-radius: 25px;
-      border: none;
-      font-size: 16px;
-      background: white;
-      color: purple;
-      font-weight: bold;
-      cursor: pointer;
+    /* 💬 QUOTE BOX */
+    .quote-container {
+      margin-top: 25px;
+      min-height: 50px;
     }
 
     .quote {
-      margin-top: 10px;
       display: inline-block;
-      background: rgba(0,0,0,0.4);
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-size: 20px;
-      font-weight: bold;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      animation: fadeInQuote 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInQuote {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .hint {
-      margin-top: 10px;
+      margin-top: 15px;
       font-size: 12px;
       opacity: 0.8;
+      letter-spacing: 1px;
     }
 
     .counter {
-      font-size: 13px;
+      font-size: 14px;
       margin-top: 5px;
-      opacity: 0.9;
-    }
-
-    .slideshow {
-      margin-top: 20px;
-      position: relative;
-    }
-
-    .slide {
-      width: 85%;
-      max-width: 320px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      padding: 4px 12px;
       border-radius: 15px;
-      margin: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      display: none;
     }
 
+    /* 📸 SLIDESHOW AREA */
+    .slideshow {
+      margin-top: 25px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 380px; /* ફોટા બદલાય ત્યારે પેજ હલે નહીં તે માટે */
+    }
+
+    /* ✨ SMOOTH IMAGE ANIMATION */
+    .slide {
+      display: none;
+      width: 82%;
+      max-width: 320px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.5); /* પોલારોઇડ ગ્લો */
+      animation: fadeScale 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ⬅️ ARROWS ➡️ */
     .arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 34px;
-      color: #d8b4fe;
+      font-size: 24px;
+      color: white;
+      background: rgba(255, 255, 255, 0.25);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
       cursor: pointer;
       user-select: none;
-      transition: 0.3s;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
     }
 
-    .left { left: 5%; }
-    .right { right: 5%; }
+    .left { left: 10px; }
+    .right { right: 10px; }
 
-    .arrow:hover {
-      text-shadow: 
-        0 0 10px #e0c3fc,
-        0 0 20px #c084fc,
-        0 0 30px #a855f7;
-      transform: translateY(-50%) scale(1.3);
+    .arrow:active {
+      transform: translateY(-50%) scale(0.9);
+      background: rgba(255, 255, 255, 0.5);
     }
 
+    /* ⏭️ REPLAY/NEXT BUTTON */
+    .button {
+      display: none;
+      margin: 30px auto 10px;
+      padding: 14px 35px;
+      border-radius: 30px;
+      border: none;
+      font-size: 18px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      background: white;
+      color: #a8325f;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+      animation: pulseBtn 1.5s infinite;
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* 🌸 FLOATING HEARTS/FLOWERS */
     .heart {
       position: fixed;
-      color: red;
-      animation: float 5s linear infinite;
+      animation: float 6s linear infinite;
+      z-index: -1;
+      opacity: 0.6;
     }
 
     @keyframes float {
-      0% { transform: translateY(100vh); }
-      100% { transform: translateY(-10vh); }
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
   </style>
 </head>
@@ -142,22 +201,20 @@
 
 <div class="container">
 
-  <!-- 🔥 HEADER BOX -->
   <div class="header-box">
     <h1 id="text"></h1>
-    <h2>Dhrutuu..💗</h2>
-    <p>Happy Birthday My Love 🥳💫💖</p>
+    <h2>Dhrutuu.. My Beautiful Girl ✨</h2>
+    <p>Every picture tells a story of our love 🫂💕</p>
   </div>
 
-  <button id="nextBtn" class="button" onclick="goNext()">Next ➡️</button>
+  <div class="quote-container">
+    <div id="quoteText" class="quote"></div>
+  </div>
 
-  <div id="quoteText" class="quote"></div>
-
-  <div class="hint">Tap ➡️ to change photo</div>
+  <div class="hint">Tap ⬅️ ➡️ to change memory</div>
   <div id="counter" class="counter"></div>
 
   <div class="slideshow">
-
     <span id="leftArrow" class="arrow left" onclick="prevSlide()">&#10094;</span>
     <span id="rightArrow" class="arrow right" onclick="nextSlide()">&#10095;</span>
 
@@ -169,69 +226,73 @@
     <img class="slide" src="IMG_20260112_175825_524~2.jpg">
     <img class="slide" src="IMG-20260129-WA0033~2.jpg">
     <img class="slide" src="Snapchat-754572241~2.jpg">
-
   </div>
+
+  <button id="nextBtn" class="button" onclick="goNext()">Replay Magic 🔄</button>
 
 </div>
 
 <script>
 
-/* typing */
-let text = "Hey 💖";
+/* ✨ NEW TYPING EFFECT */
+let text = "To My Everything... 💖";
 let i = 0;
 function typing(){
   if(i < text.length){
     document.getElementById("text").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typing, 80);
+    setTimeout(typing, 100); // ધીમી અને રોમેન્ટિક સ્પીડ
   }
 }
-typing();
+setTimeout(typing, 500);
 
-/* SLIDER */
+/* 📸 SLIDER LOGIC WITH SMOOTH RESET */
 let slideIndex = 0;
 let slides = document.getElementsByClassName("slide");
+let quoteBox = document.getElementById("quoteText");
 
 let quotes = [
-  "You are my happiness 💝",
-  "you are my Forever ♾️✨",
-  "You are my everything 🤗😚",
-  "I love you forever 💋💗",
-  "you are thi most important person 💕",
-  "My best friend & my love 🫶💫",
-  "You are my world 🌍",
+  "You are the reason behind my smile 💝",
+  "Forever is not enough with you ♾️✨",
+  "You are my safe place 🤗😚",
+  "I fall for you every single day 💋💗",
+  "My favorite hello and my hardest goodbye 💕",
+  "My best friend & my soulmate 🫶💫",
+  "In you, I've found my world 🌍",
   "You are my lifeline 🧬"
 ];
 
 function showSlide(n) {
-
   if (n >= slides.length) slideIndex = 0;
   if (n < 0) slideIndex = slides.length - 1;
 
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+  for (let j = 0; j < slides.length; j++) {
+    slides[j].style.display = "none";
   }
 
+  // ✨ રીફ્રેશ એનિમેશન માટે ટ્રીક (Trick to restart CSS animation)
   slides[slideIndex].style.display = "block";
-  document.getElementById("quoteText").innerText = quotes[slideIndex];
+  slides[slideIndex].style.animation = 'none';
+  slides[slideIndex].offsetHeight; /* trigger reflow */
+  slides[slideIndex].style.animation = null; 
 
-  document.getElementById("counter").innerText = 
-    `Photo ${slideIndex + 1}/${slides.length}`;
+  // ક્વોટ અપડેટ
+  quoteBox.style.animation = 'none';
+  quoteBox.offsetHeight; 
+  quoteBox.innerText = quotes[slideIndex];
+  quoteBox.style.animation = 'fadeInQuote 0.5s ease-in-out';
+
+  document.getElementById("counter").innerText = `Memory ${slideIndex + 1} of ${slides.length}`;
 
   /* 🔥 LAST PHOTO LOGIC */
   if (slideIndex === slides.length - 1) {
     document.getElementById("nextBtn").style.display = "block";
-
-    // ❌ hide arrows
     document.getElementById("leftArrow").style.display = "none";
     document.getElementById("rightArrow").style.display = "none";
-
   } else {
     document.getElementById("nextBtn").style.display = "none";
-
-    // ✅ show arrows
-    document.getElementById("leftArrow").style.display = "block";
-    document.getElementById("rightArrow").style.display = "block";
+    document.getElementById("leftArrow").style.display = "flex";
+    document.getElementById("rightArrow").style.display = "flex";
   }
 }
 
@@ -248,27 +309,25 @@ function prevSlide(){
 showSlide(slideIndex);
 
 function goNext(){
-  window.location.href = "page2.html";
+  window.location.href = "page2.html"; // તમે ઈચ્છો તો આને બદલી શકો છો
 }
 
-/* 🌸 DELAY FLOWERS START */
+/* 🌸 ROMANTIC FLOATING ELEMENTS */
 setTimeout(() => {
-
   setInterval(() => {
     let heart = document.createElement("div");
     heart.className = "heart";
-
     heart.style.left = Math.random() * 100 + "vw";
-    heart.innerHTML = "🌸";
-
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    
+    let icons = ["🌸", "✨", "💖", "🦋"];
+    heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+    heart.style.fontSize = (Math.random() * 15 + 15) + "px";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 5000);
-  }, 300);
-
-}, 1500);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400); // થોડા વધુ elements ઉડશે
+}, 1000);
 
 </script>
 
