@@ -16,7 +16,7 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:40px;
+  padding-top:80px;   /* 🔥 UPDATED */
   font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
   color:white;
   overflow:hidden;
@@ -41,7 +41,7 @@ body{
 }
 
 .teddy-space{
-  height:180px;
+  height:200px;   /* 🔥 UPDATED */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -70,6 +70,7 @@ body{
   width:260px;  
   height:160px;  
   cursor:pointer;  
+  margin-top:40px;   /* 🔥 UPDATED */
 }  
 
 .cake-part{  
@@ -162,7 +163,7 @@ body{
   to{transform:translate(var(--x),var(--y)); opacity:0;}  
 }  
 
-/* 🔥 TAP HINT BUTTON */
+/* TAP HINT */
 .tap-hint{
   position:absolute;
   top:50%;
@@ -199,7 +200,7 @@ body{
 /* BUTTON */
 .surprise-btn{
   position:fixed;
-  bottom:30px;
+  bottom:80px;   /* 🔥 UPDATED */
   left:50%;
   transform:translateX(-50%) translateY(40px);
   padding:12px 25px;
@@ -235,7 +236,6 @@ body{
     <div class="candle"><div class="flame"></div></div>  
   </div>  
 
-  <!-- 🔥 TAP HINT -->
   <div class="tap-hint" id="tapHint"></div>
 
   <div class="cake-part left"><div class="cream"></div></div>  
@@ -332,7 +332,6 @@ function cutCake(){
   if(cutDone) return;  
   cutDone=true;  
 
-  // 🔥 HIDE TAP HINT
   document.getElementById("tapHint").style.display = "none";
 
   let cake=document.querySelector(".cake");  
