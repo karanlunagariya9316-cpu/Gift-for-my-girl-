@@ -15,6 +15,7 @@ body{
   padding-top:90px;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
+  overflow-x: hidden; /* કોન્ફેટી સ્ક્રીનની બહાર ન જાય એના માટે */
 }
 
 /* 🎁 CARD */
@@ -23,6 +24,7 @@ body{
   height:380px;
   perspective:1200px;
   margin: 0 auto; 
+  cursor: pointer;
 }
 
 /* 🔄 INNER */
@@ -84,7 +86,7 @@ body{
   line-height:1.4;
   padding:18px;
   display:flex;
-  flex-direction:column; /* મેસેજ સેન્ટર કરવા માટે */
+  flex-direction:column; 
 }
 
 /* MESSAGE AREA */
@@ -93,7 +95,7 @@ body{
   width: 100%;
 }
 
-/* ✨ NEW: MESSAGE LINE ANIMATION (Left to Right) */
+/* ✨ MESSAGE LINE ANIMATION */
 .msg-line {
   opacity: 0;
   transform: translateX(-20px);
@@ -135,6 +137,27 @@ body{
   border-radius:15px;
   backdrop-filter:blur(5px);
 }
+
+/* 🎉 NEW: CONFETTI PARTY BLAST STYLES */
+.confetti {
+  position: fixed; 
+  font-size: 24px;
+  pointer-events: none;
+  animation: confettiBlast 1.5s ease-out forwards;
+  z-index: 100; 
+}
+
+@keyframes confettiBlast {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1.5);
+    opacity: 0;
+  }
+}
+
 </style>
 </head>
 
@@ -180,29 +203,62 @@ function flipCard(card){
   card.classList.toggle("flip");
   
   let msgDiv = document.getElementById("message");
-  msgDiv.innerHTML = ""; // દર વખતે કાર્ડ ફ્લિપ થાય ત્યારે જૂનો મેસેજ ક્લીયર કરવા
+  msgDiv.innerHTML = ""; 
 
   if(card.classList.contains("flip")){
     
-    // કાર્ડ અડધું ફ્લિપ થઈ જાય પછી જ એનિમેશન ચાલુ થાય એના માટે ટાઈમર સેટ કર્યું છે
+    // Text animation delay
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
         div.className = "msg-line";
         
         if(line.trim() === ""){
-          div.style.height = "12px"; // ખાલી જગ્યા માટે
+          div.style.height = "12px"; 
         } else {
           div.innerText = line.trim();
         }
         
-        // દરેક લાઈન એક પછી એક આવે એના માટે એનિમેશન ડીલે
         div.style.animationDelay = (i * 0.25) + "s"; 
         msgDiv.appendChild(div);
       });
-    }, 400); // ૪૦૦ મિલીસેકન્ડ પછી મેસેજ ટાઈપ થવાનું ચાલુ થશે
+    }, 400); 
+
+    // 🎉 NEW: Call Confetti Blast function
+    confettiBlast(card);
   }
 }
+
+/* 🎉 NEW: Confetti Blast Function */
+function confettiBlast(cardEl) {
+  let rect = cardEl.getBoundingClientRect();
+  let centerX = rect.left + rect.width / 2;
+  let centerY = rect.top + rect.height / 2;
+
+  // Confetti types using emoji
+  let confettiItems = ["🎉", "🎊", "💗", "✨", "💫", "💖", "💞"];
+
+  for (let i = 0; i < 60; i++) {
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.textContent = confettiItems[Math.floor(Math.random() * confettiItems.length)];
+
+    // Set random start/end properties using CSS variables
+    let a = Math.random() * 2 * Math.PI; // random angle
+    let d = Math.random() * 400 + 100; // random distance
+
+    c.style.left = centerX + "px";
+    c.style.top = centerY + "px";
+    c.style.setProperty('--x', Math.cos(a) * d + "px");
+    c.style.setProperty('--y', Math.sin(a) * d + "px");
+
+    document.body.appendChild(c);
+    
+    // Clean up particles after animation finishes
+    setTimeout(() => c.remove(), 1500);
+  }
+}
+
 </script>
 
 </body>
