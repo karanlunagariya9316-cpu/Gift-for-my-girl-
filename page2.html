@@ -335,16 +335,24 @@ let song = document.getElementById("song");
 let btn = document.getElementById("surpriseBtn");
 
 /* 🎯 Button show before song ends */
-song.onloadedmetadata = function(){
+let song = document.getElementById("song");
+let btn = document.getElementById("surpriseBtn");
 
+/* 🎯 Button show before song ends */
+function showButton(){
   let showTime = (song.duration - 3) * 1000;
 
   setTimeout(()=>{
     btn.classList.add("show");
   }, showTime);
+}
 
-};  
-
+/* 🔥 Check if already loaded */
+if(song.readyState > 0){
+  showButton();
+}else{
+  song.addEventListener("loadedmetadata", showButton);
+  }
   document.querySelectorAll(".flame").forEach(f=>{  
     f.style.opacity="0";  
   });  
