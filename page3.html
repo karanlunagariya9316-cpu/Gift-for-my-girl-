@@ -23,7 +23,7 @@ body{
 .card{
   width:300px;          /* 🔥 balanced size */
   height:380px;
-  perspective:1200px;
+  perspective:1500px;   /* થોડું increase */
   margin-bottom:30px;
 }
 
@@ -37,9 +37,9 @@ body{
   transform-origin:center;
 }
 
-/* 🔥 FLIP */
-.card.flip .card-inner{
-  transform: rotateY(180deg);
+/* 🎯 PERFECT CENTER FLIP FIX */
+.card-inner{
+  transform-origin: 50% 50%;
 }
 
 /* 🎴 FRONT & BACK */
@@ -55,6 +55,7 @@ body{
   text-align:center;
   padding:20px;
   box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  transform-style: preserve-3d;
 }
 
 /* FRONT */
