@@ -17,12 +17,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      /* આપણી મેઈન વેબસાઈટની રોમેન્ટિક થીમ */
       background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
       position: relative;
     }
 
-    /* 🖤 Emotional Dark Border Effect (Vignette) */
+    /* 🖤 Emotional Dark Border Effect */
     body::before {
       content: "";
       position: absolute;
@@ -32,16 +31,24 @@
       z-index: 5;
     }
 
-    /* 💋 ✨ Updated: RED Kiss Marks (Visibly blended) ✨ 💋 */
+    /* 💋 ✨ Updated: Continuous Kiss Animation ✨ 💋 */
     .kiss-bg {
       position: absolute;
-      font-size: 120px;
-      color: #e60000; /* Solid Red */
-      opacity: 0.7; /* Much higher opacity for visibility */
+      font-size: 100px;
+      color: #e60000; /* ઘાટ્ટો લાલ કલર */
+      opacity: 0; 
       z-index: 0;
       pointer-events: none;
       filter: blur(1px); 
-      transition: opacity 1s ease; /* Fade-in effect */
+      /* એનિમેશન વેરીએબલ JS માંથી આવશે */
+      animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
+    }
+
+    /* કિસ દેખાશે અને ગાયબ થશે */
+    @keyframes kissBreath {
+      0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
+      50% { opacity: 0.7; transform: rotate(var(--rot)) scale(var(--scl)); }
+      100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
     }
 
     .content {
@@ -53,6 +60,8 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      /* ✨ કન્ટેન્ટને થોડું ઉપર લીધું જેથી નીચે બટન માટે જગ્યા રહે */
+      transform: translateY(-3vh); 
     }
 
     /* 🔠 I MISS US / TOGETHER TEXT */
@@ -60,7 +69,7 @@
       font-family: 'Anton', sans-serif;
       color: white;
       font-size: 55px;
-      margin: 15px 0;
+      margin: 10px 0;
       letter-spacing: 3px;
       text-shadow:
         -2px -2px 0 #000,
@@ -72,40 +81,40 @@
     }
 
     .subtitle {
-      font-size: 46px; /* 🥺 ઇમોજી સાથે થોડું મોટું */
+      font-size: 46px; 
     }
 
-    /* 📸 ✨ Updated: CREATIVE POLAROID SLIDESHOW AREA (Even Larger) ✨ 📸 */
+    /* 📸 POLAROID SLIDESHOW AREA */
     .polaroid-container {
       position: relative;
       width: 100%;
-      height: 450px; /* Much more space for larger frames */
+      height: 350px; /* ફોટા માટે પર્ફેક્ટ હાઈટ સેટ કરી */
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 15px 0;
     }
 
-    /* મોટી પોલારોઇડ ની ડિઝાઇન */
+    /* પોલારોઇડ ની ડીઝાઇન અને સાઈઝ */
     .polaroid {
       position: absolute; 
       background: #fdfdfd;
-      padding: 10px 10px 35px 10px; /* મોટી સાઈઝ માટે પેડિંગ વધાર્યું */
+      padding: 10px 10px 30px 10px; 
       box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-      width: 180px; /* Size increased further */
+      width: 155px; /* બટન અને સ્ક્રીન માટે પર્ફેક્ટ સાઈઝ */
       border: 1px solid #ddd;
       transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); 
     }
 
     .polaroid img {
       width: 100%;
-      height: 180px; /* Size increased further */
+      height: 155px; 
       object-fit: cover;
       filter: contrast(1.1) brightness(0.9); 
       border: 1px solid #ccc;
     }
 
-    /* 🎯 4 POSITION CLASSES FOR ANIMATION (Adjusted for larger size) */
+    /* 🎯 4 POSITION CLASSES FOR ANIMATION */
     .pos-center {
       transform: translateX(0) scale(1.3) rotate(2deg); 
       z-index: 3;
@@ -114,13 +123,13 @@
     }
 
     .pos-right {
-      transform: translateX(140px) scale(0.9) rotate(15deg); /* Further separate */
+      transform: translateX(120px) scale(0.9) rotate(15deg); 
       z-index: 2;
       opacity: 1;
     }
 
     .pos-left {
-      transform: translateX(-140px) scale(0.9) rotate(-12deg); /* Further separate */
+      transform: translateX(-120px) scale(0.9) rotate(-12deg); 
       z-index: 2;
       opacity: 1;
     }
@@ -131,11 +140,11 @@
       opacity: 0; 
     }
 
-    /* ⏭️ RESTART BUTTON (શરૂઆતમાં સંતાડેલું હશે) */
+    /* ⏭️ RESTART BUTTON (નીચે બરાબર દેખાય એ રીતે) */
     .next-btn {
-      display: none; /* ટાઈમર પૂરું થાય પછી જ દેખાશે */
+      display: none; 
       position: absolute;
-      bottom: 35px;
+      bottom: 4vh; /* નીચેથી પર્ફેક્ટ ગેપ */
       background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(8px);
       color: white;
@@ -185,26 +194,40 @@
   <button class="next-btn" id="restartBtn" onclick="goToPage1()">Restart Magic 🔄</button>
 
   <script>
-    // 💋 Updated JS: RED Kiss Marks with visibility logic 
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
-    for (let i = 0; i < 15; i++) {
+    
+    // ટોટલ 25 કિસ એડ કરી છે જેથી પેજ ખાલી ન લાગે
+    for (let i = 0; i < 25; i++) {
       let kiss = document.createElement("div");
       kiss.className = "kiss-bg";
       kiss.innerText = "💋";
-      let randomX = Math.floor(Math.random() * 100);
-      let randomY = Math.floor(Math.random() * 100);
+      
+      let randomX = Math.floor(Math.random() * 95);
+      let randomY = Math.floor(Math.random() * 95);
+      
+      // ✨ "I MISS US" ની આજુબાજુ વધારે કિસ લાવવા માટેનું લોજિક
+      if(i < 8) {
+        randomY = Math.floor(Math.random() * 25); // ઉપરના ભાગમાં
+      }
+
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.8) + 0.6; 
+      let randomScale = (Math.random() * 0.5) + 0.7; 
+      
+      // કિસ ક્યારે આવશે અને કેટલી વાર રહેશે તેનો રેન્ડમ ટાઈમ
+      let animDuration = (Math.random() * 3) + 4; // 4 થી 7 સેકન્ડ
+      let animDelay = Math.random() * 5; // 0 થી 5 સેકન્ડ ડીલે
+      
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
-      kiss.style.transform = `rotate(${randomRotate}deg) scale(${randomScale})`;
-      kiss.style.opacity = '0'; // Start with opacity 0
-      bgContainer.appendChild(kiss);
       
-      // ✨ NEW: Fade-in effect for visible red kiss marks
-      setTimeout(() => {
-          kiss.style.opacity = '0.7'; // Final visibility
-      }, (i * 200) + 1000); // Staggered fade in after page load
+      // CSS માં એનિમેશન માટે વેરીએબલ સેટ કર્યા
+      kiss.style.setProperty('--rot', randomRotate + 'deg');
+      kiss.style.setProperty('--scl', randomScale);
+      kiss.style.setProperty('--duration', animDuration + 's');
+      kiss.style.setProperty('--delay', animDelay + 's');
+      
+      bgContainer.appendChild(kiss);
     }
 
     // ➡️ બટન ક્લિક ફંક્શન
@@ -224,12 +247,11 @@
 
     applyPositions();
 
-    // ✨ 3 રાઉન્ડ (18 શિફ્ટ) નું લોજિક
+    // 18 શિફ્ટ (3 રાઉન્ડ) નું લોજિક
     let totalShifts = 0;
-    const maxShifts = 18; // 6 ફોટા x 3 રાઉન્ડ = 18 વખત ફરશે
+    const maxShifts = 18; 
 
     function rotatePhotos() {
-      // જો 18 વખત ફરી જાય, તો એનિમેશન અટકાવીને બટન બતાવવું
       if (totalShifts >= maxShifts) {
         clearInterval(rotationInterval);
         document.getElementById("restartBtn").style.display = "block";
@@ -243,7 +265,7 @@
       totalShifts++;
     }
 
-    // દર 3000 મિલીસેકન્ડ (3 સેકન્ડ) એ જાતે જ ફરશે
+    // દર 3 સેકન્ડે ફરશે
     let rotationInterval = setInterval(rotatePhotos, 3000);
 
   </script>
