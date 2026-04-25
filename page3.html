@@ -13,7 +13,7 @@ body{
   align-items:center;
   justify-content:flex-start;
   padding-top:90px;
-  padding-bottom:80px; /* ગિફ્ટ બોક્સ માટે નીચે વધુ જગ્યા */
+  padding-bottom:100px; 
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
   overflow-x: hidden; 
@@ -242,7 +242,7 @@ body{
 
 /* 🎁 INSTAGRAM STYLE GIFT SECTION */
 .gift-section {
-  display: none; /* શરૂઆતમાં છુપાયેલું */
+  display: none; 
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
@@ -282,6 +282,28 @@ body{
   animation: revealMsg 0.6s ease-out forwards;
 }
 
+/* ➡️ CREATIVE NEXT BUTTON */
+.next-page-btn {
+  display: none; /* ગિફ્ટ ઓપન થાય પછી જ દેખાશે */
+  margin-top: 25px;
+  background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%);
+  padding: 12px 35px;
+  border-radius: 30px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(255, 8, 68, 0.4);
+  animation: slideUp 0.6s ease forwards, pulseNext 2s infinite;
+  border: none;
+  cursor: pointer;
+}
+
+.next-page-btn:active {
+  transform: scale(0.95);
+}
+
 @keyframes popIn {
   0% { transform: scale(0); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
@@ -296,6 +318,17 @@ body{
 @keyframes revealMsg {
   0% { transform: translateY(20px) scale(0.8); opacity: 0; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes pulseNext {
+  0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 8, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 </style>
@@ -376,6 +409,10 @@ body{
     Sorry babe songs nu knowledge che naii....😁<br><br>
     Pan jetli khbr paydi etlu kayru che...🤭
   </div>
+  
+  <button class="next-page-btn" id="nextPageBtn" onclick="goToNextPage()">
+    Next Surprise ➡️
+  </button>
 </div>
 
 <script>
@@ -399,6 +436,7 @@ And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
 let isFlipped = false;
+let currentPlayingNum = null; // કયું ગીત ચાલી રહ્યું છે તે ટ્રેક કરવા
 
 function flipCard(card){
   if(isFlipped) return; 
@@ -422,8 +460,7 @@ function flipCard(card){
     }, 400); 
 
     confettiBlast(card);
-
-    playSong(1);
+    startNewSong(1);
   }
 }
 
@@ -448,64 +485,137 @@ function confettiBlast(element) {
   }
 }
 
-function playSong(num) {
-  // ૪ ગીતો પૂરા થઈ જાય પછી ગિફ્ટ બોક્સ દેખાશે
-  if (num > 4) {
-    let giftSec = document.getElementById("giftSection");
-    giftSec.style.display = "flex";
-    // પેજને નીચે સ્ક્રોલ કરશે જેથી ગિફ્ટ દેખાય
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }, 500);
-    return; 
+// 🎧 ✨ SMOOTH AUDIO FADE LOGIC ✨ 🎧
+function fadeAndPlayNext(oldNum, newNum) {
+  let oldAudio = oldNum ? document.getElementById("audio" + oldNum) : null;
+  
+  // જૂના ગીતનો અવાજ ધીમે ધીમે ઓછો કરો (Fade-out)
+  if (oldAudio && !oldAudio.paused) {
+      let vol = oldAudio.volume;
+      let fadeOutTimer = setInterval(() => {
+          if (vol > 0.1) {
+              vol -= 0.1;
+              oldAudio.volume = vol;
+          } else {
+              clearInterval(fadeOutTimer);
+              oldAudio.pause();
+              oldAudio.currentTime = 0;
+              oldAudio.volume = 1; // અવાજ પાછો ફુલ કરી દેવો
+              document.getElementById("icon" + oldNum).innerHTML = "▶";
+              document.getElementById("box" + oldNum).classList.remove("highlight");
+              
+              startNewSong(newNum); // નવું ગીત ચાલુ કરો
+          }
+      }, 80); 
+  } else {
+      // જો કોઈ ગીત ન વાગતું હોય તો સીધું નવું ચાલુ કરો
+      if(oldNum) {
+        document.getElementById("icon" + oldNum).innerHTML = "▶";
+        document.getElementById("box" + oldNum).classList.remove("highlight");
+      }
+      startNewSong(newNum);
   }
+}
 
-  for(let i = 1; i <= 4; i++) {
-    let a = document.getElementById("audio" + i);
-    let ic = document.getElementById("icon" + i);
-    let bx = document.getElementById("box" + i);
-    a.pause();
-    a.currentTime = 0; 
-    ic.innerHTML = "▶";
-    bx.classList.remove("highlight");
+function startNewSong(num) {
+  if (num > 4) {
+    showGiftSection();
+    return;
   }
 
   let audio = document.getElementById("audio" + num);
   let icon = document.getElementById("icon" + num);
   let box = document.getElementById("box" + num);
 
+  audio.volume = 0; // અવાજ ઝીરોથી ચાલુ થશે
   audio.play();
   icon.innerHTML = "⏸";
-  box.classList.add("highlight"); 
+  box.classList.add("highlight");
+  currentPlayingNum = num;
 
+  // નવા ગીતનો અવાજ ધીમે ધીમે વધારવો (Fade-in)
+  let vol = 0;
+  let fadeInTimer = setInterval(() => {
+      if (vol < 0.9) {
+          vol += 0.1;
+          audio.volume = vol;
+      } else {
+          clearInterval(fadeInTimer);
+          audio.volume = 1;
+      }
+  }, 80);
+
+  // ગીત પૂરું થાય ત્યારે સ્મૂથલી નેક્સ્ટ ગીત પર જવું
   audio.onended = function() {
-    icon.innerHTML = "▶";
-    box.classList.remove("highlight");
-    playSong(num + 1); 
+      fadeAndPlayNext(num, num + 1);
   };
 }
 
-function toggleSong(songNum) {
-  let audio = document.getElementById("audio" + songNum);
+function toggleSong(clickedNum) {
+  let clickedAudio = document.getElementById("audio" + clickedNum);
   
-  if (!audio.paused) {
-    audio.pause();
-    document.getElementById("icon" + songNum).innerHTML = "▶";
-    document.getElementById("box" + songNum).classList.remove("highlight");
+  if (currentPlayingNum === clickedNum) {
+      // જો વાગતું ગીત જ દબાવે તો ખાલી પોઝ કરવું (Fade-out)
+      if (!clickedAudio.paused) {
+          let vol = clickedAudio.volume;
+          let fadeOut = setInterval(() => {
+              if(vol > 0.1) { vol -= 0.1; clickedAudio.volume = vol; }
+              else {
+                  clearInterval(fadeOut);
+                  clickedAudio.pause();
+                  clickedAudio.volume = 1;
+                  document.getElementById("icon" + clickedNum).innerHTML = "▶";
+                  document.getElementById("box" + clickedNum).classList.remove("highlight");
+              }
+          }, 50);
+      } else {
+          // જો પોઝ હોય તો પાછું પ્લે કરવું (Fade-in)
+          clickedAudio.volume = 0;
+          clickedAudio.play();
+          document.getElementById("icon" + clickedNum).innerHTML = "⏸";
+          document.getElementById("box" + clickedNum).classList.add("highlight");
+          let vol = 0;
+          let fadeIn = setInterval(() => {
+              if(vol < 0.9) { vol += 0.1; clickedAudio.volume = vol; }
+              else { clearInterval(fadeIn); clickedAudio.volume = 1; }
+          }, 50);
+      }
   } else {
-    playSong(songNum);
+      // બીજા કોઈ ગીત પર ક્લિક કરે તો જૂનું Fade-out કરી નવું પ્લે કરવું
+      fadeAndPlayNext(currentPlayingNum, clickedNum);
   }
+}
+
+// 🎁 ગિફ્ટ સેક્શન બતાવવાનું ફંક્શન
+function showGiftSection() {
+  let giftSec = document.getElementById("giftSection");
+  giftSec.style.display = "flex";
+  setTimeout(() => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, 500);
 }
 
 // 🎁 ગિફ્ટ ઓપન કરવાનું ફંક્શન
 function openGift() {
   let btn = document.getElementById("giftBtn");
   let msg = document.getElementById("giftMessage");
+  let nextBtn = document.getElementById("nextPageBtn");
   
   btn.style.display = "none";
   msg.style.display = "block";
   
-  confettiBlast(msg); // ઓપન થાય ત્યારે નાનો સેલિબ્રેશન બ્લાસ્ટ
+  // ગિફ્ટ ઓપન થયા પછી Next બટન દેખાશે
+  setTimeout(() => {
+    nextBtn.style.display = "block";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, 800);
+  
+  confettiBlast(msg); 
+}
+
+// ➡️ Next પેજ પર જવા માટે 
+function goToNextPage() {
+  window.location.href = "page4.html";
 }
 </script>
 
