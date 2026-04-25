@@ -16,7 +16,7 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:80px;   /* 🔥 UPDATED */
+  padding-top:80px;
   font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
   color:white;
   overflow:hidden;
@@ -41,7 +41,7 @@ body{
 }
 
 .teddy-space{
-  height:200px;   /* 🔥 UPDATED */
+  height:200px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -64,14 +64,14 @@ body{
   to{opacity:1; transform:translateX(0);}  
 }  
 
-/* CAKE */  
-.cake{  
-  position:relative;  
-  width:260px;  
-  height:160px;  
-  cursor:pointer;  
-  margin-top:40px;   /* 🔥 UPDATED */
-}  
+/* CAKE */ 
+.cake{
+  position:relative;
+  width:260px;
+  height:160px;
+  cursor:pointer;
+  margin-top:10px;
+}
 
 .cake-part{  
   width:48%;  
@@ -200,7 +200,7 @@ body{
 /* BUTTON */
 .surprise-btn{
   position:fixed;
-  bottom:80px;   /* 🔥 UPDATED */
+  bottom:60px;
   left:50%;
   transform:translateX(-50%) translateY(40px);
   padding:12px 25px;
@@ -244,11 +244,19 @@ body{
 </div>  
 
 <audio id="song" src="karan.mp3"></audio>  
-<button id="surpriseBtn" class="surprise-btn">Ready To Surprise 🎁</button>
+
+<!-- ✅ ONLY CHANGE -->
+<button id="surpriseBtn" class="surprise-btn" onclick="goToPage3()">
+  Ready To Surprise 🎁
+</button>
 
 <script>  
 
 let cutDone = false;  
+
+function goToPage3(){
+  window.location.href = "page3.html";
+}
 
 function showWishText(){  
   let box = document.getElementById("text");  
