@@ -15,13 +15,14 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;  /* 🔥 upar lai gaya */
-  padding-top:40px;            /* 🔥 thodu gap */
+  justify-content:flex-start;
+  padding-top:40px;
   font-family:'Pacifico', cursive, "Segoe UI Emoji","Noto Color Emoji",sans-serif;
   color:white;
   overflow:hidden;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
 }
+
 /* TEXT */  
 .text{  
   font-size:32px;  
@@ -35,16 +36,12 @@ body{
   display:block;
   margin:0 auto 10px;
   width:160px;
-
-  opacity:0;   /* 🔥 start invisible */
-
-  animation: 
-    float 2s infinite ease-in-out,
-    fadeIn 0.6s ease forwards;   /* 🔥 smooth entry */
+  opacity:0;
+  animation: float 2s infinite ease-in-out, fadeIn 0.6s ease forwards;
 }
 
 .teddy-space{
-  height:180px;   /* teddy jetli jagya reserve */
+  height:180px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -75,7 +72,6 @@ body{
   cursor:pointer;  
 }  
 
-/* CAKE PARTS */  
 .cake-part{  
   width:48%;  
   height:140px;  
@@ -90,7 +86,6 @@ body{
 .left{ left:0; }  
 .right{ right:0; }  
 
-/* CREAM */  
 .cream{  
   position:absolute;  
   top:-25px;  
@@ -101,7 +96,6 @@ body{
   overflow:hidden;  
 }  
 
-/* 🍩 TOPPINGS */  
 .cream::after{  
   content:"";  
   position:absolute;  
@@ -115,10 +109,9 @@ body{
     radial-gradient(circle at 30% 70%, #ff9933 6px, transparent 7px);  
 }  
 
-/* CANDLES */  
 .candles{
   position:absolute;
-  top:-40px;   /* 🔥 niche lao */
+  top:-40px;
   width:100%;
   display:flex;
   justify-content:space-around;
@@ -134,7 +127,6 @@ body{
   position:relative;  
 }  
 
-/* FLAME */  
 .flame{  
   width:14px;  
   height:20px;  
@@ -152,21 +144,13 @@ body{
 }  
 
 @keyframes fadeIn{
-  from{
-    opacity:0;
-    transform: translateY(20px) scale(0.8);
-  }
-  to{
-    opacity:1;
-    transform: translateY(0) scale(1);
-  }
+  from{opacity:0; transform: translateY(20px) scale(0.8);}
+  to{opacity:1; transform: translateY(0) scale(1);}
 }
   
-/* CUT */  
 .cut .left{ transform:translateX(-30px) rotate(-10deg); }  
 .cut .right{ transform:translateX(30px) rotate(10deg); }  
 
-/* CONFETTI */  
 .confetti{  
   position:fixed;  
   font-size:34px;  
@@ -183,7 +167,6 @@ body{
   bottom:30px;
   left:50%;
   transform:translateX(-50%) translateY(40px);
-
   padding:12px 25px;
   font-size:18px;
   border:none;
@@ -191,14 +174,11 @@ body{
   background:#ff4d7a;
   color:white;
   box-shadow:0 10px 20px rgba(0,0,0,0.3);
-
   opacity:0;
   cursor:pointer;
-
   transition: all 0.6s ease;
 }
 
-/* 🔥 SHOW STATE */
 .surprise-btn.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
@@ -213,16 +193,13 @@ body{
 <div id="text" class="text"></div>  
 
 <div class="cake" onclick="cutCake()">  
-
   <div class="candles">  
     <div class="candle"><div class="flame"></div></div>  
     <div class="candle"><div class="flame"></div></div>  
     <div class="candle"><div class="flame"></div></div>  
   </div>  
-
   <div class="cake-part left"><div class="cream"></div></div>  
   <div class="cake-part right"><div class="cream"></div></div>  
-
 </div>  
 
 <audio id="song" src="karan.mp3"></audio>  
@@ -232,17 +209,11 @@ body{
 
 let cutDone = false;  
 
-/* WISH TEXT */ 
 function showWishText(){  
   let box = document.getElementById("text");  
   box.innerHTML = "";  
 
-  let parts = [
-    "Make ",
-    "a ",
-    "wish ",
-    "✨💫"
-  ];
+  let parts = ["Make ","a ","wish ","✨💫"];
 
   parts.forEach((word,index)=>{
     let span = document.createElement("span");
@@ -258,23 +229,20 @@ function showWishText(){
 
     box.appendChild(span);
   });
+}
 
-} // ✅ AHI CLOSE KARVU JARURI CHE
-
-/* 🎂 FINAL TEXT WITH TEDDY */
 function showSplitText(){  
   let box=document.getElementById("text");  
   box.innerHTML="";  
 
-  /* 🧸 ADD TEDDY */
-let teddyBox = document.getElementById("teddyBox");
-teddyBox.innerHTML = "";
+  let teddyBox = document.getElementById("teddyBox");
+  teddyBox.innerHTML = "";
 
-let img = document.createElement("img");
-img.src = "1000269952-removebg-preview.png";
-img.className = "teddy";
+  let img = document.createElement("img");
+  img.src = "1000269952-removebg-preview.png";
+  img.className = "teddy";
 
-teddyBox.appendChild(img);
+  teddyBox.appendChild(img);
 
   let parts=["Happyy ","Birthday ","Dhrutiii...🥳💫💝💋❤️💖💗💞🫂"];  
 
@@ -296,7 +264,6 @@ teddyBox.appendChild(img);
 
 showWishText();  
 
-/* 🎉 BLAST */  
 function blastEffect(){  
   for(let i=0;i<40;i++){  
     let c=document.createElement("div");  
@@ -319,7 +286,6 @@ function blastEffect(){
   }  
 }  
 
-/* CUT */  
 function cutCake(){  
 
   if(cutDone) return;  
@@ -328,38 +294,27 @@ function cutCake(){
   let cake=document.querySelector(".cake");  
   let candles=document.querySelector(".candles");  
 
-  document.getElementById("song").play();
+  let song = document.getElementById("song");
+  let btn = document.getElementById("surpriseBtn");
 
-/* 🔥 AA NICHE ADD KARVU */
-let song = document.getElementById("song");
-let btn = document.getElementById("surpriseBtn");
+  song.play();
 
-/* 🎯 Button show before song ends */
-let song = document.getElementById("song");
-let btn = document.getElementById("surpriseBtn");
-
-/* 🎯 Button show before song ends */
-function showButton(){
-  let showTime = (song.duration - 3) * 1000;
-
-  setTimeout(()=>{
-    btn.classList.add("show");
-  }, showTime);
-}
-
-/* 🔥 Check if already loaded */
-if(song.readyState > 0){
-  showButton();
-}else{
-  song.addEventListener("loadedmetadata", showButton);
+  function showButton(){
+    let showTime = (song.duration - 3) * 1000;
+    setTimeout(()=>{ btn.classList.add("show"); }, showTime);
   }
+
+  if(song.readyState > 0){
+    showButton();
+  }else{
+    song.addEventListener("loadedmetadata", showButton);
+  }
+
   document.querySelectorAll(".flame").forEach(f=>{  
     f.style.opacity="0";  
   });  
 
-  setTimeout(()=>{  
-    candles.style.opacity="0";  
-  },300);  
+  setTimeout(()=>{ candles.style.opacity="0"; },300);  
 
   blastEffect();  
   setTimeout(blastEffect,200);  
@@ -370,14 +325,8 @@ if(song.readyState > 0){
   setTimeout(blastEffect,1200);  
   setTimeout(blastEffect,1400);  
 
-  setTimeout(()=>{  
-    cake.classList.add("cut");  
-  },200);  
-
-  setTimeout(()=>{  
-    showSplitText();  
-  },300);  
-
+  setTimeout(()=>{ cake.classList.add("cut"); },200);  
+  setTimeout(()=>{ showSplitText(); },300);  
 }  
 
 </script>  
