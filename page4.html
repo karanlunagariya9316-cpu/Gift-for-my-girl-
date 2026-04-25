@@ -31,7 +31,7 @@
       z-index: 5;
     }
 
-    /* 💋 Continuous Kiss Animation */
+    /* 💋 Clean Kiss Animation */
     .kiss-bg {
       position: absolute;
       font-size: 100px;
@@ -43,13 +43,14 @@
       animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
     }
 
+    /* ધીમેથી આવશે, રોકાશે, અને ગાયબ થશે */
     @keyframes kissBreath {
       0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-      50% { opacity: 0.7; transform: rotate(var(--rot)) scale(var(--scl)); }
+      20% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
+      80% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
       100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
     }
 
-    /* ✨ આખા કન્ટેન્ટને ઉપર ખેંચ્યું છે */
     .content {
       position: relative;
       z-index: 10;
@@ -59,7 +60,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      transform: translateY(-6vh); /* ઉપરની ખાલી જગ્યા કવર કરવા માટે */
+      transform: translateY(-6vh); 
     }
 
     /* 🔠 I MISS US / TOGETHER TEXT */
@@ -80,21 +81,20 @@
 
     .subtitle {
       font-size: 46px; 
-      margin-bottom: 5px; /* બટન માટે નીચે ઓછી જગ્યા */
+      margin-bottom: 5px; 
     }
 
     /* 📸 POLAROID SLIDESHOW AREA */
     .polaroid-container {
       position: relative;
       width: 100%;
-      height: 270px; /* ખાલી જગ્યા ઘટાડી જેથી બટન ના કપાય */
+      height: 270px; 
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 10px 0;
     }
 
-    /* પોલારોઇડ ની ડીઝાઇન */
     .polaroid {
       position: absolute; 
       background: #fdfdfd;
@@ -139,10 +139,10 @@
       opacity: 0; 
     }
 
-    /* ⏭️ RESTART BUTTON (સીધું TOGETHER ની નીચે) */
+    /* ⏭️ RESTART BUTTON */
     .next-btn {
       display: none; 
-      margin-top: 15px; /* TOGETHER ની એકદમ નજીક */
+      margin-top: 15px; 
       background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(8px);
       color: white;
@@ -192,34 +192,41 @@
   </div>
 
   <script>
-    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ માટે ફિક્સ ઝોન (ઓવરલેપ ન થાય તે માટે)
     let bgContainer = document.getElementById("bg-container");
     
-    for (let i = 0; i < 25; i++) {
+    // અલગ અલગ જગ્યાઓ (Fix safe zones)
+    const kissZones = [
+      {x: 10, y: 10}, {x: 80, y: 10}, // ઉપરના ખૂણા
+      {x: 45, y: 8},                  // ઉપર વચ્ચે
+      {x: 10, y: 35}, {x: 80, y: 35}, // વચ્ચે સાઈડમાં
+      {x: 10, y: 70}, {x: 80, y: 70}, // નીચેના ખૂણા
+      {x: 45, y: 80}                  // નીચે વચ્ચે
+    ];
+
+    kissZones.forEach((zone) => {
       let kiss = document.createElement("div");
       kiss.className = "kiss-bg";
       kiss.innerText = "💋";
       
-      let randomX = Math.floor(Math.random() * 95);
-      let randomY = Math.floor(Math.random() * 95);
-      
-      if(i < 8) { randomY = Math.floor(Math.random() * 25); }
-
+      // ઝોનની અંદર થોડું જ આઘું પાછું થાય એટલે ઓવરલેપ ન થાય
+      let randomX = zone.x + (Math.random() * 6 - 3); 
+      let randomY = zone.y + (Math.random() * 6 - 3); 
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.5) + 0.7; 
-      let animDuration = (Math.random() * 3) + 4; 
-      let animDelay = Math.random() * 5; 
+      let randomScale = (Math.random() * 0.4) + 0.6; 
+      
+      let animDuration = (Math.random() * 3) + 5; // 5 થી 8 સેકન્ડ
+      let animDelay = Math.random() * 5; // 0 થી 5 સેકન્ડ ડીલે
       
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
-      
       kiss.style.setProperty('--rot', randomRotate + 'deg');
       kiss.style.setProperty('--scl', randomScale);
       kiss.style.setProperty('--duration', animDuration + 's');
       kiss.style.setProperty('--delay', animDelay + 's');
       
       bgContainer.appendChild(kiss);
-    }
+    });
 
     // ➡️ બટન ક્લિક ફંક્શન
     function goToPage1() {
@@ -238,26 +245,20 @@
 
     applyPositions();
 
-    // 18 શિફ્ટ (3 રાઉન્ડ) નું લોજિક
-    let totalShifts = 0;
-    const maxShifts = 18; 
-
+    // ફોટા અનંત સુધી ફર્યા કરશે
     function rotatePhotos() {
-      if (totalShifts >= maxShifts) {
-        clearInterval(rotationInterval);
-        document.getElementById("restartBtn").style.display = "block";
-        return;
-      }
-
       let first = positions.shift(); 
       positions.push(first); 
       applyPositions();
-      
-      totalShifts++;
     }
 
     // દર 3 સેકન્ડે ફરશે
-    let rotationInterval = setInterval(rotatePhotos, 3000);
+    setInterval(rotatePhotos, 3000);
+
+    // ✨ 15 સેકન્ડ પછી જ બટન દેખાડવાનું લોજિક
+    setTimeout(() => {
+      document.getElementById("restartBtn").style.display = "block";
+    }, 15000); // 15000 ms = 15 Seconds
 
   </script>
 
