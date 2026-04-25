@@ -37,7 +37,12 @@ body{
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
-  transform-origin:center;   /* 🔥 IMPORTANT FIX */
+  transform-origin:center;
+}
+
+/* ✅ THIS WAS MISSING */
+.card.flip .card-inner{
+  transform: rotateY(180deg);
 }
 
 /* FRONT & BACK */
