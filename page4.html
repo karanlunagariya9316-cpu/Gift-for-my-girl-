@@ -2,20 +2,22 @@
 <html>
 <head>
   <title>For You ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    /* ✨ Scrolling Disable & Fixed Page */
+    html, body {
       margin: 0;
       padding: 0;
-      min-height: 100vh;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden; /* સ્ક્રોલિંગ બંધ */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #f0ebeb; /* આછો ગ્રે/વ્હાઈટ કલર */
-      overflow: hidden;
+      background-color: #f0ebeb; 
       position: relative;
     }
 
@@ -29,16 +31,16 @@
       z-index: 5;
     }
 
-    /* 💋 Background Kiss Marks (Lipstick Stains) */
+    /* 💋 Background Kiss Marks */
     .kiss-bg {
       position: absolute;
       font-size: 120px;
       color: transparent;
-      text-shadow: 0 0 2px #9e0b22; /* ઘાટ્ટો લાલ/મરૂન કલર */
+      text-shadow: 0 0 2px #9e0b22; 
       opacity: 0.15; 
       z-index: 0;
       pointer-events: none;
-      filter: blur(1px); /* થોડું રિયલ લાગે એના માટે */
+      filter: blur(1px); 
     }
 
     .content {
@@ -47,74 +49,86 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       width: 100%;
+      height: 100%;
     }
 
     /* 🔠 I MISS US / TOGETHER TEXT */
     .title, .subtitle {
       font-family: 'Anton', sans-serif;
       color: white;
-      font-size: 48px;
-      margin: 20px 0;
-      letter-spacing: 2px;
-      /* બ્લેક બોર્ડર અને શેડો */
+      font-size: 52px;
+      margin: 15px 0;
+      letter-spacing: 3px;
       text-shadow:
         -2px -2px 0 #000,
          2px -2px 0 #000,
         -2px  2px 0 #000,
          2px  2px 0 #000,
-         0px  8px 20px rgba(0,0,0,0.7);
+         0px  10px 25px rgba(0,0,0,0.8);
+      z-index: 10;
     }
 
     .subtitle {
-      font-size: 40px;
+      font-size: 44px;
     }
 
-    /* 📸 POLAROID FRAME DESIGN */
+    /* 📸 CREATIVE POLAROID SLIDESHOW AREA */
     .polaroid-container {
+      position: relative;
+      width: 100%;
+      height: 250px; /* ફોટા માટે ફિક્સ જગ્યા */
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 20px 0;
-      animation: breath 4s infinite alternate ease-in-out; /* ધીમું ઇમોશનલ એનિમેશન */
+      margin: 10px 0;
     }
 
-    @keyframes breath {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.02); }
-    }
-
+    /* એક સિંગલ પોલારોઇડ ની ડિઝાઇન */
     .polaroid {
+      position: absolute; /* એકબીજા ઉપર ગોઠવવા માટે */
       background: #fdfdfd;
-      padding: 6px 6px 25px 6px; /* નીચેની બાજુ વધુ જગ્યા (પોલારોઇડ લુક) */
-      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-      width: 105px; /* મોબાઈલ સાઈઝ માટે */
+      padding: 8px 8px 30px 8px; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+      width: 110px; 
       border: 1px solid #ddd;
+      /* ✨ અહી એનિમેશન નો મેજિક છે! */
+      transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); 
     }
 
     .polaroid img {
       width: 100%;
-      height: 105px;
+      height: 110px;
       object-fit: cover;
-      /* ઇમોશનલ ફીલ માટે ફોટાને થોડો ડાર્ક/કોન્ટ્રાસ્ટ કર્યો છે */
       filter: contrast(1.1) brightness(0.9); 
       border: 1px solid #ccc;
     }
 
-    /* 📐 3 Photos Alignment (Like the screenshot) */
-    .p1 {
-      transform: rotate(-12deg) translateY(15px);
-      z-index: 1;
-    }
-    .p2 {
-      transform: rotate(3deg) scale(1.15);
+    /* 🎯 4 POSITION CLASSES FOR ANIMATION */
+    .pos-center {
+      transform: translateX(0) scale(1.2) rotate(2deg);
       z-index: 3;
-      margin: 0 -22px; /* ફોટા એકબીજા પર ચડેલા દેખાય એના માટે */
-      box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+      opacity: 1;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.9);
     }
-    .p3 {
-      transform: rotate(15deg) translateY(12px);
+
+    .pos-right {
+      transform: translateX(100px) scale(0.9) rotate(15deg);
       z-index: 2;
+      opacity: 1;
+    }
+
+    .pos-left {
+      transform: translateX(-100px) scale(0.9) rotate(-12deg);
+      z-index: 2;
+      opacity: 1;
+    }
+
+    .pos-hidden {
+      transform: translateX(0) scale(0.4) rotate(0deg);
+      z-index: 1;
+      opacity: 0; /* પાછળ સંતાઈ જશે */
     }
 
     /* ⏭️ NEXT BUTTON (Black Capsule) */
@@ -125,19 +139,20 @@
       background: #111;
       color: white;
       border: 2px solid rgba(255,255,255,0.5);
-      padding: 8px 25px;
-      border-radius: 25px;
+      padding: 10px 30px;
+      border-radius: 30px;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 16px;
       letter-spacing: 1px;
       cursor: pointer;
       z-index: 20;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      transition: transform 0.2s ease;
     }
 
     .next-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.92);
     }
 
   </style>
@@ -149,10 +164,13 @@
   <div class="content">
     <div class="title">I MISS US</div>
     
-    <div class="polaroid-container">
-      <div class="polaroid p1"><img src="IMG-20260401-WA0014.jpg"></div>
-      <div class="polaroid p2"><img src="IMG-20260401-WA0021.jpg"></div>
-      <div class="polaroid p3"><img src="IMG-20260401-WA0038.jpg"></div>
+    <div class="polaroid-container" id="photo-slider">
+      <div class="polaroid"><img src="IMG-20260401-WA0014.jpg"></div>
+      <div class="polaroid"><img src="IMG-20260401-WA0021.jpg"></div>
+      <div class="polaroid"><img src="IMG-20260401-WA0038.jpg"></div>
+      <div class="polaroid"><img src="IMG_20260112_175825_524~2.jpg"></div>
+      <div class="polaroid"><img src="IMG_20260112_175838_981~2.jpg"></div>
+      <div class="polaroid"><img src="Snapchat-754572241~2.jpg"></div>
     </div>
 
     <div class="subtitle">TOGETHER</div>
@@ -161,24 +179,19 @@
   <button class="next-btn" onclick="goToPage1()">NEXT</button>
 
   <script>
-    // 💋 બેકગ્રાઉન્ડમાં લિપસ્ટિક/કિસ ના ડાઘ બનાવવા માટેનું લોજિક
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
-    
     for (let i = 0; i < 15; i++) {
       let kiss = document.createElement("div");
       kiss.className = "kiss-bg";
       kiss.innerText = "💋";
-      
-      // રેન્ડમ પોઝિશન અને રોટેશન
       let randomX = Math.floor(Math.random() * 100);
       let randomY = Math.floor(Math.random() * 100);
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.8) + 0.5; // સાઈઝ નાની-મોટી
-      
+      let randomScale = (Math.random() * 0.8) + 0.5; 
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
       kiss.style.transform = `rotate(${randomRotate}deg) scale(${randomScale})`;
-      
       bgContainer.appendChild(kiss);
     }
 
@@ -186,6 +199,33 @@
     function goToPage1() {
       window.location.href = "index.html"; 
     }
+
+    // 📸 ✨ CAROUSEL ANIMATION LOGIC ✨ 📸
+    const polaroids = document.querySelectorAll('.polaroid');
+    
+    // ૬ ફોટા માટે ૬ પોઝિશન: [0] વચ્ચે, [1] જમણે, [2,3,4] પાછળ છુપાયેલા, [5] ડાબે
+    let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
+
+    function applyPositions() {
+      polaroids.forEach((el, i) => {
+        el.className = 'polaroid ' + positions[i];
+      });
+    }
+
+    // પેજ લોડ થાય ત્યારે પહેલી પોઝિશન આપી દેવી
+    applyPositions();
+
+    // 🔄 દર 3 સેકન્ડે ફોટા ફેરવવાનું ફંક્શન
+    function rotatePhotos() {
+      // ડાબી બાજુથી વચ્ચે, વચ્ચેથી જમણે જવાની મસ્ત ટ્રીક (Array Shift)
+      let first = positions.shift(); // પહેલો કાઢો
+      positions.push(first); // તેને છેલ્લે નાખો
+      applyPositions();
+    }
+
+    // દર 3000 મિલીસેકન્ડ (3 સેકન્ડ) એ જાતે જ ફરશે!
+    setInterval(rotatePhotos, 3000);
+
   </script>
 
 </body>
