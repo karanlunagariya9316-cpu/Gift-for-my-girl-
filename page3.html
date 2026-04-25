@@ -15,7 +15,7 @@ body{
   padding-top:90px;
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
-  overflow-x: hidden; /* કોન્ફેટી સ્ક્રીનની બહાર ન જાય એના માટે */
+  overflow-x: hidden; 
 }
 
 /* 🎁 CARD */
@@ -120,25 +120,78 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 SONG AREA */
+/* 🎵 MINI SPOTIFY PLAYER AREA */
 .song-area{
   display:flex;
   justify-content:center; 
   align-items:center;
-  gap:20px;
+  gap:15px; /* બોક્સ વચ્ચેની જગ્યા */
   width:100%;
   margin-top:40px; 
 }
 
+/* SPOTIFY BOX DESIGN */
 .song-box{
-  width:120px;
-  height:60px;
-  background:rgba(255,255,255,0.2);
-  border-radius:15px;
+  width:145px;
+  height:55px;
+  background:rgba(0, 0, 0, 0.4); /* થોડો ડાર્ક કલર Spotify ફીલ માટે */
+  border-radius:12px;
   backdrop-filter:blur(5px);
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
 }
 
-/* 🎉 NEW: CONFETTI PARTY BLAST STYLES */
+.song-box:active {
+  transform: scale(0.95);
+}
+
+/* TEDDY IMAGE (ALBUM ART) */
+.teddy-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px; /* ચોરસ જેવો શેપ */
+  object-fit: cover;
+}
+
+/* TEXT AREA */
+.song-info {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.song-title {
+  font-size: 11px;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 55px;
+}
+
+.song-artist {
+  font-size: 8px;
+  color: #b3b3b3; /* Spotify ગ્રે કલર */
+}
+
+/* PLAY BUTTON */
+.play-btn {
+  color: white;
+  font-size: 16px;
+  margin-right: 5px;
+  width: 20px;
+  text-align: center;
+}
+
+/* 🎉 CONFETTI PARTY BLAST STYLES */
 .confetti {
   position: fixed; 
   font-size: 24px;
@@ -157,7 +210,6 @@ body{
     opacity: 0;
   }
 }
-
 </style>
 </head>
 
@@ -178,8 +230,27 @@ body{
 </div>
 
 <div class="song-area">
-  <div class="song-box"></div>
-  <div class="song-box"></div>
+  
+  <div class="song-box" onclick="toggleSong(1)">
+    <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
+    <div class="song-info">
+      <span class="song-title">Song 1</span>
+      <span class="song-artist">For Dhruti</span>
+    </div>
+    <div class="play-btn" id="icon1">▶</div>
+    <audio id="audio1" src="karan.mp3"></audio>
+  </div>
+
+  <div class="song-box" onclick="toggleSong(2)">
+    <img src="627f083b4a4ad03654f45135230ed0 b9.jpg" class="teddy-img">
+    <div class="song-info">
+      <span class="song-title">Song 2</span>
+      <span class="song-artist">From Karan</span>
+    </div>
+    <div class="play-btn" id="icon2">▶</div>
+    <audio id="audio2" src="karan.mp3"></audio>
+  </div>
+
 </div>
 
 <script>
@@ -207,7 +278,6 @@ function flipCard(card){
 
   if(card.classList.contains("flip")){
     
-    // Text animation delay
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
@@ -224,28 +294,25 @@ function flipCard(card){
       });
     }, 400); 
 
-    // 🎉 NEW: Call Confetti Blast function
     confettiBlast(card);
   }
 }
 
-/* 🎉 NEW: Confetti Blast Function */
+/* 🎉 Confetti Blast Function (KISS EFFECT) */
 function confettiBlast(cardEl) {
   let rect = cardEl.getBoundingClientRect();
   let centerX = rect.left + rect.width / 2;
   let centerY = rect.top + rect.height / 2;
 
-  // Confetti types using emoji
-  let confettiItems = ["🎉", "🎊", "💗", "✨", "💫", "💖", "💞"];
+  let confettiItems = ["💋", "💏", "👩‍❤️‍💋‍👩", "👩‍❤️‍💋‍👨", "💞", "✨"];
 
   for (let i = 0; i < 60; i++) {
     let c = document.createElement("div");
     c.className = "confetti";
     c.textContent = confettiItems[Math.floor(Math.random() * confettiItems.length)];
 
-    // Set random start/end properties using CSS variables
-    let a = Math.random() * 2 * Math.PI; // random angle
-    let d = Math.random() * 400 + 100; // random distance
+    let a = Math.random() * 2 * Math.PI; 
+    let d = Math.random() * 400 + 100; 
 
     c.style.left = centerX + "px";
     c.style.top = centerY + "px";
@@ -254,11 +321,47 @@ function confettiBlast(cardEl) {
 
     document.body.appendChild(c);
     
-    // Clean up particles after animation finishes
     setTimeout(() => c.remove(), 1500);
   }
 }
 
+/* 🎵 MUSIC PLAYER LOGIC */
+let currentAudio = null;
+let currentIcon = null;
+
+function toggleSong(songNum) {
+  let audio = document.getElementById("audio" + songNum);
+  let icon = document.getElementById("icon" + songNum);
+
+  // જો પહેલેથી જ પ્લે થતું ગીત ફરીથી દબાવે
+  if (currentAudio === audio) {
+    if (audio.paused) {
+      audio.play();
+      icon.innerHTML = "⏸";
+    } else {
+      audio.pause();
+      icon.innerHTML = "▶";
+    }
+    return;
+  }
+
+  // જો બીજું કોઈ ગીત વાગતું હોય તો તેને બંધ કરો
+  if (currentAudio) {
+    currentAudio.pause();
+    currentIcon.innerHTML = "▶";
+  }
+
+  // નવું ગીત પ્લે કરો
+  audio.play();
+  icon.innerHTML = "⏸";
+  currentAudio = audio;
+  currentIcon = icon;
+
+  // ગીત પૂરું થાય ત્યારે પાછો Play આઈકન આવી જાય
+  audio.onended = function() {
+    icon.innerHTML = "▶";
+  };
+}
 </script>
 
 </body>
