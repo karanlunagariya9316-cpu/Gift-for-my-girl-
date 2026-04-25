@@ -3,7 +3,7 @@
 <head>
   <title>For You ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -11,237 +11,117 @@
       font-family: 'Poppins', sans-serif;
       text-align: center;
       color: white;
-      /* ✨ NEW: એનિમેટેડ મૂવિંગ બેકગ્રાઉન્ડ */
-      background: linear-gradient(-45deg, #ff758c, #ff7eb3, #c084fc, #ff9a9e);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 40%, #c084fc 100%);
       overflow-x: hidden;
       min-height: 100vh;
       padding-bottom: 40px;
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     .container {
-      padding-top: 6vh;
+      padding-top: 5vh;
     }
 
-    /* 🔥 ULTRA PREMIUM HEADER */
     .header-box {
-      width: 85%;
+      width: 88%;
       margin: auto;
-      padding: 25px 20px;
-      border-radius: 30px;
+      padding: 25px 15px;
+      border-radius: 25px;
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255,255,255,0.4);
-      transition: transform 0.4s ease;
-      position: relative;
-    }
-
-    .header-box::before {
-      content: "✨";
-      position: absolute;
-      top: -15px;
-      left: -10px;
-      font-size: 24px;
-      animation: float 3s ease-in-out infinite;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transition: transform 0.3s ease;
     }
 
     .header-box h1 {
       font-size: 28px;
       margin: 0;
-      font-weight: 700;
-      text-shadow: 0 4px 15px rgba(255, 255, 255, 0.6);
+      font-weight: 600;
       min-height: 42px; 
-      letter-spacing: 1px;
     }
 
     .header-box h2 {
-      margin-top: 8px;
-      font-size: 20px;
-      font-weight: 500;
-      color: #fff0f5;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-top: 10px;
+      font-size: 22px;
     }
 
     .header-box p {
-      margin-top: 10px;
-      font-size: 14px;
-      opacity: 0.95;
-      font-weight: 300;
+      margin-top: 8px;
+      font-size: 15px;
     }
 
-    /* 💬 GLOWING QUOTE BOX */
     .quote-container {
       margin-top: 25px;
-      min-height: 50px;
     }
 
     .quote {
       display: inline-block;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 12px 30px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      padding: 12px 28px;
       border-radius: 30px;
-      font-size: 15px;
-      font-weight: 500;
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 15px rgba(255, 255, 255, 0.2);
-      animation: fadeInQuote 0.6s ease-out;
-      letter-spacing: 0.5px;
-    }
-
-    @keyframes fadeInQuote {
-      from { opacity: 0; transform: translateY(-15px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      font-size: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .counter {
-      font-size: 13px;
-      margin-top: 15px;
-      font-weight: 500;
-      background: rgba(255, 255, 255, 0.25);
+      font-size: 14px;
+      margin-top: 5px;
+      background: rgba(255, 255, 255, 0.2);
       display: inline-block;
-      padding: 5px 15px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      backdrop-filter: blur(5px);
+      padding: 4px 12px;
+      border-radius: 15px;
     }
 
-    /* 📸 CREATIVE SLIDESHOW WITH GLOW */
     .slideshow {
-      margin-top: 30px;
+      margin-top: 25px;
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 400px; 
-    }
-
-    /* ✨ NEW: ફોટાની પાછળનો ગ્લો અને પલ્સ ઇફેક્ટ */
-    .slide-wrapper {
-      position: relative;
-      display: none;
-      width: 82%;
-      max-width: 320px;
-      animation: fadeScale 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
-
-    .slide-wrapper::after {
-      content: "";
-      position: absolute;
-      top: -5px; left: -5px; right: -5px; bottom: -5px;
-      background: linear-gradient(45deg, #ff758c, #c084fc, #ff9a9e);
-      z-index: -1;
-      border-radius: 25px;
-      filter: blur(20px);
-      opacity: 0.7;
-      animation: pulseGlow 3s infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { filter: blur(20px); opacity: 0.6; transform: scale(0.98); }
-      100% { filter: blur(25px); opacity: 0.9; transform: scale(1.02); }
     }
 
     .slide {
-      width: 100%;
+      display: none;
+      width: 82%;
+      max-width: 320px;
       border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      display: block;
-      /* ધીમો શ્વાસ લેતો હોય એવો લુક */
-      animation: breath 4s infinite alternate ease-in-out;
-    }
-
-    @keyframes breath {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.03); }
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      animation: fadeScale 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     @keyframes fadeScale {
-      from { opacity: 0; transform: scale(0.85) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* ⬅️ MODERN ARROWS ➡️ */
     .arrow {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
-      font-size: 22px;
-      color: white;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 24px;
+      background: rgba(255, 255, 255, 0.25);
       border-radius: 50%;
-      cursor: pointer;
-      user-select: none;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      z-index: 10;
+      padding: 10px;
     }
 
-    .left { left: 5px; }
-    .right { right: 5px; }
+    .left { left: 10px; }
+    .right { right: 10px; }
 
-    .arrow:active {
-      transform: translateY(-50%) scale(0.85);
-      background: rgba(255, 255, 255, 0.4);
-    }
-
-    /* ⏭️ REPLAY BUTTON */
     .button {
       display: none;
-      margin: 40px auto 20px;
-      padding: 15px 40px;
+      margin-top: 30px;
+      padding: 14px 35px;
       border-radius: 30px;
-      border: none;
-      font-size: 18px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      background: linear-gradient(135deg, #ffffff, #ffe6f0);
-      color: #d81b60;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(216, 27, 96, 0.4);
-      animation: pulseBtn 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
-      transition: all 0.3s;
+      background: white;
+      color: #a8325f;
     }
 
-    .button:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes pulseBtn {
-      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-    }
-
-    /* 🌸 FLOATING PARTICLES */
     .heart {
       position: fixed;
-      animation: float 7s linear infinite;
-      z-index: -1;
-      opacity: 0.5;
-      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: float 6s linear infinite;
     }
 
     @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-      10% { opacity: 0.7; }
-      90% { opacity: 0.7; }
-      100% { transform: translateY(-10vh) rotate(360deg) scale(1.3); opacity: 0; }
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-10vh); }
     }
   </style>
 </head>
@@ -266,14 +146,10 @@
     <span id="leftArrow" class="arrow left" onclick="prevSlide()">&#10094;</span>
     <span id="rightArrow" class="arrow right" onclick="nextSlide()">&#10095;</span>
 
-    <div class="slide-wrapper"><img class="slide" src="IMG-20260401-WA0014.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG-20260401-WA0021.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG-20260401-WA0023.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG_20260112_175838_981~2.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG-20260401-WA0038.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG_20260112_175825_524~2.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="IMG-20260129-WA0033~2.jpg"></div>
-    <div class="slide-wrapper"><img class="slide" src="Snapchat-754572241~2.jpg"></div>
+    <img class="slide" src="https://6fd54a10dbcb7173e77320e2e5bf4f60.jpg">
+    <img class="slide" src="https://7e6091b9b3a45b0ab5bfead9d3b8be17.jpg">
+    <img class="slide" src="https://92bd194da8d817438cbfe7ae3954b6f1.jpg">
+    <img class="slide" src="https://627f083b4a4ad03654f45135230ed0b9.jpg">
   </div>
 
   <button id="nextBtn" class="button" onclick="goNext()">Replay Magic 🔄</button>
@@ -281,96 +157,66 @@
 </div>
 
 <script>
-
-/* ✨ TYPING EFFECT */
-let text = "To My Everything... 💖";
-let i = 0;
-function typing(){
-  if(i < text.length){
-    document.getElementById("text").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typing, 90); 
+  let text = "To My Everything... 💖";
+  let i = 0;
+  function typing(){
+    if(i < text.length){
+      document.getElementById("text").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, 100);
+    }
   }
-}
-setTimeout(typing, 500);
+  setTimeout(typing, 500);
 
-/* 📸 SLIDER LOGIC */
-let slideIndex = 0;
-let slides = document.getElementsByClassName("slide-wrapper"); // હવે wrapper ને ટાર્ગેટ કરીએ છીએ
-let quoteBox = document.getElementById("quoteText");
+  let slideIndex = 0;
+  let slides = document.getElementsByClassName("slide");
+  let quoteBox = document.getElementById("quoteText");
 
-let quotes = [
-  "You are the reason behind my smile 💝",
-  "Forever is not enough with you ♾️✨",
-  "You are my safe place 🤗😚",
-  "I fall for you every single day 💋💗",
-  "My favorite hello and my hardest goodbye 💕",
-  "My best friend & my soulmate 🫶💫",
-  "In you, I've found my world 🌍",
-  "You are my lifeline 🧬"
-];
+  let quotes = [
+    "You are the reason behind my smile 💝",
+    "Forever is not enough with you ♾️✨",
+    "You are my safe place 🤗😚",
+    "I fall for you every single day 💋💗"
+  ];
 
-function showSlide(n) {
-  if (n >= slides.length) slideIndex = 0;
-  if (n < 0) slideIndex = slides.length - 1;
+  function showSlide(n) {
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
 
-  for (let j = 0; j < slides.length; j++) {
-    slides[j].style.display = "none";
+    for (let j = 0; j < slides.length; j++) {
+      slides[j].style.display = "none";
+    }
+
+    slides[slideIndex].style.display = "block";
+    quoteBox.innerText = quotes[slideIndex];
+    document.getElementById("counter").innerText = `Memory ${slideIndex + 1} of ${slides.length}`;
+
+    if (slideIndex === slides.length - 1) {
+      document.getElementById("nextBtn").style.display = "block";
+    } else {
+      document.getElementById("nextBtn").style.display = "none";
+    }
   }
 
-  slides[slideIndex].style.display = "block";
-  slides[slideIndex].style.animation = 'none';
-  slides[slideIndex].offsetHeight; 
-  slides[slideIndex].style.animation = 'fadeScale 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) forwards'; 
+  function nextSlide(){ slideIndex++; showSlide(slideIndex); }
+  function prevSlide(){ slideIndex--; showSlide(slideIndex); }
 
-  quoteBox.style.animation = 'none';
-  quoteBox.offsetHeight; 
-  quoteBox.innerText = quotes[slideIndex];
-  quoteBox.style.animation = 'fadeInQuote 0.6s ease-out';
+  showSlide(slideIndex);
 
-  document.getElementById("counter").innerText = `Memory ${slideIndex + 1} of ${slides.length}`;
-
-  if (slideIndex === slides.length - 1) {
-    document.getElementById("nextBtn").style.display = "block";
-    document.getElementById("leftArrow").style.display = "none";
-    document.getElementById("rightArrow").style.display = "none";
-  } else {
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("leftArrow").style.display = "flex";
-    document.getElementById("rightArrow").style.display = "flex";
+  function goNext(){
+    window.location.href = "index.html"; 
   }
-}
 
-function nextSlide(){ slideIndex++; showSlide(slideIndex); }
-function prevSlide(){ slideIndex--; showSlide(slideIndex); }
-
-showSlide(slideIndex);
-
-/* ✨ REDIRECT TO INDEX.HTML */
-function goNext(){
-  window.location.href = "index.html"; 
-}
-
-/* 🌸 MAGICAL PARTICLES */
-setTimeout(() => {
-  setInterval(() => {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    
-    let icons = ["🌸", "✨", "💖", "🦋", "💫"];
-    heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-    heart.style.fontSize = (Math.random() * 12 + 12) + "px";
-    
-    // અલગ અલગ સ્પીડ
-    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 8000);
-  }, 350); 
-}, 800);
-
+  setTimeout(() => {
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.innerHTML = "💖";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 400);
+  }, 1000);
 </script>
 
 </body>
