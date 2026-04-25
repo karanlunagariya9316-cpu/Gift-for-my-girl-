@@ -7,13 +7,13 @@
 <style>
 body{
   margin:0;
-  min-height:100vh; /* બદલ્યું છે: જેથી નીચે 4 બોક્સ માટે આરામથી સ્ક્રોલ થઈ શકે */
+  min-height:100vh; 
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
   padding-top:90px;
-  padding-bottom:50px; /* નીચે સ્પેસ આપવા માટે */
+  padding-bottom:50px; 
   background: linear-gradient(135deg,#5a0f2e,#a8325f,#ff9a9e);
   font-family:'Poppins', sans-serif;
   overflow-x: hidden; 
@@ -28,7 +28,6 @@ body{
   cursor: pointer;
 }
 
-/* 🔄 INNER */
 .card-inner{
   width:100%;
   height:100%;
@@ -38,12 +37,10 @@ body{
   transform-origin:center center; 
 }
 
-/* 🔄 FLIP */
 .card.flip .card-inner{
   transform: rotateY(180deg);
 }
 
-/* 🎴 FRONT & BACK BASE */
 .card-front, .card-back{
   position:absolute;
   top:0;  
@@ -113,13 +110,11 @@ body{
   flex-direction:column; 
 }
 
-/* MESSAGE AREA */
 #message{
   text-align:center;
   width: 100%;
 }
 
-/* ✨ MESSAGE LINE ANIMATION */
 .msg-line {
   opacity: 0;
   transform: translateX(-20px);
@@ -130,7 +125,6 @@ body{
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ✨ GLOW */
 .card.flip .card-back{
   animation: glow 1s ease;
 }
@@ -144,7 +138,7 @@ body{
 /* 🎵 4 MINI PLAYERS AREA (GRID) */
 .song-area{
   display:flex;
-  flex-wrap: wrap; /* ✨ NEW: આનાથી 3જું અને 4થું બોક્સ આપોઆપ નીચે જશે */
+  flex-wrap: wrap; 
   justify-content:center; 
   align-items:center;
   gap:18px; 
@@ -168,14 +162,34 @@ body{
   box-sizing: border-box;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
 }
 
 .song-box:active {
   transform: scale(0.95);
 }
 
-/* 🖼️ TEDDY IMAGE */
+/* 🔒 LOCKED STATE (બીજે ક્યાંય ટચ ન થાય એના માટે) */
+.song-box.locked {
+  pointer-events: none; /* ટચ બ્લોક કરશે */
+  opacity: 0.55; /* ઝાંખુ દેખાશે જેથી ખબર પડે કે લોક છે */
+  filter: grayscale(30%);
+}
+
+/* ✨ HIGHLIGHT GLOW ANIMATION (15 સેકન્ડ પછી એક્ટિવ થવા માટે) */
+.song-box.highlight {
+  animation: boxPulseGlow 1.5s infinite ease-in-out;
+  pointer-events: auto; /* ટચ ઓપન કરશે */
+  opacity: 1;
+  filter: grayscale(0%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+@keyframes boxPulseGlow {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 77, 122, 0.8); }
+}
+
 .teddy-img {
   width: 85px; 
   height: 85px; 
@@ -185,7 +199,6 @@ body{
   margin-top: 2px;
 }
 
-/* 📝 TEXT AND BUTTON AREA */
 .song-controls {
   display: flex;
   width: 100%;
@@ -215,7 +228,6 @@ body{
   color: #d1d1d1;
 }
 
-/* ▶️ PLAY BUTTON */
 .play-btn {
   color: white;
   font-size: 24px; 
@@ -224,7 +236,6 @@ body{
   justify-content: center;
 }
 
-/* 🎉 CONFETTI PARTY BLAST STYLES */
 .confetti {
   position: fixed; 
   font-size: 24px;
@@ -257,7 +268,7 @@ body{
 
 <div class="song-area">
   
-  <div class="song-box" onclick="toggleSong(1)">
+  <div class="song-box locked" id="box1" onclick="toggleSong(1)">
     <img src="627f083b4a4ad03654f45135230ed0b9.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -269,7 +280,7 @@ body{
     <audio id="audio1" src="karan.mp3"></audio>
   </div>
 
-  <div class="song-box" onclick="toggleSong(2)">
+  <div class="song-box locked" id="box2" onclick="toggleSong(2)">
     <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -281,7 +292,7 @@ body{
     <audio id="audio2" src="karan.mp3"></audio>
   </div>
 
-  <div class="song-box" onclick="toggleSong(3)">
+  <div class="song-box locked" id="box3" onclick="toggleSong(3)">
     <img src="6fd54a10dbcb7173e77320e2e5bf4f60.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -293,7 +304,7 @@ body{
     <audio id="audio3" src="karan.mp3"></audio>
   </div>
 
-  <div class="song-box" onclick="toggleSong(4)">
+  <div class="song-box locked" id="box4" onclick="toggleSong(4)">
     <img src="7e6091b9b3a45b0ab5bfead9d3b8be17.jpg" class="teddy-img">
     <div class="song-controls">
       <div class="song-info">
@@ -308,7 +319,6 @@ body{
 </div>
 
 <script>
-/* ❤️ RAW MESSAGE */
 let rawText = `You are the best part of my life and I want you in my life forever.
 ..♾️🤗
 
@@ -323,7 +333,10 @@ And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
 
-/* 🔄 FLIP AND ANIMATE */
+// ટાઈમર ટ્રેક કરવા માટે
+let timerStarted = false;
+let boxUnlocked = [false, false, false, false, false]; 
+
 function flipCard(card){
   card.classList.toggle("flip");
   
@@ -332,60 +345,70 @@ function flipCard(card){
 
   if(card.classList.contains("flip")){
     
+    // મેસેજ ટાઈપિંગ એનિમેશન
     setTimeout(() => {
       lines.forEach((line, i) => {
         let div = document.createElement("div");
         div.className = "msg-line";
-        
-        if(line.trim() === ""){
-          div.style.height = "12px"; 
-        } else {
-          div.innerText = line.trim();
-        }
-        
+        if(line.trim() === ""){ div.style.height = "12px"; } 
+        else { div.innerText = line.trim(); }
         div.style.animationDelay = (i * 0.25) + "s"; 
         msgDiv.appendChild(div);
       });
     }, 400); 
 
     confettiBlast(card);
+
+    // ✨ 15 સેકન્ડ પછી પહેલું બોક્સ ગ્લો થશે 
+    if(!timerStarted) {
+      timerStarted = true;
+      setTimeout(() => {
+        unlockBox(1);
+      }, 15000); // 15000ms = 15 seconds
+    }
   }
 }
 
-/* 🎉 Confetti Blast Function (KISS EFFECT) */
+// બોક્સ અનલોક કરવાનું ફંક્શન
+function unlockBox(num) {
+  if(num > 4 || boxUnlocked[num]) return; // જો 4 થી વધુ હોય યા પહેલેથી અનલોક હોય તો રિટર્ન
+  boxUnlocked[num] = true;
+  let box = document.getElementById("box" + num);
+  box.classList.remove("locked");
+  box.classList.add("highlight");
+}
+
 function confettiBlast(cardEl) {
   let rect = cardEl.getBoundingClientRect();
   let centerX = rect.left + rect.width / 2;
   let centerY = rect.top + rect.height / 2;
-
   let confettiItems = ["💋", "💏", "👩‍❤️‍💋‍👩", "👩‍❤️‍💋‍👨", "💞", "✨"];
 
   for (let i = 0; i < 60; i++) {
     let c = document.createElement("div");
     c.className = "confetti";
     c.textContent = confettiItems[Math.floor(Math.random() * confettiItems.length)];
-
     let a = Math.random() * 2 * Math.PI; 
     let d = Math.random() * 400 + 100; 
-
     c.style.left = centerX + "px";
     c.style.top = centerY + "px";
     c.style.setProperty('--x', Math.cos(a) * d + "px");
     c.style.setProperty('--y', Math.sin(a) * d + "px");
-
     document.body.appendChild(c);
-    
     setTimeout(() => c.remove(), 1500);
   }
 }
 
-/* 🎵 MUSIC PLAYER LOGIC */
 let currentAudio = null;
 let currentIcon = null;
 
 function toggleSong(songNum) {
   let audio = document.getElementById("audio" + songNum);
   let icon = document.getElementById("icon" + songNum);
+  let box = document.getElementById("box" + songNum);
+
+  // ક્લિક કર્યા પછી ગ્લો/પલ્સ ઇફેક્ટ બંધ કરવા
+  box.classList.remove("highlight");
 
   if (currentAudio === audio) {
     if (audio.paused) {
@@ -410,6 +433,14 @@ function toggleSong(songNum) {
 
   audio.onended = function() {
     icon.innerHTML = "▶";
+  };
+
+  // ✨ ઓડિયો પ્લે થતો હોય ત્યારે સતત ટાઈમ ચેક કરશે
+  audio.ontimeupdate = function() {
+    // જો ગીત પૂરું થવામાં 2 સેકન્ડ કે તેથી ઓછો સમય બાકી હોય તો...
+    if (audio.duration > 0 && (audio.duration - audio.currentTime <= 2.0)) {
+      unlockBox(songNum + 1); // નેક્સ્ટ બોક્સ અનલોક થશે
+    }
   };
 }
 </script>
