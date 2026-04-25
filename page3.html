@@ -22,7 +22,7 @@ body{
   width:300px;
   height:380px;
   perspective:1200px;
-  margin: 0 auto; /* પર્ફેક્ટ સેન્ટર માટે */
+  margin: 0 auto; 
 }
 
 /* 🔄 INNER */
@@ -32,7 +32,7 @@ body{
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.8s ease-in-out;
-  transform-origin:center center; /* પર્ફેક્ટ સેન્ટર ફ્લિપ માટે */
+  transform-origin:center center; 
 }
 
 /* 🔄 FLIP */
@@ -43,19 +43,19 @@ body{
 /* 🎴 FRONT & BACK */
 .card-front, .card-back{
   position:absolute;
-  top:0;  /* ફિક્સ: શિફ્ટિંગ રોકવા માટે */
-  left:0; /* ફિક્સ: શિફ્ટિંગ રોકવા માટે */
+  top:0;  
+  left:0; 
   width:100%;
   height:100%;
   border-radius:20px;
   backface-visibility:hidden;
-  -webkit-backface-visibility:hidden; /* Safari ફિક્સ */
+  -webkit-backface-visibility:hidden; 
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:20px;
-  box-sizing:border-box; /* ફિક્સ: કાર્ડની સાઈઝ વધતી રોકવા માટે (સૌથી અગત્યનું) */
+  box-sizing:border-box; 
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
@@ -83,12 +83,28 @@ body{
   font-size:15px;
   line-height:1.4;
   padding:18px;
+  display:flex;
+  flex-direction:column; /* મેસેજ સેન્ટર કરવા માટે */
 }
 
-/* MESSAGE */
+/* MESSAGE AREA */
 #message{
   text-align:center;
-  white-space:pre-line;
+  width: 100%;
+}
+
+/* ✨ NEW: MESSAGE LINE ANIMATION (Left to Right) */
+.msg-line {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ✨ GLOW */
@@ -105,11 +121,11 @@ body{
 /* 🎵 SONG AREA */
 .song-area{
   display:flex;
-  justify-content:center; /* બોક્સને સેન્ટરમાં રાખવા */
+  justify-content:center; 
   align-items:center;
   gap:20px;
   width:100%;
-  margin-top:40px; /* કાર્ડથી થોડા નીચે લાવવા માટે */
+  margin-top:40px; 
 }
 
 .song-box{
@@ -128,7 +144,7 @@ body{
   <div class="card-inner">
 
     <div class="card-front">
-      Tap to Open 🎁
+      Tap to Open Surprise 🎁
     </div>
 
     <div class="card-back">
@@ -144,8 +160,8 @@ body{
 </div>
 
 <script>
-/* ❤️ FINAL MESSAGE */
-let text = `You are the best part of my life and I want you in my life forever.
+/* ❤️ RAW MESSAGE */
+let rawText = `You are the best part of my life and I want you in my life forever.
 ..♾️🤗
 
 And.
@@ -157,12 +173,34 @@ Forever with you..👀💫
 
 And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
-/* 🔄 FLIP */
+let lines = rawText.split('\n');
+
+/* 🔄 FLIP AND ANIMATE */
 function flipCard(card){
   card.classList.toggle("flip");
+  
+  let msgDiv = document.getElementById("message");
+  msgDiv.innerHTML = ""; // દર વખતે કાર્ડ ફ્લિપ થાય ત્યારે જૂનો મેસેજ ક્લીયર કરવા
 
   if(card.classList.contains("flip")){
-    document.getElementById("message").innerText = text;
+    
+    // કાર્ડ અડધું ફ્લિપ થઈ જાય પછી જ એનિમેશન ચાલુ થાય એના માટે ટાઈમર સેટ કર્યું છે
+    setTimeout(() => {
+      lines.forEach((line, i) => {
+        let div = document.createElement("div");
+        div.className = "msg-line";
+        
+        if(line.trim() === ""){
+          div.style.height = "12px"; // ખાલી જગ્યા માટે
+        } else {
+          div.innerText = line.trim();
+        }
+        
+        // દરેક લાઈન એક પછી એક આવે એના માટે એનિમેશન ડીલે
+        div.style.animationDelay = (i * 0.25) + "s"; 
+        msgDiv.appendChild(div);
+      });
+    }, 400); // ૪૦૦ મિલીસેકન્ડ પછી મેસેજ ટાઈપ થવાનું ચાલુ થશે
   }
 }
 </script>
