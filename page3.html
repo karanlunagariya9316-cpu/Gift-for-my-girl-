@@ -18,11 +18,11 @@ body{
   font-family:'Pacifico', cursive;
 }
 
-/* 🎁 CARD CONTAINER */
+/* 🎁 CARD */
 .card{
   width:260px;
   height:180px;
-  perspective:1000px;
+  perspective:1200px;
   margin-bottom:40px;
 }
 
@@ -32,7 +32,7 @@ body{
   height:100%;
   position:relative;
   transform-style:preserve-3d;
-  transition:0.8s;
+  transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
 /* FLIP */
@@ -55,30 +55,45 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* FRONT DESIGN 🎁 */
+/* FRONT 🎁 */
 .card-front{
   background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
   color:white;
   font-size:22px;
 }
 
-/* RIBBON */
+/* 🎀 RIBBON FIXED CENTER */
 .card-front::before{
   content:"🎀";
-  font-size:40px;
+  font-size:42px;
   position:absolute;
-  top:10px;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
 }
 
-/* BACK MESSAGE 💌 */
+/* BACK 💌 */
 .card-back{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
   font-size:18px;
+  line-height:1.4;
+  box-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-/* 🎵 FUTURE SONG AREA */
+/* ✨ GLOW WHEN OPEN */
+.card.flip .card-back{
+  animation: glow 1s ease;
+}
+
+@keyframes glow{
+  0%{ box-shadow:0 0 0 rgba(255,255,255,0); }
+  50%{ box-shadow:0 0 25px rgba(255,255,255,0.9); }
+  100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
+}
+
+/* 🎵 SONG AREA */
 .song-area{
   display:flex;
   gap:20px;
@@ -92,12 +107,19 @@ body{
   backdrop-filter:blur(5px);
 }
 
+/* ❤️ TYPING EFFECT */
+.typing{
+  border-right:2px solid #a8325f;
+  white-space:pre-line;
+  overflow:hidden;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- 🎁 FLIP CARD -->
+<!-- 🎁 CARD -->
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
 
@@ -108,15 +130,13 @@ body{
 
     <!-- BACK -->
     <div class="card-back">
-      💖 Happy Birthday Dhruti 💖<br><br>
-      Tu mara mate khub special che... 💕<br>
-      I Love You 💘
+      <div id="message" class="typing"></div>
     </div>
 
   </div>
 </div>
 
-<!-- 🎵 FUTURE SPACE -->
+<!-- 🎵 SPACE -->
 <div class="song-area">
   <div class="song-box"></div>
   <div class="song-box"></div>
@@ -124,8 +144,36 @@ body{
 
 <script>
 
+/* ❤️ CHANGE MESSAGE HERE ONLY */
+let text = `💖 Happy Birthday Dhruti 💖
+
+Tu mara mate khub special che... 💕
+I Love You 💘`;
+
+/* FLIP */
 function flipCard(card){
   card.classList.toggle("flip");
+
+  if(card.classList.contains("flip")){
+    typeText();
+  }
+}
+
+/* ✍️ TYPING EFFECT */
+function typeText(){
+  let i = 0;
+  let speed = 40;
+  let msgBox = document.getElementById("message");
+  msgBox.innerHTML = "";
+
+  function typing(){
+    if(i < text.length){
+      msgBox.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
 }
 
 </script>
