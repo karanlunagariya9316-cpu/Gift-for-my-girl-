@@ -19,36 +19,30 @@ body{
   font-family:'Pacifico', cursive;
 }
 
-/* 🎁 CARD */
+/* 🎁 CARD SIZE PERFECT */
 .card{
-  transform: translateZ(0);
-  width:320px;
-  height:240px;
+  width:330px;
+  height:250px;
   perspective:1200px;
   margin-bottom:40px;
 }
 
-/* INNER */
+/* 🔄 INNER */
 .card-inner{
   width:100%;
   height:100%;
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.9s cubic-bezier(.68,-0.55,.27,1.55);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
   transform-origin:center;
 }
 
-/* FLIP */
+/* 🔥 FLIP FIX */
 .card.flip .card-inner{
   transform: rotateY(180deg);
 }
 
-/* FRONT & BACK */
+/* 🎴 FRONT & BACK */
 .card-front, .card-back{
   position:absolute;
   width:100%;
@@ -63,45 +57,51 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* FRONT */
+/* 🎁 FRONT */
 .card-front{
   background:linear-gradient(135deg,#ff4d7a,#ff7fa5);
   color:white;
   font-size:22px;
 }
 
+/* 🎀 CENTER RIBBON */
 .card-front::before{
   content:"🎀";
   font-size:42px;
   position:absolute;
-  top:8px;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
 }
 
-/* BACK */
+/* 💌 BACK */
 .card-back{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
   font-size:18px;
-  line-height:1.6;
 
   font-family: 'Poppins', sans-serif;
   font-weight:400;
   letter-spacing:0.5px;
 
-  box-shadow:0 0 20px rgba(255,255,255,0.6);
-  overflow-y:auto;      /* 🔥 scroll enable */
   padding:18px;
+  overflow-y:auto;        /* 🔥 scroll fix */
+  box-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-/* ✨ Highlight first line */
-.card-back b{
-  font-size:20px;
+/* 🧾 MESSAGE STYLE */
+#message{
+  text-align:center;
+  line-height:1.4;        /* 🔥 gap control */
 }
 
-/* ✨ Glow */
+/* 🚫 SCROLL BAR HIDE */
+.card-back::-webkit-scrollbar{
+  display:none;
+}
+
+/* ✨ GLOW EFFECT */
 .card.flip .card-back{
   animation: glow 1s ease;
 }
@@ -112,7 +112,7 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 SONG AREA */
+/* 🎵 FUTURE AREA */
 .song-area{
   display:flex;
   gap:20px;
@@ -126,16 +126,12 @@ body{
   backdrop-filter:blur(5px);
 }
 
-/* ❤️ TEXT CENTER FIX */
-#message{
-  text-align:center;
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- 🎁 CARD -->
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
 
@@ -144,12 +140,13 @@ body{
     </div>
 
     <div class="card-back">
-      <div id="message" class="typing"></div>
+      <div id="message"></div>
     </div>
 
   </div>
 </div>
 
+<!-- 🎵 SPACE -->
 <div class="song-area">
   <div class="song-box"></div>
   <div class="song-box"></div>
@@ -166,7 +163,7 @@ let textLines = [
   "Forever with you 💘"
 ];
 
-/* FLIP */
+/* 🔄 FLIP */
 function flipCard(card){
   card.classList.toggle("flip");
 
@@ -175,16 +172,17 @@ function flipCard(card){
   }
 }
 
-/* ✍️ TYPING EFFECT */
+/* ✍️ CLEAN TYPING EFFECT */
 function typeText(){
   let msgBox = document.getElementById("message");
   msgBox.innerHTML = "";
 
   let lineIndex = 0;
   let charIndex = 0;
-  let speed = 40;
+  let speed = 35;
 
   function typeLine(){
+
     if(lineIndex < textLines.length){
 
       let line = textLines[lineIndex];
@@ -194,10 +192,10 @@ function typeText(){
         charIndex++;
         setTimeout(typeLine, speed);
       }else{
-        msgBox.innerHTML += "<br><br>";  // 🔥 line break
+        msgBox.innerHTML += "<br>";   /* 🔥 perfect spacing */
         lineIndex++;
         charIndex = 0;
-        setTimeout(typeLine, 300);
+        setTimeout(typeLine, 250);
       }
 
     }
