@@ -2,11 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 body{
   margin:0;
   height:100vh;
@@ -24,17 +22,17 @@ body{
   width:300px;
   height:380px;
   perspective:1200px;
-  margin-bottom:30px;
+  margin: 0 auto; /* પર્ફેક્ટ સેન્ટર માટે */
 }
 
-/* 🔄 INNER (ONLY ONE TIME) */
+/* 🔄 INNER */
 .card-inner{
   width:100%;
   height:100%;
   position:relative;
   transform-style:preserve-3d;
   transition: transform 0.8s ease-in-out;
-  transform-origin:center;
+  transform-origin:center center; /* પર્ફેક્ટ સેન્ટર ફ્લિપ માટે */
 }
 
 /* 🔄 FLIP */
@@ -45,15 +43,19 @@ body{
 /* 🎴 FRONT & BACK */
 .card-front, .card-back{
   position:absolute;
+  top:0;  /* ફિક્સ: શિફ્ટિંગ રોકવા માટે */
+  left:0; /* ફિક્સ: શિફ્ટિંગ રોકવા માટે */
   width:100%;
   height:100%;
   border-radius:20px;
   backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* Safari ફિક્સ */
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:20px;
+  box-sizing:border-box; /* ફિક્સ: કાર્ડની સાઈઝ વધતી રોકવા માટે (સૌથી અગત્યનું) */
   box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
@@ -78,7 +80,6 @@ body{
   background:white;
   color:#a8325f;
   transform:rotateY(180deg);
-
   font-size:15px;
   line-height:1.4;
   padding:18px;
@@ -104,7 +105,11 @@ body{
 /* 🎵 SONG AREA */
 .song-area{
   display:flex;
+  justify-content:center; /* બોક્સને સેન્ટરમાં રાખવા */
+  align-items:center;
   gap:20px;
+  width:100%;
+  margin-top:40px; /* કાર્ડથી થોડા નીચે લાવવા માટે */
 }
 
 .song-box{
@@ -114,13 +119,11 @@ body{
   border-radius:15px;
   backdrop-filter:blur(5px);
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- 🎁 CARD -->
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
 
@@ -135,14 +138,12 @@ body{
   </div>
 </div>
 
-<!-- 🎵 BOXES BACK -->
 <div class="song-area">
   <div class="song-box"></div>
   <div class="song-box"></div>
 </div>
 
 <script>
-
 /* ❤️ FINAL MESSAGE */
 let text = `You are the best part of my life and I want you in my life forever.
 ..♾️🤗
@@ -164,7 +165,6 @@ function flipCard(card){
     document.getElementById("message").innerText = text;
   }
 }
-
 </script>
 
 </body>
