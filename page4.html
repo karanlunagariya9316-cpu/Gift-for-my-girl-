@@ -6,18 +6,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ✨ Scrolling Disable & Fixed Page */
+    /* ✨ Fixed Page & Main Theme Background */
     html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
       width: 100vw;
-      overflow: hidden; /* સ્ક્રોલિંગ બંધ */
+      overflow: hidden; 
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #f0ebeb; 
+      /* આપણી મેઈન વેબસાઈટની રોમેન્ટિક થીમ */
+      background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
       position: relative;
     }
 
@@ -31,13 +32,13 @@
       z-index: 5;
     }
 
-    /* 💋 Background Kiss Marks */
+    /* 💋 Background Kiss Marks (મેચિંગ થીમ માટે) */
     .kiss-bg {
       position: absolute;
       font-size: 120px;
       color: transparent;
-      text-shadow: 0 0 2px #9e0b22; 
-      opacity: 0.15; 
+      text-shadow: 0 0 10px rgba(255, 154, 158, 0.25); /* થીમ સાથે મેચ થતો હલકો ગ્લો */
+      opacity: 0.2; 
       z-index: 0;
       pointer-events: none;
       filter: blur(1px); 
@@ -58,7 +59,7 @@
     .title, .subtitle {
       font-family: 'Anton', sans-serif;
       color: white;
-      font-size: 52px;
+      font-size: 55px;
       margin: 15px 0;
       letter-spacing: 3px;
       text-shadow:
@@ -71,35 +72,34 @@
     }
 
     .subtitle {
-      font-size: 44px;
+      font-size: 46px; /* 🥺 ઇમોજી સાથે થોડું મોટું */
     }
 
-    /* 📸 CREATIVE POLAROID SLIDESHOW AREA */
+    /* 📸 CREATIVE POLAROID SLIDESHOW AREA (મોટી સાઈઝ) */
     .polaroid-container {
       position: relative;
       width: 100%;
-      height: 250px; /* ફોટા માટે ફિક્સ જગ્યા */
+      height: 320px; /* ફોટા માટે વધારે જગ્યા */
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 10px 0;
+      margin: 15px 0;
     }
 
-    /* એક સિંગલ પોલારોઇડ ની ડિઝાઇન */
+    /* મોટી પોલારોઇડ ની ડિઝાઇન */
     .polaroid {
-      position: absolute; /* એકબીજા ઉપર ગોઠવવા માટે */
+      position: absolute; 
       background: #fdfdfd;
-      padding: 8px 8px 30px 8px; 
+      padding: 10px 10px 35px 10px; /* મોટી સાઈઝ માટે પેડિંગ વધાર્યું */
       box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-      width: 110px; 
+      width: 135px; /* સાઈઝ વધારી */
       border: 1px solid #ddd;
-      /* ✨ અહી એનિમેશન નો મેજિક છે! */
       transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); 
     }
 
     .polaroid img {
       width: 100%;
-      height: 110px;
+      height: 135px; /* સાઈઝ વધારી */
       object-fit: cover;
       filter: contrast(1.1) brightness(0.9); 
       border: 1px solid #ccc;
@@ -107,20 +107,20 @@
 
     /* 🎯 4 POSITION CLASSES FOR ANIMATION */
     .pos-center {
-      transform: translateX(0) scale(1.2) rotate(2deg);
+      transform: translateX(0) scale(1.25) rotate(2deg);
       z-index: 3;
       opacity: 1;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.9);
     }
 
     .pos-right {
-      transform: translateX(100px) scale(0.9) rotate(15deg);
+      transform: translateX(110px) scale(0.9) rotate(15deg);
       z-index: 2;
       opacity: 1;
     }
 
     .pos-left {
-      transform: translateX(-100px) scale(0.9) rotate(-12deg);
+      transform: translateX(-110px) scale(0.9) rotate(-12deg);
       z-index: 2;
       opacity: 1;
     }
@@ -128,31 +128,37 @@
     .pos-hidden {
       transform: translateX(0) scale(0.4) rotate(0deg);
       z-index: 1;
-      opacity: 0; /* પાછળ સંતાઈ જશે */
+      opacity: 0; 
     }
 
-    /* ⏭️ NEXT BUTTON (Black Capsule) */
+    /* ⏭️ RESTART BUTTON (શરૂઆતમાં સંતાડેલું હશે) */
     .next-btn {
+      display: none; /* ટાઈમર પૂરું થાય પછી જ દેખાશે */
       position: absolute;
-      bottom: 30px;
-      right: 25px;
-      background: #111;
+      bottom: 35px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
       color: white;
-      border: 2px solid rgba(255,255,255,0.5);
-      padding: 10px 30px;
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 12px 35px;
       border-radius: 30px;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 18px;
       letter-spacing: 1px;
       cursor: pointer;
       z-index: 20;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
     .next-btn:active {
       transform: scale(0.92);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
   </style>
@@ -173,10 +179,10 @@
       <div class="polaroid"><img src="Snapchat-754572241~2.jpg"></div>
     </div>
 
-    <div class="subtitle">TOGETHER</div>
+    <div class="subtitle">TOGETHER 🥺</div>
   </div>
 
-  <button class="next-btn" onclick="goToPage1()">NEXT</button>
+  <button class="next-btn" id="restartBtn" onclick="goToPage1()">Restart Magic 🔄</button>
 
   <script>
     // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
@@ -188,7 +194,7 @@
       let randomX = Math.floor(Math.random() * 100);
       let randomY = Math.floor(Math.random() * 100);
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.8) + 0.5; 
+      let randomScale = (Math.random() * 0.8) + 0.6; 
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
       kiss.style.transform = `rotate(${randomRotate}deg) scale(${randomScale})`;
@@ -202,8 +208,6 @@
 
     // 📸 ✨ CAROUSEL ANIMATION LOGIC ✨ 📸
     const polaroids = document.querySelectorAll('.polaroid');
-    
-    // ૬ ફોટા માટે ૬ પોઝિશન: [0] વચ્ચે, [1] જમણે, [2,3,4] પાછળ છુપાયેલા, [5] ડાબે
     let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
 
     function applyPositions() {
@@ -212,19 +216,29 @@
       });
     }
 
-    // પેજ લોડ થાય ત્યારે પહેલી પોઝિશન આપી દેવી
     applyPositions();
 
-    // 🔄 દર 3 સેકન્ડે ફોટા ફેરવવાનું ફંક્શન
+    // ✨ 3 રાઉન્ડ (18 શિફ્ટ) નું લોજિક
+    let totalShifts = 0;
+    const maxShifts = 18; // 6 ફોટા x 3 રાઉન્ડ = 18 વખત ફરશે
+
     function rotatePhotos() {
-      // ડાબી બાજુથી વચ્ચે, વચ્ચેથી જમણે જવાની મસ્ત ટ્રીક (Array Shift)
-      let first = positions.shift(); // પહેલો કાઢો
-      positions.push(first); // તેને છેલ્લે નાખો
+      // જો 18 વખત ફરી જાય, તો એનિમેશન અટકાવીને બટન બતાવવું
+      if (totalShifts >= maxShifts) {
+        clearInterval(rotationInterval);
+        document.getElementById("restartBtn").style.display = "block";
+        return;
+      }
+
+      let first = positions.shift(); 
+      positions.push(first); 
       applyPositions();
+      
+      totalShifts++;
     }
 
-    // દર 3000 મિલીસેકન્ડ (3 સેકન્ડ) એ જાતે જ ફરશે!
-    setInterval(rotatePhotos, 3000);
+    // દર 3000 મિલીસેકન્ડ (3 સેકન્ડ) એ જાતે જ ફરશે
+    let rotationInterval = setInterval(rotatePhotos, 3000);
 
   </script>
 
