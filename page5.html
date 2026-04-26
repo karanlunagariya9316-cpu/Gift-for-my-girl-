@@ -68,18 +68,18 @@ body::before {
   100% { transform: translateY(-12px); }
 }
 
-/* ✨ તમે આપેલી નવી Happy Birthday ટેક્સ્ટ ઇમેજનું સ્ટાઇલ ✨ */
+/* ✨ નવી Happy Birthday ટેક્સ્ટ ઇમેજનું સ્ટાઇલ ✨ */
 .hbd-img {
-  width: 85%; /* સ્ક્રીન પ્રમાણે પહોળાઈ, તમે બદલી શકો */
+  width: 85%; 
   max-width: 320px;
   height: auto;
-  margin-bottom: 10px; /* ટેડી ઇમેજથી થોડી જગ્યા */
+  margin-bottom: 10px; 
   filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
 }
 
-/* ✨ તમે આપેલી નવી Teddy Group ઇમેજનું સ્ટાઇલ ✨ */
+/* ✨ નવી Teddy Group ઇમેજનું સ્ટાઇલ ✨ */
 .teddy-group-img {
-  width: 75%; /* ટેક્સ્ટ ઇમેજથી થોડી નાની, તમે બદલી શકો */
+  width: 75%; 
   max-width: 250px;
   height: auto;
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
@@ -193,7 +193,7 @@ body::before {
 }
 
 .msg-title {
-  font-family: 'Fredoka One', cursive; /* રીલ સ્ટાઈલ ફોન્ટ */
+  font-family: 'Fredoka One', cursive; 
   font-size: 22px;
   margin-bottom: 10px;
   color: #ff477e;
@@ -226,8 +226,8 @@ body::before {
 <div id="heart-container"></div>
 
 <div class="reel-art-container">
-    <img src="8f5008e6d412e6d709c43ef77362640f.jpg" class="hbd-img" alt="Happy Birthday" onerror="this.style.display='none'">
-    <img src="ed06f5be20e9a2f6a2ac49b9cc208833.jpg" class="teddy-group-img" alt="Teddies" onerror="this.style.display='none'">
+    <img src="1000270396-removebg-preview.png" class="hbd-img" alt="Happy Birthday" onerror="this.style.display='none'">
+    <img src="1000270394-removebg-preview.png" class="teddy-group-img" alt="Teddies" onerror="this.style.display='none'">
 </div>
 
 <div class="cards-container">
@@ -298,9 +298,9 @@ function flipCard(card){
   card.classList.add("flip");
   
   // ૩ વાર કન્ફેટી બ્લાસ્ટ માટે ૩ અલગ અલગ ટાઈમર
-  setTimeout(() => { confettiBlast(card); }, 300);  // પહેલો બ્લાસ્ટ
-  setTimeout(() => { confettiBlast(card); }, 900);  // બીજો બ્લાસ્ટ
-  setTimeout(() => { confettiBlast(card); }, 1500); // ત્રીજો બ્લાસ્ટ
+  setTimeout(() => { confettiBlast(card); }, 300);  
+  setTimeout(() => { confettiBlast(card); }, 900);  
+  setTimeout(() => { confettiBlast(card); }, 1500); 
 }
 
 function confettiBlast(element) {
