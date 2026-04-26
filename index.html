@@ -20,25 +20,25 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             box-sizing: border-box;
-            position: relative; /* ✨ Falling Flowers માટે જરૂરી ✨ */
+            position: relative; 
         }
 
-        /* ✨ --- NEW: Falling Flowers Background Animation --- ✨ */
+        /* ✨ --- UPDATED: Falling Flowers Background Animation (Smooth & Acha) --- ✨ */
         .flower-bg {
             position: absolute;
-            top: -15vh; /* સ્ક્રીનની ઉપરથી શરૂ થશે */
-            font-size: 35px; /* ફૂલની સાઈઝ */
+            top: -15vh; 
+            font-size: 35px; 
             opacity: 0; 
             z-index: 0;
             pointer-events: none;
-            /* ધીમે ધીમે નીચે પડવાનું એનિમેશન */
             animation: fallDown var(--duration) linear infinite var(--delay);
         }
 
         @keyframes fallDown {
             0% { opacity: 0; transform: translateY(0) rotate(var(--rot)) scale(var(--scl)); }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
+            /* ✨ આછા (Transparent) કરવા માટે opacity 0.35 કરી છે ✨ */
+            10% { opacity: 0.35; }
+            90% { opacity: 0.35; }
             100% { opacity: 0; transform: translateY(130vh) rotate(calc(var(--rot) + 180deg)) scale(var(--scl)); }
         }
 
@@ -48,7 +48,7 @@
             margin-bottom: 3vh; 
             transform: rotate(-3deg);
             animation: floatFrame 4s ease-in-out infinite alternate;
-            z-index: 10; /* ફૂલો પાછળ રહેવા જોઈએ */
+            z-index: 10; 
         }
 
         @keyframes floatFrame {
@@ -191,7 +191,7 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        /* ✨ --- NEW: Hash Button Glow Animation --- ✨ */
+        /* ✨ Hash Button Glow Animation */
         .hash-glow {
             animation: hashGlowAnim 1s infinite alternate;
             background: rgba(255, 255, 255, 0.4);
@@ -205,7 +205,6 @@
         }
 
         /* ✨ --- EMOJI BLAST ANIMATIONS --- ✨ */
-        
         .mini-blast {
             position: fixed;
             pointer-events: none;
@@ -232,7 +231,7 @@
             100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.6) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* ✨ AUTO-ADJUST MAGIC: નાની સ્ક્રીન માટે મીડિયા ક્વેરી ✨ */
+        /* ✨ AUTO-ADJUST MAGIC */
         @media screen and (max-height: 700px) {
             .polaroid-wrapper { margin-bottom: 2vh; }
             .polaroid { width: 130px; padding: 8px 8px 30px 8px; }
@@ -291,19 +290,23 @@
 
     <script>
         let enteredPasscode = "";
-        let isSuccess = false; // સાચો પાસવર્ડ નંખાયા પછી કીપેડ બ્લોક કરવા
+        let isSuccess = false; 
         const correctPasscode = "2704"; 
 
-        // ✨ 1. Falling Flowers Logic ✨
+        // ✨ 1. UPDATED: Falling Flowers Logic (વધારે ફૂલો અને આખી સ્ક્રીનમાં) ✨
         const flowerContainer = document.getElementById("flower-container");
         const flowerEmojis = ['🌸', '💮', '🌼', '🏵️'];
+        const totalFlowers = 35; // ✨ 15 ની જગ્યાએ 35 કરી દીધા ✨
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < totalFlowers; i++) {
             let flower = document.createElement("div");
             flower.className = "flower-bg";
             flower.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
             
-            let randomX = Math.random() * 100; 
+            // ✨ સ્ક્રીનના દરેક ભાગમાં એક એક ફૂલ ગોઠવવા માટેનું પર્ફેક્ટ લોજિક ✨
+            let sectionWidth = 100 / totalFlowers;
+            let randomX = (i * sectionWidth) + (Math.random() * sectionWidth); 
+            
             let randomRotate = Math.floor(Math.random() * 360);
             let randomScale = (Math.random() * 0.4) + 0.6; 
             
@@ -322,12 +325,10 @@
         // 💋 ૨. બટન ક્લિક કરવા પર નાનો બ્લાસ્ટ
         function triggerMiniBlast(event) {
             if(!event) return;
-            // જે બટન દબાવ્યું છે તેની એક્ઝેક્ટ પોઝિશન કાઢીએ
             let rect = event.target.getBoundingClientRect();
             let startX = rect.left + (rect.width / 2);
             let startY = rect.top + (rect.height / 2);
 
-            // ૪ થી ૫ 💋 બહાર કાઢીએ
             for(let i = 0; i < 4; i++) {
                 let el = document.createElement('div');
                 el.innerText = '💋';
@@ -335,14 +336,13 @@
                 el.style.left = startX + 'px';
                 el.style.top = startY + 'px';
                 
-                // રેન્ડમ એંગલ અને અંતર
                 let angle = Math.random() * Math.PI * 2;
                 let distance = Math.random() * 40 + 20; 
                 el.style.setProperty('--x', Math.cos(angle) * distance + 'px');
                 el.style.setProperty('--y', Math.sin(angle) * distance + 'px');
                 
                 document.body.appendChild(el);
-                setTimeout(() => el.remove(), 500); // ૦.૫ સેકન્ડ પછી હટાવી દેવા
+                setTimeout(() => el.remove(), 500); 
             }
         }
 
@@ -351,13 +351,10 @@
             const emojis = ['💋', '🎀', '💗', '💝', '💕', '✨'];
             let blastsCount = 0;
 
-            // દર ૦.૩ સેકન્ડે અલગ અલગ જગ્યાએ બ્લાસ્ટ થશે (ટોટલ ૬ વાર)
             let blastInterval = setInterval(() => {
-                // સ્ક્રીન પર કોઈ પણ રેન્ડમ જગ્યા પસંદ કરીએ
                 let rx = Math.random() * (window.innerWidth - 100) + 50;
                 let ry = Math.random() * (window.innerHeight - 200) + 100;
 
-                // એક બ્લાસ્ટ માં ૨૫ ઇમોજીસ
                 for(let i = 0; i < 25; i++) {
                     let el = document.createElement('div');
                     el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
@@ -380,27 +377,24 @@
                 blastsCount++;
                 if(blastsCount >= 6) {
                     clearInterval(blastInterval);
-                    // બધા બ્લાસ્ટ પતી જાય એટલે ૨ સેકન્ડ પછી પેજ ૨ પર મોકલવા
                     setTimeout(() => {
                         window.location.href = "page2.html";
                     }, 1000);
                 }
-            }, 300); // 0.3 સેકન્ડ નો ગેપ
+            }, 300); 
         }
-
 
         // ----------------- કીપેડ લોજિક ----------------- //
 
         function pressKey(num, event) {
-            if(isSuccess) return; // જો પાસવર્ડ સાચો પડી ગયો હોય તો કઈ નહિ થાય
+            if(isSuccess) return; 
             
-            triggerMiniBlast(event); // નાનો બ્લાસ્ટ ચાલુ કરો
+            triggerMiniBlast(event); 
 
             if(enteredPasscode.length < 4) {
                 enteredPasscode += num;
                 updateDisplay();
                 
-                // ✨ જો 4 અક્ષર પુરા થઈ જાય, તો # બટનને ગ્લો કરાવો ✨
                 if(enteredPasscode.length === 4) {
                     document.getElementById('hashBtn').classList.add('hash-glow');
                 }
@@ -413,7 +407,6 @@
             enteredPasscode = "";
             updateDisplay();
             
-            // ✨ જો ક્લિયર કરે, તો ગ્લો કાઢી નાખો ✨
             document.getElementById('hashBtn').classList.remove('hash-glow');
         }
 
@@ -421,11 +414,9 @@
             if(isSuccess || enteredPasscode.length !== 4) return;
             if(event) triggerMiniBlast(event);
 
-            // જો # દબાવે તો ગ્લો તરત કાઢી નાખો
             document.getElementById('hashBtn').classList.remove('hash-glow');
 
             if(enteredPasscode === correctPasscode) {
-                // પાસવર્ડ સાચો! બ્લાસ્ટ ચાલુ કરો અને રીડાયરેક્ટ રોકી દો
                 isSuccess = true; 
                 triggerMegaBlast();
             } else {
