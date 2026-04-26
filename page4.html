@@ -31,7 +31,7 @@
       z-index: 5;
     }
 
-    /* 💋 Fast & Clean Kiss Animation */
+    /* 💋 Continuous Kiss Animation */
     .kiss-bg {
       position: absolute;
       font-size: 100px;
@@ -45,8 +45,7 @@
 
     @keyframes kissBreath {
       0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-      20% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
-      80% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
+      50% { opacity: 0.7; transform: rotate(var(--rot)) scale(var(--scl)); }
       100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
     }
 
@@ -83,7 +82,7 @@
       margin-bottom: 5px; 
     }
 
-    /* 📸 POLAROID SLIDESHOW AREA */
+    /* 📸 ✨ POLAROID SLIDESHOW AREA (Updated for 10 photos) ✨ 📸 */
     .polaroid-container {
       position: relative;
       width: 100%;
@@ -94,6 +93,7 @@
       margin: 10px 0;
     }
 
+    /* પોલારોઇડ ની ડીઝાઇન */
     .polaroid {
       position: absolute; 
       background: #fdfdfd;
@@ -107,12 +107,12 @@
     .polaroid img {
       width: 100%;
       height: 155px; 
-      object-fit: cover;
+      object-fit: cover; /* ✨ "હોરીઝોન્ટલ" ફોટાને સેન્ટર ફીટ કરવા માટેનું મેજિક ✨ */
       filter: contrast(1.1) brightness(0.9); 
       border: 1px solid #ccc;
     }
 
-    /* 🎯 4 POSITION CLASSES FOR ANIMATION */
+    /* 🎯 ✨ 4 POSITION CLASSES FOR 10-PHOTO ANIMATION ✨ 🎯 */
     .pos-center {
       transform: translateX(0) scale(1.3) rotate(2deg); 
       z-index: 3;
@@ -135,7 +135,7 @@
     .pos-hidden {
       transform: translateX(0) scale(0.4) rotate(0deg);
       z-index: 1;
-      opacity: 0; 
+      opacity: 0; /* પાછળ સંતાઈ જશે */
     }
 
     /* ⏭️ RESTART BUTTON */
@@ -173,16 +173,26 @@
 
   <div id="bg-container"></div>
 
+  <audio id="bgMusic" src="songP4.mp3" loop></audio>
+
   <div class="content">
     <div class="title">I MISS US</div>
     
     <div class="polaroid-container" id="photo-slider">
       <div class="polaroid"><img src="IMG-20260401-WA0014.jpg"></div>
       <div class="polaroid"><img src="IMG-20260401-WA0021.jpg"></div>
-      <div class="polaroid"><img src="IMG-20260401-WA0038.jpg"></div>
       <div class="polaroid"><img src="IMG_20260112_175825_524~2.jpg"></div>
+      
+      <div class="polaroid"><img src="Snapchat-1196564930~2.jpg"></div>
+      
       <div class="polaroid"><img src="IMG_20260112_175838_981~2.jpg"></div>
-      <div class="polaroid"><img src="Snapchat-754572241~2.jpg"></div>
+      <div class="polaroid"><img src="627f083b4a4ad03654f45135230ed0b9.jpg"></div>
+      
+      <div class="polaroid"><img src="Snapchat-1196564930~2.jpg"></div>
+      
+      <div class="polaroid"><img src="92bd194da8d817438cbfe7ae3954b6f1.jpg"></div>
+      <div class="polaroid"><img src="6fd54a10dbcb7173e77320e2e5bf4f60.jpg"></div>
+      <div class="polaroid"><img src="7e6091b9b3a45b0ab5bfead9d3b8be17.jpg"></div>
     </div>
 
     <div class="subtitle">TOGETHER 🥺</div>
@@ -191,9 +201,38 @@
   </div>
 
   <script>
-    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ માટે ફિક્સ ઝોન (ઓવરલેપ ન થાય તે માટે)
+    // 🎵 ✨ SMOOTH AUDIO FADE-IN LOGIC ✨ 🎵
+    window.addEventListener('load', () => {
+      let bgMusic = document.getElementById("bgMusic");
+      bgMusic.volume = 0; 
+
+      function smoothFadeIn() {
+        let fadeAudio = setInterval(function () {
+          if (bgMusic.volume < 0.9) {
+            bgMusic.volume += 0.05; 
+          } else {
+            bgMusic.volume = 1;
+            clearInterval(fadeAudio);
+          }
+        }, 200);
+      }
+
+      let playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          smoothFadeIn(); 
+        }).catch(error => {
+          document.body.addEventListener('click', function playOnInteract() {
+            bgMusic.play();
+            smoothFadeIn();
+            document.body.removeEventListener('click', playOnInteract);
+          }, { once: true });
+        });
+      }
+    });
+
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
-    
     const kissZones = [
       {x: 10, y: 10}, {x: 80, y: 10}, 
       {x: 45, y: 8},                  
@@ -210,11 +249,9 @@
       let randomX = zone.x + (Math.random() * 6 - 3); 
       let randomY = zone.y + (Math.random() * 6 - 3); 
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.4) + 0.6; 
-      
-      // ✨ NEW: સ્પીડ વધારી દીધી છે (Fast Animation)
-      let animDuration = (Math.random() * 1.5) + 2; // 2 થી 3.5 સેકન્ડ (પહેલા 5 થી 8 હતું)
-      let animDelay = Math.random() * 2; // 0 થી 2 સેકન્ડ ડીલે (પહેલા 5 હતું)
+      let randomScale = (Math.random() * 0.5) + 0.7; 
+      let animDuration = (Math.random() * 1.5) + 2; 
+      let animDelay = Math.random() * 2; 
       
       kiss.style.left = randomX + "vw";
       kiss.style.top = randomY + "vh";
@@ -231,9 +268,10 @@
       window.location.href = "index.html"; 
     }
 
-    // 📸 ✨ CAROUSEL ANIMATION LOGIC ✨ 📸
+    // 📸 ✨ CAROUSEL ANIMATION LOGIC (For 10 photos) ✨ 📸
     const polaroids = document.querySelectorAll('.polaroid');
-    let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
+    // ✨ Updated positions array for 10 photos: [0] center, [1] right, [2-8] hidden, [9] left
+    let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
 
     function applyPositions() {
       polaroids.forEach((el, i) => {
@@ -249,13 +287,13 @@
       applyPositions();
     }
 
-    // દર 3 સેકન્ડે ફરશે
+    // দর 3 સેકન્ડે ફરશે
     setInterval(rotatePhotos, 3000);
 
-    // ✨ 15 સેકન્ડ પછી જ બટન દેખાડવાનું લોજિક
+    // ✨ 18.5 સેકન્ડ પછી જ બટન દેખાડવાનું લોજિક
     setTimeout(() => {
       document.getElementById("restartBtn").style.display = "block";
-    }, 15000); 
+    }, 18500); 
 
   </script>
 
