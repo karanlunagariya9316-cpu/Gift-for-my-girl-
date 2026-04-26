@@ -11,7 +11,8 @@
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+            /* 100dvh નો ઉપયોગ કર્યો છે જેથી બ્રાઉઝરના મેનુ પ્રમાણે જાતે એડજસ્ટ થાય */
+            height: 100dvh; 
             background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
             display: flex;
             flex-direction: column;
@@ -19,13 +20,13 @@
             justify-content: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         /* 📸 --- POLAROID FRAME WITH TEDDY & BOW --- 📸 */
         .polaroid-wrapper {
             position: relative;
-            margin-top: -20px;
-            margin-bottom: 35px;
+            margin-bottom: 3vh; /* margin ઓટોમેટિક એડજસ્ટ થશે */
             transform: rotate(-3deg);
             animation: floatFrame 4s ease-in-out infinite alternate;
         }
@@ -37,15 +38,16 @@
 
         .polaroid {
             background: #fff;
-            padding: 12px 12px 45px 12px; 
+            padding: 10px 10px 40px 10px; 
             border-radius: 4px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            width: 170px;
+            width: 160px; /* થોડી સ્ટાન્ડર્ડ સાઈઝ રાખી છે */
+            transition: all 0.3s ease;
         }
 
         .polaroid img {
             width: 100%;
-            height: 170px;
+            height: 160px;
             object-fit: cover;
             border: 1px solid #ddd;
         }
@@ -53,9 +55,9 @@
         /* 🎀 Bow on Top Right */
         .bow {
             position: absolute;
-            top: -22px;
-            right: -22px;
-            font-size: 55px;
+            top: -20px;
+            right: -20px;
+            font-size: 50px;
             transform: rotate(15deg);
             filter: drop-shadow(2px 5px 4px rgba(0,0,0,0.3));
             z-index: 10;
@@ -64,9 +66,9 @@
         /* 🧸 Teddy on Bottom Left */
         .teddy {
             position: absolute;
-            bottom: -28px;
-            left: -28px;
-            font-size: 65px;
+            bottom: -25px;
+            left: -25px;
+            font-size: 60px;
             transform: rotate(-10deg);
             filter: drop-shadow(-2px 5px 4px rgba(0,0,0,0.3));
             z-index: 10;
@@ -75,23 +77,23 @@
         /* 🔒 --- PASSCODE DISPLAY --- 🔒 */
         .passcode-title {
             color: #fff;
-            font-size: 22px;
+            font-size: 20px;
             font-family: 'Fredoka One', cursive, sans-serif;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 1.5vh;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .passcode-display {
             display: flex;
-            gap: 12px;
-            margin-bottom: 35px;
+            gap: 10px;
+            margin-bottom: 3.5vh;
         }
 
         /* રીલ જેવા ચોરસ બોક્સ */
         .dot-box {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             background: rgba(255, 255, 255, 0.15);
             border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 10px;
@@ -99,7 +101,7 @@
             align-items: center;
             justify-content: center;
             font-family: 'Fredoka One', cursive;
-            font-size: 32px;
+            font-size: 30px;
             color: transparent; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
             transition: all 0.2s ease;
@@ -130,16 +132,16 @@
         .numpad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 18px 25px;
+            gap: 12px 20px; /* ગેપ થોડો ઓછો કર્યો */
         }
 
         .num-btn {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.95);
             border: none;
-            font-size: 28px;
+            font-size: 26px;
             font-family: 'Fredoka One', cursive;
             color: #a8325f;
             box-shadow: 0 8px 15px rgba(0,0,0,0.25);
@@ -157,7 +159,6 @@
             background: #ffe6f0;
         }
 
-        /* * અને # માટે અલગ સ્ટાઈલ (પારદર્શક) */
         .action-btn {
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
@@ -168,6 +169,24 @@
 
         .action-btn:active {
             background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ✨ AUTO-ADJUST MAGIC: નાની સ્ક્રીન માટે મીડિયા ક્વેરી ✨ */
+        /* જો ફોનની ઉંચાઈ 700px કરતા ઓછી હશે તો બધું જાતે નાનું થઈ જશે */
+        @media screen and (max-height: 700px) {
+            .polaroid-wrapper { margin-bottom: 2vh; }
+            .polaroid { width: 130px; padding: 8px 8px 30px 8px; }
+            .polaroid img { height: 130px; }
+            .bow { font-size: 40px; top: -15px; right: -15px; }
+            .teddy { font-size: 50px; bottom: -20px; left: -20px; }
+
+            .passcode-title { font-size: 18px; margin-bottom: 1vh; }
+            .passcode-display { gap: 8px; margin-bottom: 2.5vh; }
+            .dot-box { width: 36px; height: 36px; font-size: 26px; }
+
+            .numpad { gap: 8px 15px; }
+            .num-btn { width: 55px; height: 55px; font-size: 22px; }
+            .action-btn { font-size: 26px; }
         }
 
     </style>
@@ -211,18 +230,16 @@
     <script>
         let enteredPasscode = "";
         
-        // ✨ પાસવર્ડ પાછો 2704 કરી દીધો છે
+        // પાસવર્ડ 2704 સેટ કરેલો છે
         const correctPasscode = "2704"; 
 
         function pressKey(num) {
-            // ૪ આંકડા સુધી જ ટાઈપ થશે
             if(enteredPasscode.length < 4) {
                 enteredPasscode += num;
                 updateDisplay();
                 
-                // જો ૪ આંકડા પૂરા થઈ જાય તો જાતે જ ચેક થઈ જશે 
                 if(enteredPasscode.length === 4) {
-                    setTimeout(submitPasscode, 200); // 0.2 સેકન્ડ પછી ઓટો-સબમિટ
+                    setTimeout(submitPasscode, 200); 
                 }
             }
         }
@@ -233,14 +250,11 @@
         }
 
         function submitPasscode() {
-            // જો ૪ આંકડા ટાઈપ જ ના કર્યા હોય તો કાઈ નહિ થાય
             if(enteredPasscode.length !== 4) return;
 
             if(enteredPasscode === correctPasscode) {
-                // પાસવર્ડ સાચો! page2.html પર જશે
                 window.location.href = "page2.html";
             } else {
-                // પાસવર્ડ ખોટો! સ્ક્રીન ધ્રૂજશે અને પાસવર્ડ ભૂંસાઈ જશે
                 const display = document.getElementById('passcodeDisplay');
                 display.classList.add('error-shake');
                 setTimeout(() => {
@@ -254,9 +268,9 @@
             for(let i = 1; i <= 4; i++) {
                 const dot = document.getElementById(`dot${i}`);
                 if(i <= enteredPasscode.length) {
-                    dot.classList.add('filled'); // * બતાવશે
+                    dot.classList.add('filled'); 
                 } else {
-                    dot.classList.remove('filled'); // * છુપાવી દેશે
+                    dot.classList.remove('filled'); 
                 }
             }
         }
