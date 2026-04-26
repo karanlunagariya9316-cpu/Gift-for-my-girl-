@@ -51,7 +51,7 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🎂 --- UPDATED: TOP SECTION --- 🎂 */
+/* 🎂 --- TOP SECTION --- 🎂 */
 .reel-art-container {
   display: flex;
   flex-direction: column;
@@ -89,7 +89,7 @@ body::before {
 .c6 { color: #fad0c4; }
 .c7 { color: #ffd1ff; }
 
-/* ✨ નવી ટ્રાન્સપરન્ટ Teddy Group Image ✨ */
+/* ✨ Teddy Group Image ✨ */
 .teddy-group-img {
   width: 75%; 
   max-width: 230px;
@@ -223,8 +223,9 @@ body::before {
   100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
 }
 
-/* ✨ NEW: Back to Page 1 Button (Professional) ✨ */
+/* ✨ NEW: Back to Start Button (6-7 સેકન્ડ પછી દેખાશે) ✨ */
 .back-btn {
+  display: none; /* ✨ શરૂઆતમાં છુપાયેલું રહેશે ✨ */
   margin-top: 40px; 
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
@@ -290,22 +291,22 @@ body::before {
 
 <div class="cards-container">
   
-  <div class="card" onclick="flipCard(this)">
+  <div class="card" id="card1" onclick="flipCard1(this)">
     <div class="card-inner">
       <div class="card-front">
         <img src="627f083b4a4ad03654f45135230ed0b9.jpg" alt="Teddy 1">
         <div class="tap-hint">Tap me ✨</div>
       </div>
       <div class="card-back">
-        <div class="msg-text" style="font-size: 18px; line-height: 1.8;">
-          Many Many Happy Returns of The Day... 🥳🎉🎊💫💐🎁
-          Happy Birthday dhrutuuu...🥳🫰🫶💖💗❤️
+        <div class="msg-text" style="font-size: 16px; line-height: 1.8;">
+          Many Many Happy Returns of The Day... 🥳🎉🎊💫💐🎁<br><br>
+          Happy Birthday dhrutuuu...🥳👆🫶💖💗❤️
         </div>
       </div>
     </div>
   </div>
 
-  <div class="card" onclick="flipCard(this)">
+  <div class="card" id="card2" onclick="flipCard2(this)">
     <div class="card-inner">
       <div class="card-front">
         <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" alt="Teddy 2">
@@ -323,7 +324,7 @@ body::before {
 
 </div>
 
-<button class="back-btn" onclick="goToPage1()">Back to Start</button>
+<button class="back-btn" id="backBtn" onclick="goToPage1()">Back to Start</button>
 
 <script>
 const heartContainer = document.getElementById("heart-container");
@@ -349,11 +350,41 @@ for (let i = 0; i < 20; i++) {
     heartContainer.appendChild(heart);
 }
 
-function flipCard(card){
+// ✨ લોજિક: પહેલું કાર્ડ ખુલ્લું છે કે નહિ? ✨
+let isCard1Flipped = false;
+
+// ✨ પહેલા કાર્ડનું ફંક્શન ✨
+function flipCard1(card){
+  if(card.classList.contains("flip")) return; 
+  
+  card.classList.add("flip");
+  isCard1Flipped = true; // કાર્ડ 1 ખુલી ગયું છે એ નોંધ લીધી
+  
+  triggerConfetti(card);
+}
+
+// ✨ બીજા કાર્ડનું ફંક્શન (પહેલું ખુલ્યું હોય તો જ ખૂલે) ✨
+function flipCard2(card){
+  // જો પહેલું કાર્ડ ન ખુલ્યું હોય તો અહીથી જ પાછા ફરી જાવ (કાઈ જ નહિ થાય)
+  if(!isCard1Flipped) return; 
+
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
   
+  triggerConfetti(card);
+
+  // ✨ બરાબર 6.5 સેકન્ડ પછી બટન દેખાડવાનું લોજિક ✨
+  setTimeout(() => {
+    let btn = document.getElementById("backBtn");
+    btn.style.display = "block";
+    // બટન દેખાય એટલે સ્ક્રીન જાતે જ ધીમેથી નીચે સરકી જશે
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, 6500); 
+}
+
+// બ્લાસ્ટ કરવાનું ફંક્શન ભેગું કરી દીધું
+function triggerConfetti(card) {
   setTimeout(() => { confettiBlast(card); }, 300);  
   setTimeout(() => { confettiBlast(card); }, 900);  
   setTimeout(() => { confettiBlast(card); }, 1500); 
@@ -382,11 +413,11 @@ function confettiBlast(element) {
   }
 }
 
-// ✨ પેજ 1 પર જવા માટેનું ફંક્શન ✨
+// પેજ 1 પર જવા માટેનું ફંક્શન
 function goToPage1() {
   setTimeout(() => {
     window.location.href = "index.html";
-  }, 150); // એનિમેશન દેખાવા માટે 150ms નો ડિલે
+  }, 150); 
 }
 </script>
 
