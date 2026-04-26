@@ -67,6 +67,7 @@
       font-family: 'Fredoka One', cursive;
       color: white;
       font-size: 45px; 
+      letter-spacing: 2px;
       text-shadow: 0px 8px 15px rgba(255,255,255,0.7); 
       animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
     }
@@ -281,7 +282,7 @@
     }
 
     let isCakeCut = false;
-    let isSlideshowStarted = false; // ✨ નવો લોક - એક જ વાર ચાલુ થવા માટે ✨
+    let isSlideshowStarted = false; 
 
     function cutCake() {
       if(isCakeCut) return; 
@@ -295,8 +296,8 @@
       document.getElementById("highlightSentence").style.display = "block"; 
       document.getElementById("giftBoxContainer").style.display = "block"; 
       
-      // ૩ સેકન્ડ પછી ઓટોમેટિક બોક્સ ખુલશે
-      setTimeout(openBoxAutomatically, 3000);
+      // ✨ 3 સેકન્ડનો ડિલે કાઢી નાખ્યો છે, હવે તરત જ બોક્સ ખુલશે અને સોંગ ચાલુ થશે ✨
+      openBoxAutomatically();
     }
 
     function openBoxAutomatically() {
@@ -311,7 +312,6 @@
         startSnappySlides();
       }, 2000);
 
-      // પર્ફેક્ટ ૩ સેકન્ડ બાકી હોય ત્યારે બટન
       song.ontimeupdate = function() {
         if (song.duration > 0 && (song.duration - song.currentTime <= 3.2)) {
           document.getElementById("surpriseBtn").style.display = "block";
@@ -321,7 +321,7 @@
     }
 
     function startSnappySlides() {
-      if (isSlideshowStarted) return; // જો પહેલેથી ચાલુ હોય તો ફરીથી નહિ થાય (બગ ફિક્સ)
+      if (isSlideshowStarted) return; 
       isSlideshowStarted = true;
 
       const snappyImg = document.getElementById("snappySlide");
@@ -334,7 +334,6 @@
       ];
       let idx = 0;
       
-      // પર્ફેક્ટ 0.5 સેકન્ડ (500ms) નો ગેપ
       setInterval(() => {
         idx = (idx + 1) % photos.length;
         snappyImg.src = photos[idx];
