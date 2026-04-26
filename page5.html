@@ -116,7 +116,7 @@ body::before {
 .card {
   width: 85vw;
   max-width: 350px;
-  height: 220px; 
+  height: 280px; /* ✨ UPDATE: મેસેજ કપાય નહિ એટલે હાઈટ 220px થી વધારીને 280px કરી દીધી ✨ */
   perspective: 1200px;
   cursor: pointer;
   position: relative;
@@ -188,10 +188,17 @@ body::before {
   background: white;
   color: #a8325f;
   transform: rotateY(180deg);
-  padding: 20px;
+  padding: 15px 20px; /* થોડીક જગ્યા સેટ કરી */
   display: flex;
   flex-direction: column; 
+  justify-content: center;
   border: 4px solid rgba(255, 71, 126, 0.3);
+  overflow-y: auto; /* ✨ સેફ્ટી: જો ફોન બહુ નાનો હોય તો મેસેજ બહાર ના જાય પણ સ્ક્રોલ થાય ✨ */
+}
+
+/* સ્ક્રોલબાર છુપાવવા માટે */
+.card-back::-webkit-scrollbar {
+  display: none;
 }
 
 .card.flip .card-back {
@@ -207,6 +214,7 @@ body::before {
 .msg-text {
   font-weight: 600;
   color: #a8325f;
+  margin: auto 0; /* મેસેજ બરાબર વચ્ચે રહે તે માટે */
 }
 
 /* 🎉 CONFETTI */
@@ -223,9 +231,9 @@ body::before {
   100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
 }
 
-/* ✨ NEW: Back to Start Button (6-7 સેકન્ડ પછી દેખાશે) ✨ */
+/* ✨ Back to Start Button ✨ */
 .back-btn {
-  display: none; /* ✨ શરૂઆતમાં છુપાયેલું રહેશે ✨ */
+  display: none; 
   margin-top: 40px; 
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
@@ -350,22 +358,18 @@ for (let i = 0; i < 20; i++) {
     heartContainer.appendChild(heart);
 }
 
-// ✨ લોજિક: પહેલું કાર્ડ ખુલ્લું છે કે નહિ? ✨
 let isCard1Flipped = false;
 
-// ✨ પહેલા કાર્ડનું ફંક્શન ✨
 function flipCard1(card){
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
-  isCard1Flipped = true; // કાર્ડ 1 ખુલી ગયું છે એ નોંધ લીધી
+  isCard1Flipped = true; 
   
   triggerConfetti(card);
 }
 
-// ✨ બીજા કાર્ડનું ફંક્શન (પહેલું ખુલ્યું હોય તો જ ખૂલે) ✨
 function flipCard2(card){
-  // જો પહેલું કાર્ડ ન ખુલ્યું હોય તો અહીથી જ પાછા ફરી જાવ (કાઈ જ નહિ થાય)
   if(!isCard1Flipped) return; 
 
   if(card.classList.contains("flip")) return; 
@@ -374,16 +378,13 @@ function flipCard2(card){
   
   triggerConfetti(card);
 
-  // ✨ બરાબર 6.5 સેકન્ડ પછી બટન દેખાડવાનું લોજિક ✨
   setTimeout(() => {
     let btn = document.getElementById("backBtn");
     btn.style.display = "block";
-    // બટન દેખાય એટલે સ્ક્રીન જાતે જ ધીમેથી નીચે સરકી જશે
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }, 6500); 
 }
 
-// બ્લાસ્ટ કરવાનું ફંક્શન ભેગું કરી દીધું
 function triggerConfetti(card) {
   setTimeout(() => { confettiBlast(card); }, 300);  
   setTimeout(() => { confettiBlast(card); }, 900);  
@@ -413,7 +414,6 @@ function confettiBlast(element) {
   }
 }
 
-// પેજ 1 પર જવા માટેનું ફંક્શન
 function goToPage1() {
   setTimeout(() => {
     window.location.href = "index.html";
