@@ -172,38 +172,40 @@
 
   <script>
     let bgMusic = document.getElementById("bgMusic");
-
-    // 🎵 ✨ NEW SUPER AGGRESSIVE AUDIO FIX ✨ 🎵
     bgMusic.volume = 1; 
+    bgMusic.currentTime = 0; 
+    
+    let isMusicStarted = false; // ✨ ટ્રેક કરવા કે ગીત ચાલુ કરવાનો કમાન્ડ અપાયો છે કે નહિ ✨
 
     async function playMusicFatafat() {
       try {
         await bgMusic.play();
-        // જો ગીત વાગી જાય તો બધી ઈવેન્ટ્સ હટાવી દો (વારંવાર ના વાગે એટલે)
-        document.removeEventListener('click', playMusicFatafat);
-        document.removeEventListener('touchstart', playMusicFatafat);
-        document.removeEventListener('scroll', playMusicFatafat);
+        document.removeEventListener('click', playOnTouch);
+        document.removeEventListener('touchstart', playOnTouch);
+        document.removeEventListener('scroll', playOnTouch);
       } catch (error) {
         console.log("Autoplay blocked. Waiting for user touch.");
       }
     }
 
-    // ૧. પેજ લોડ થતાં જ પ્લે કરવાની ફુલ ટ્રાય
-    playMusicFatafat();
-    window.addEventListener('load', playMusicFatafat);
-
-    // ૨. જો બ્રાઉઝર રોકે, તો ધ્રુતિ ગમે ત્યાં ટચ કરે કે સ્ક્રોલ કરે એટલે ૦ સેકન્ડમાં વાગવા લાગશે
-    document.addEventListener('click', playMusicFatafat, { once: true });
-    document.addEventListener('touchstart', playMusicFatafat, { once: true });
-    document.addEventListener('scroll', playMusicFatafat, { once: true });
+    // જો બ્રાઉઝર રોકે, તો ધ્રુતિ ગમે ત્યાં ટચ કરે એટલે ચાલુ થાય, પણ 3 સેકન્ડ પછી જ!
+    function playOnTouch() {
+        if (isMusicStarted) { 
+            playMusicFatafat();
+        }
+    }
+    
+    document.addEventListener('click', playOnTouch);
+    document.addEventListener('touchstart', playOnTouch);
+    document.addEventListener('scroll', playOnTouch);
 
     // 🛑 ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક 🛑
     document.addEventListener("visibilitychange", function() {
       if (document.hidden) {
         bgMusic.pause();
       } else {
-        if(bgMusic.currentTime > 0 && !bgMusic.ended) {
-          playMusicFatafat(); // પાછા આવે એટલે ફરી વાગે
+        if(isMusicStarted && bgMusic.currentTime > 0 && !bgMusic.ended) {
+          playMusicFatafat(); 
         }
       }
     });
@@ -237,12 +239,36 @@
 
     const polaroids = document.querySelectorAll('.polaroid');
     let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
-    function applyPositions() { polaroids.forEach((el, i) => { el.className = 'polaroid ' + positions[i]; }); }
+    
+    function applyPositions() { 
+        polaroids.forEach((el, i) => { el.className = 'polaroid ' + positions[i]; }); 
+    }
+    
     applyPositions();
-    function rotatePhotos() { let first = positions.shift(); positions.push(first); applyPositions(); }
+    
+    function rotatePhotos() { 
+      let first = positions.shift(); 
+      positions.push(first); 
+      applyPositions(); 
+
+      // ✨ NEW: પહેલો ફોટો ફરશે એટલે તરત જ ગીત ચાલુ થશે! ✨
+      if (!isMusicStarted) {
+          isMusicStarted = true;
+          playMusicFatafat();
+      }
+    }
+    
+    // દર 3 સેકન્ડે ફોટો બદલાશે (પહેલી 3 સેકન્ડ પૂરી થતાં જ ફોટો બદલાશે અને ગીત વાગશે)
     setInterval(rotatePhotos, 3000);
 
-    setTimeout(() => { document.getElementById("restartBtn").style.display = "block"; }, 18500); 
+    // ✨ NEW: ગીત બરાબર 33 સેકન્ડ વાગી જાય પછી જ બટન આવશે ✨
+    bgMusic.ontimeupdate = function() {
+      if (bgMusic.currentTime >= 33) {
+        document.getElementById("restartBtn").style.display = "block";
+        bgMusic.ontimeupdate = null; // એકવાર આવી જાય પછી ચેક કરવાનું બંધ કરો
+      }
+    };
+
   </script>
 
 </body>
