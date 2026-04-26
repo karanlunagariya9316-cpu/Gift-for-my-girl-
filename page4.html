@@ -31,35 +31,23 @@
       z-index: 5;
     }
 
-    /* ✨ --- UPDATED: Falling Stars Animation --- ✨ */
+    /* ✨ Falling Stars Animation */
     .sparkle-bg {
       position: absolute;
-      top: -15vh; /* સ્ક્રીનની ઉપરથી શરૂ થશે */
-      font-size: 75px; /* Medium સાઈઝ */
+      top: -15vh; 
+      font-size: 75px; 
       opacity: 0; 
       z-index: 0;
       pointer-events: none;
       filter: blur(1px); 
-      /* ✨ ધીમે ધીમે નીચે પડવાનું એનિમેશન ✨ */
       animation: fallDown var(--duration) linear infinite var(--delay);
     }
 
     @keyframes fallDown {
-      0% { 
-        opacity: 0; 
-        transform: translateY(0) rotate(var(--rot)) scale(var(--scl)); 
-      }
-      10% { 
-        opacity: 0.7; 
-      }
-      90% { 
-        opacity: 0.7; 
-      }
-      100% { 
-        opacity: 0; 
-        /* છેક સ્ક્રીનની નીચે જતા રહેશે */
-        transform: translateY(130vh) rotate(calc(var(--rot) + 180deg)) scale(var(--scl)); 
-      }
+      0% { opacity: 0; transform: translateY(0) rotate(var(--rot)) scale(var(--scl)); }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(130vh) rotate(calc(var(--rot) + 180deg)) scale(var(--scl)); }
     }
 
     .content {
@@ -163,7 +151,7 @@
 
   <div id="bg-container"></div>
 
-  <audio id="bgMusic" src="songP4.mp3" autoplay></audio>
+  <audio id="bgMusic" src="songP4.mp3" autoplay preload="auto"></audio>
 
   <div class="content">
     <div class="title">I MISS US</div>
@@ -185,23 +173,37 @@
   <script>
     let bgMusic = document.getElementById("bgMusic");
 
+    // 🎵 ✨ AUDIO BUG FIX: Aggressive Play Logic ✨ 🎵
     bgMusic.volume = 1; 
-    let playPromise = bgMusic.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        document.body.addEventListener('click', function playOnInteract() {
-          bgMusic.play();
-          document.body.removeEventListener('click', playOnInteract);
-        }, { once: true });
-      });
+    bgMusic.currentTime = 0; // વારંવાર આવવા પર ગીત શરૂઆતથી જ વાગે
+
+    function forcePlayMusic() {
+      let playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // જો બ્રાઉઝર ઓટોપ્લે બ્લોક કરે તો સ્ક્રીન પર ક્યાંય પણ ટચ કરવાથી તરત ચાલુ થઈ જશે
+          const playOnInteraction = () => {
+            bgMusic.play();
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          };
+          document.addEventListener('click', playOnInteraction);
+          document.addEventListener('touchstart', playOnInteraction);
+        });
+      }
     }
 
+    // પેજ લોડ થતાં જ ચાલુ કરવાની ટ્રાય
+    window.addEventListener('load', forcePlayMusic);
+    forcePlayMusic(); // સેફ્ટી માટે બે વાર કમાન્ડ આપ્યો છે
+
+    // 🛑 ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક 🛑
     document.addEventListener("visibilitychange", function() {
       if (document.hidden) {
         bgMusic.pause();
       } else {
         if(bgMusic.currentTime > 0 && !bgMusic.ended) {
-          bgMusic.play();
+          bgMusic.play().catch(e => console.log(e));
         }
       }
     });
@@ -209,17 +211,16 @@
     let bgContainer = document.getElementById("bg-container");
     const sparkleEmojis = ['💫', '✨'];
 
-    // તારાઓ જનરેટ કરવા
+    // તારાઓ જનરેટ કરવા (No change in design)
     for (let i = 0; i < 15; i++) {
       let sparkle = document.createElement("div");
       sparkle.className = "sparkle-bg";
       sparkle.innerText = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
       
-      let randomX = Math.random() * 100; // આખી પહોળાઈમાં ક્યાંય પણ
+      let randomX = Math.random() * 100; 
       let randomRotate = Math.floor(Math.random() * 360);
       let randomScale = (Math.random() * 0.4) + 0.6; 
       
-      // ✨ 6 થી 11 સેકન્ડની વચ્ચે એકદમ ધીમેથી નીચે પડશે ✨
       let animDuration = (Math.random() * 5) + 6; 
       let animDelay = Math.random() * 5; 
       
