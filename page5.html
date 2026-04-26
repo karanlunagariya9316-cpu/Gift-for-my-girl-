@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Special Memories 🧸</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ✨ Main Theme Background */
@@ -51,14 +51,16 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🎂 --- REEL STYLE CUTE TOP SECTION --- 🎂 */
+/* 🎂 --- UPDATED: REEL STYLE TOP SECTION WITH NEW IMAGES --- 🎂 */
 .reel-art-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 5vh;
   z-index: 10;
+  /* ✨ આખા સેક્શનને Float થવાનું એનિમેશન ✨ */
   animation: floatArt 3s ease-in-out infinite alternate;
+  width: 100%;
 }
 
 @keyframes floatArt {
@@ -66,47 +68,25 @@ body::before {
   100% { transform: translateY(-12px); }
 }
 
-.hbd-text {
-  font-family: 'Fredoka One', cursive;
-  font-size: 38px;
-  line-height: 1.2;
-  text-align: center;
-  letter-spacing: 2px;
-  text-shadow: 0px 8px 15px rgba(0,0,0,0.4), 2px 2px 0px rgba(255,255,255,0.2);
-  margin-bottom: 10px;
+/* ✨ તમે આપેલી નવી Happy Birthday ટેક્સ્ટ ઇમેજનું સ્ટાઇલ ✨ */
+.hbd-img {
+  width: 85%; /* સ્ક્રીન પ્રમાણે પહોળાઈ, તમે બદલી શકો */
+  max-width: 320px;
+  height: auto;
+  margin-bottom: 10px; /* ટેડી ઇમેજથી થોડી જગ્યા */
+  filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
 }
 
-/* મસ્ત મલ્ટી-કલર લેટર્સ */
-.c1 { color: #ff9a9e; }
-.c2 { color: #a1c4fd; }
-.c3 { color: #fdcbf1; }
-.c4 { color: #a8edea; }
-.c5 { color: #fbc2eb; }
-.c6 { color: #fad0c4; }
-.c7 { color: #ffd1ff; }
-
-.cute-characters {
-  font-size: 45px;
-  display: flex;
-  gap: 10px;
-  filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.3));
-}
-
-.char-bounce {
-  animation: bounceChar 1.5s infinite;
-}
-.char-bounce:nth-child(2) { animation-delay: 0.2s; }
-.char-bounce:nth-child(3) { animation-delay: 0.4s; }
-.char-bounce:nth-child(4) { animation-delay: 0.6s; }
-.char-bounce:nth-child(5) { animation-delay: 0.8s; }
-
-@keyframes bounceChar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px) scale(1.1); }
+/* ✨ તમે આપેલી નવી Teddy Group ઇમેજનું સ્ટાઇલ ✨ */
+.teddy-group-img {
+  width: 75%; /* ટેક્સ્ટ ઇમેજથી થોડી નાની, તમે બદલી શકો */
+  max-width: 250px;
+  height: auto;
+  filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
 }
 
 
-/* 🎁 CARDS CONTAINER (નીચે ખસેડ્યું છે) */
+/* 🎁 CARDS CONTAINER (જરા પણ ફેરફાર કર્યો નથી) */
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -116,11 +96,11 @@ body::before {
   align-items: center;
 }
 
-/* 🎁 INDIVIDUAL RECTANGLE CARD (લંબચોરસ) */
+/* 🎁 INDIVIDUAL RECTANGLE CARD (જરા પણ ફેરફાર કર્યો નથી) */
 .card {
   width: 85vw;
   max-width: 350px;
-  height: 220px; /* લંબચોરસ માટે હાઈટ ઓછી અને પહોળાઈ વધારે */
+  height: 220px; 
   perspective: 1200px;
   cursor: pointer;
   position: relative;
@@ -165,14 +145,14 @@ body::before {
 .card-front img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* ફોટો કપાયા વગર લંબચોરસમાં ફિટ થશે */
+  object-fit: cover; 
   border-radius: 10px;
 }
 
 .tap-hint {
   position: absolute;
   bottom: -15px;
-  right: -10px; /* સાઈડમાં રાખ્યું છે જેથી ફોટો મસ્ત દેખાય */
+  right: -10px; 
   background: #ff477e;
   color: white;
   padding: 5px 15px;
@@ -213,7 +193,7 @@ body::before {
 }
 
 .msg-title {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Fredoka One', cursive; /* રીલ સ્ટાઈલ ફોન્ટ */
   font-size: 22px;
   margin-bottom: 10px;
   color: #ff477e;
@@ -246,17 +226,8 @@ body::before {
 <div id="heart-container"></div>
 
 <div class="reel-art-container">
-    <div class="hbd-text">
-        <span class="c1">H</span><span class="c2">A</span><span class="c3">P</span><span class="c4">P</span><span class="c5">Y</span><br>
-        <span class="c6">B</span><span class="c7">I</span><span class="c1">R</span><span class="c2">T</span><span class="c3">H</span><span class="c4">D</span><span class="c5">A</span><span class="c6">Y</span>
-    </div>
-    <div class="cute-characters">
-        <span class="char-bounce">🎁</span>
-        <span class="char-bounce">🐻</span>
-        <span class="char-bounce">🎂</span>
-        <span class="char-bounce">🐰</span>
-        <span class="char-bounce">🎁</span>
-    </div>
+    <img src="8f5008e6d412e6d709c43ef77362640f.jpg" class="hbd-img" alt="Happy Birthday" onerror="this.style.display='none'">
+    <img src="ed06f5be20e9a2f6a2ac49b9cc208833.jpg" class="teddy-group-img" alt="Teddies" onerror="this.style.display='none'">
 </div>
 
 <div class="cards-container">
@@ -320,13 +291,13 @@ for (let i = 0; i < 20; i++) {
     heartContainer.appendChild(heart);
 }
 
-// 💌 કાર્ડ ફ્લિપ લોજિક (3 વાર બ્લાસ્ટ સાથે) 💌
+// 💌 કાર્ડ ફ્લિપ લોજિક (3 વાર બ્લાસ્ટ સાથે - જરા પણ ફેરફાર કર્યો નથી) 💌
 function flipCard(card){
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
   
-  // ✨ ૩ વાર કન્ફેટી બ્લાસ્ટ માટે ૩ અલગ અલગ ટાઈમર ✨
+  // ૩ વાર કન્ફેટી બ્લાસ્ટ માટે ૩ અલગ અલગ ટાઈમર
   setTimeout(() => { confettiBlast(card); }, 300);  // પહેલો બ્લાસ્ટ
   setTimeout(() => { confettiBlast(card); }, 900);  // બીજો બ્લાસ્ટ
   setTimeout(() => { confettiBlast(card); }, 1500); // ત્રીજો બ્લાસ્ટ
