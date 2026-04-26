@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Make A Wish 🎂💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ✨ Fixed Page & Main Theme Background */
+    /* ✨ Main Theme Background */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100dvh; /* dvh નો ઉપયોગ કર્યો છે જેથી બ્રાઉઝરના મેનુ પ્રમાણે જાતે એડજસ્ટ થાય */
+      height: 100dvh;
       width: 100vw;
       overflow: hidden; 
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
-      position: relative;
       font-family: 'Poppins', sans-serif;
+      position: relative;
     }
 
-    /* 🖤 Emotional Dark Border Effect */
     body::before {
       content: "";
       position: absolute;
@@ -32,121 +32,203 @@
       z-index: 5;
     }
 
-    /* 💋 Realistic Image Kiss Animation (Staggered like page 4) */
+    /* 💋 Background Kiss Marks */
     .kiss-bg {
       position: absolute;
-      width: 80px;
-      height: auto;
-      opacity: 0; 
+      font-size: 80px;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
+      opacity: 0.3; 
       z-index: 0;
       pointer-events: none;
-      filter: blur(1.5px); 
-      animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
     }
 
-    @keyframes kissBreath {
-      0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-      50% { opacity: 0.65; transform: rotate(var(--rot)) scale(var(--scl)); }
-      100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-    }
-
-    /* 🔠 ORNATE HEADER: MAKE A WISH 🎂💖 */
-    .header {
+    /* 🔠 TEXT STYLES */
+    .pre-cut-text {
       font-family: 'Fredoka One', cursive;
       color: white;
-      font-size: 40px;
-      margin-top: 5dvh;
-      letter-spacing: 2px;
-      text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0px 8px 15px rgba(0,0,0,0.6);
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
       z-index: 10;
+      transition: opacity 0.5s ease;
     }
 
-    /* 🎂✨ Updated: HIGH-QUALITY 3D CAKE & Visual Cut Hint ✨🎂 */
-    .cake-container {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      margin-top: 5dvh;
+    .post-cut-content {
+      display: none; /* શરૂઆતમાં છુપાયેલું */
+      flex-direction: column;
+      align-items: center;
       z-index: 10;
+      animation: fadeIn 1s ease forwards;
+      margin-bottom: 20px;
+    }
+
+    /* સ્ક્રીનશોટ મુજબનો ટેડી ફોટો (અહીં તમારી ફાઈલનું નામ નાખજો જો અલગ હોય) */
+    .teddy-img {
+      width: 140px;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+    }
+
+    .hbd-text {
+      font-family: 'Fredoka One', cursive;
+      color: white;
+      font-size: 28px;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      line-height: 1.4;
+    }
+
+    .emoji-row {
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    /* 🎂 --- PURE CSS 3D CAKE --- 🎂 */
+    .cake-wrapper {
+      position: relative;
       display: flex;
       justify-content: center;
-      align-items: center;
-      
-      /* ✨ Floating & Glowing effect for the container */
-      animation: floatUpAndDown 4s infinite ease-in-out, glowCake 2s infinite ease-in-out;
-    }
-
-    /* ✨ પર્ફેક્ટ મેજિકલ ગ્લો એનિમેશન ✨ */
-    @keyframes glowCake {
-      0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 126, 179, 0.2); }
-      50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 126, 179, 0.5); }
-      100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 126, 179, 0.2); }
-    }
-
-    /* ✨ હવામાં તરવાની ઈફેક્ટ ✨ */
-    @keyframes floatUpAndDown {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-15px); }
-    }
-
-    /* ઉચ્ચ ગુણવત્તાવાળી 3D કેક ઇલસ્ટ્રેશનનો ઉપયોગ કરો */
-    .cake-image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* કેક કપાઈ ન જાય તેની ખાતરી કરો */
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-    }
-
-    /* ✨ ✨ NEW: Visual Translucent "Cut" Hint ✨ ✨ */
-    /* આખી સ્મૂથ ડેશ લાઈન દર થોડી સેકન્ડે દેખાશે અને ગાયબ થશે */
-    .cut-hint-line {
-      position: absolute;
-      top: 50%; /* કેકની ઉપર પર્ફેક્ટલી સેટ કરો */
-      left: 10%;
-      right: 10%;
-      height: 2px;
-      /* ✨ આછી ગુલાબી ડેશ લાઈન ✨ */
-      border-bottom: 2px dashed rgba(255, 154, 158, 0.5); 
-      transform: translateY(-50%) rotate(-5deg); /* થોડો એંગલ */
-      opacity: 0;
+      align-items: flex-end;
       z-index: 20;
-      
-      /* ✨ હિંટ પલ્સ એનિમેશન ✨ */
-      animation: cutPulseHint 6s infinite; 
+      cursor: pointer;
+      /* ✨ Floating & Glowing Animation ✨ */
+      animation: floatCake 3s ease-in-out infinite, glowCake 2s ease-in-out infinite alternate;
     }
 
-    @keyframes cutPulseHint {
-      0%, 80%, 100% { opacity: 0; }
-      20%, 60% { opacity: 1; }
+    @keyframes floatCake {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
     }
 
-    /* 💖 WISH TEXT BELOW CAKE 💖 */
-    .wish-text {
-      font-family: 'Poppins', sans-serif;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 18px;
-      font-weight: 500;
-      text-align: center;
-      margin-top: 8dvh;
-      padding: 0 20px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-      z-index: 10;
+    @keyframes glowCake {
+      0% { filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)); }
+      100% { filter: drop-shadow(0 0 30px rgba(255,154,158,0.8)); }
     }
 
-    /* ⏭️ CONTINUE BUTTON (Capsule style at bottom right) */
-    .next-btn {
-      position: fixed;
-      bottom: 4vh; 
-      right: 25px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(8px);
+    /* કેકના બે ટુકડા (Left & Right) */
+    .cake-half {
+      width: 100px;
+      height: 120px;
+      background: #ff5e8e; /* પિન્ક બેઝ */
+      position: relative;
+      transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .cake-half.left {
+      border-radius: 15px 0 0 15px;
+      border-right: 2px dashed rgba(255,255,255,0.2); /* વચ્ચેનો કટ */
+    }
+
+    .cake-half.right {
+      border-radius: 0 15px 15px 0;
+    }
+
+    /* વ્હાઈટ ફ્રોસ્ટિંગ */
+    .frosting {
+      background: white;
+      height: 45px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .cake-half.left .frosting { border-radius: 15px 0 20px 20px; }
+    .cake-half.right .frosting { border-radius: 0 15px 20px 20px; }
+
+    /* કલરફુલ સ્પ્રિન્કલ્સ (ટપકાં) */
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: absolute;
+    }
+    /* Left side dots */
+    .cake-half.left .d1 { background: #ffcc00; top: 15px; left: 15px; }
+    .cake-half.left .d2 { background: #00d2ff; top: 20px; left: 45px; }
+    .cake-half.left .d3 { background: #ff3366; top: 10px; left: 75px; }
+    /* Right side dots */
+    .cake-half.right .d4 { background: #ff3366; top: 15px; left: 15px; }
+    .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 45px; }
+    .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 75px; }
+
+    /* મીણબત્તીઓ */
+    .candle {
+      width: 8px;
+      height: 25px;
+      background: white;
+      position: absolute;
+      top: -25px;
+      border-radius: 4px;
+    }
+    .cake-half.left .candle { left: 45px; }
+    .cake-half.right .candle.c1 { left: 25px; }
+    .cake-half.right .candle.c2 { left: 65px; }
+
+    /* મીણબત્તીની જ્યોત */
+    .flame {
+      width: 12px;
+      height: 18px;
+      background: #ffcc00;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      top: -20px;
+      left: -2px;
+      box-shadow: 0 0 10px #ff9900;
+      animation: flicker 0.6s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1); opacity: 0.9; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* ✨ Visual Cut Hint (કેક ની વચ્ચે પલ્સ થતી લાઈન) ✨ */
+    .visual-hint {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 3px dashed rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulseHint 2s infinite;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .visual-hint::after {
+      content: '✂️';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+    }
+
+    @keyframes pulseHint {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    }
+
+    /* 🔪 CAKE CUT ANIMATION CLASSES 🔪 */
+    .cake-half.left.cut {
+      transform: rotate(-12deg) translate(-25px, 15px);
+      opacity: 0.9;
+    }
+    .cake-half.right.cut {
+      transform: rotate(12deg) translate(25px, 15px);
+      opacity: 0.9;
+    }
+    /* કટ થયા પછી જ્યોત બુઝાઈ જશે */
+    .cut .flame { display: none; }
+
+    /* ⏭️ READY TO SURPRISE BUTTON */
+    .surprise-btn {
+      display: none; /* શરૂઆતમાં છુપાયેલું */
+      margin-top: 40px;
+      background: #ff477e;
       color: white;
-      border: 2px solid rgba(255,255,255,0.6);
+      border: 2px solid #ff7eb3;
       padding: 12px 35px;
       border-radius: 30px;
       font-family: 'Poppins', sans-serif;
@@ -155,19 +237,21 @@
       letter-spacing: 1px;
       cursor: pointer;
       z-index: 20;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      
-      /* ✨ બટન પોપ-ઇન એનિમેશન (પેજ4ની જેમ જ) ✨ */
+      box-shadow: 0 8px 25px rgba(255, 71, 126, 0.5);
       animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    .next-btn:active {
+    .surprise-btn:active {
       transform: scale(0.92);
     }
 
     @keyframes popIn {
       0% { transform: scale(0); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
   </style>
@@ -176,84 +260,90 @@
 
   <div id="bg-container"></div>
 
-  <div class="header">MAKE A WISH 🎂💖</div>
-  
-  <div class="cake-container" id="cake-container">
-    <img src="https://via.placeholder.com/250x250.png?text=HIGH_QUALITY_3D_CAKE&DHRUTI=cute" alt="Detailed 3D Cake" class="cake-image" id="cake-image">
+  <audio id="bdaySong" src="karan.mp3"></audio>
+
+  <div class="pre-cut-text" id="preCutText">Make a wish ✨💫</div>
+
+  <div class="post-cut-content" id="postCutContent">
+    <img src="teddy.png" class="teddy-img" onerror="this.style.display='none'">
+    <div class="hbd-text">
+      Happyy Birthday Dhrutiii... 🥳🎉
+      <div class="emoji-row">💫💖💋❤✨💗💗💞🫂</div>
+    </div>
+  </div>
+
+  <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
     
-    <div class="cut-hint-line" id="cut-hint"></div>
+    <div class="visual-hint" id="visualHint"></div>
+
+    <div class="cake-half left" id="cakeLeft">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="frosting">
+        <div class="dot d1"></div>
+        <div class="dot d2"></div>
+        <div class="dot d3"></div>
+      </div>
+    </div>
+
+    <div class="cake-half right" id="cakeRight">
+      <div class="candle c1"><div class="flame"></div></div>
+      <div class="candle c2"><div class="flame"></div></div>
+      <div class="frosting">
+        <div class="dot d4"></div>
+        <div class="dot d5"></div>
+        <div class="dot d6"></div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="wish-text">
-    Make a wish and cut the cake<br>
-    I fall for you every single day! 💋💗
-  </div>
-
-  <button class="next-btn" id="continueBtn" onclick="goToPage3()">CONTINUE</button>
+  <button class="surprise-btn" id="surpriseBtn" onclick="goToNext()">Ready To Surprise 🎁</button>
 
   <script>
-    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ (Staggered fade-in)
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       let kiss = document.createElement("div");
       kiss.className = "kiss-bg";
       kiss.innerText = "💋";
-      
-      let randomX = Math.floor(Math.random() * 95);
-      let randomY = Math.floor(Math.random() * 95);
-      
-      // I MISS US ની જેમ જ આખા પેજ પર ફેલાવો
-      if(i < 8) { randomY = Math.floor(Math.random() * 25); } // ઉપર વધારે
-
-      let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.5) + 0.7; 
-      let animDuration = (Math.random() * 1.5) + 2; 
-      let animDelay = Math.random() * 2; 
-      
-      kiss.style.left = randomX + "vw";
-      kiss.style.top = randomY + "vh";
-      
-      kiss.style.setProperty('--rot', randomRotate + 'deg');
-      kiss.style.setProperty('--scl', randomScale);
-      kiss.style.setProperty('--duration', animDuration + 's');
-      kiss.style.setProperty('--delay', animDelay + 's');
-      
+      kiss.style.left = Math.floor(Math.random() * 90) + "vw";
+      kiss.style.top = Math.floor(Math.random() * 90) + "vh";
+      kiss.style.transform = `rotate(${Math.floor(Math.random() * 360)}deg)`;
       bgContainer.appendChild(kiss);
     }
 
-    // ➡️ બટન ક્લિક ફંક્શન
-    function goToPage3() {
-      // પેજ 3 (જેમાં કાર્ડ ફ્લિપ છે) પર મોકલવા
-      window.location.href = "page3.html"; 
+    let isCut = false;
+
+    // 🔪 કેક કટ કરવાનું ફંક્શન
+    function cutCake() {
+      if(isCut) return; // એકવાર કટ થયા પછી બીજી વાર નહિ થાય
+      isCut = true;
+
+      // 1. ગીત ચાલુ કરો
+      let song = document.getElementById("bdaySong");
+      song.volume = 1;
+      song.play().catch(e => console.log("Audio play blocked by browser."));
+
+      // 2. કેકના ટુકડા કરો
+      document.getElementById("cakeLeft").classList.add("cut");
+      document.getElementById("cakeRight").classList.add("cut");
+      
+      // 3. હિંટ અને જૂનું ટેક્સ્ટ ગાયબ કરો
+      document.getElementById("visualHint").style.display = "none";
+      document.getElementById("preCutText").style.display = "none";
+
+      // 4. નવું સેલિબ્રેશન ટેક્સ્ટ અને બટન લાવો
+      document.getElementById("postCutContent").style.display = "flex";
+      document.getElementById("surpriseBtn").style.display = "block";
+      
+      // એનિમેશન રોકવા (વૈકલ્પિક)
+      document.getElementById("cakeWrapper").style.animation = "none";
     }
 
-    // ✨ ✨ હિંટ માટે ઓટોમેટિક કેક કટ એનિમેશન ✨ ✨
-    // આ કોડ વિઝ્યુઅલ ડેશ લાઈન ને કંટ્રોલ કરશે
-    const cutHint = document.getElementById('cut-hint');
-    
-    // પર્ફેક્ટ પલ્સ એનિમેશન માટે એનિમેશન નો સમય સેટ કરો
-    cutHint.style.animation = 'cutPulseHint 6s infinite';
-
-    // ✨ કેક કટ કરવાનું એનિમેશન (જેમ કે તમે કાર્ડ ફ્લિપમાં કીધું હતું)
-    // આ સુધારો કેકને "કટ" કરવાની ક્રિયા બતાવશે
-    const cakeContainer = document.getElementById('cake-container');
-    const cakeImage = document.getElementById('cake-image');
-
-    cakeContainer.addEventListener('click', () => {
-      // કેક પર "કટ" કરવાની ક્રિયા બતાવો
-      cakeImage.src = "https://via.placeholder.com/250x250.png?text=Detailed+Cake+(CUT)&DHRUTI=cake-sliced";
-      cakeImage.alt = "Detailed Cake (CUT)";
-      
-      // હિંટ લાઈન હટાવી દો
-      cutHint.style.animation = 'none';
-      cutHint.style.opacity = '0';
-      
-      // ૨ સેકન્ડ પછી પેજ ૩ પર મોકલો
-      setTimeout(() => {
-          goToPage3();
-      }, 2000);
-    });
-
+    // ➡️ બટન ક્લિક
+    function goToNext() {
+      window.location.href = "page3.html"; // કાર્ડ ફ્લિપ પેજ પર જશે
+    }
   </script>
 
 </body>
