@@ -1,286 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>For You ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Dhrutuu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ✨ Main Theme Background */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
 
-<style>
+        /* 📸 --- POLAROID FRAME WITH TEDDY & BOW --- 📸 */
+        .polaroid-wrapper {
+            position: relative;
+            margin-top: -20px;
+            margin-bottom: 35px;
+            transform: rotate(-3deg);
+            animation: floatFrame 4s ease-in-out infinite alternate;
+        }
 
-/* BASE */
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  overflow-x: hidden;
-}
+        @keyframes floatFrame {
+            0% { transform: translateY(0) rotate(-3deg); }
+            100% { transform: translateY(-10px) rotate(-1deg); }
+        }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-  color: white;
-  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
-  overflow-y: auto; /* ✅ scroll allow */
-  -webkit-overflow-scrolling: touch;
-}
+        .polaroid {
+            background: #fff;
+            padding: 12px 12px 45px 12px; /* નીચે જગ્યા વધુ (પોલારોઇડ) */
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            width: 170px;
+        }
 
-/* container */
-.container {
-  max-width: 420px;
-  margin: auto;
-  padding: 15px;
-  padding-bottom: 40px; /* ✅ space */
-}
+        .polaroid img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
 
-/* flowers */
-.particle {
-  position: fixed;
-  font-size: 14px;
-  animation: float 6s linear infinite;
-  pointer-events: none;
-}
+        /* 🎀 Bow on Top Right */
+        .bow {
+            position: absolute;
+            top: -22px;
+            right: -22px;
+            font-size: 55px;
+            transform: rotate(15deg);
+            filter: drop-shadow(2px 5px 4px rgba(0,0,0,0.3));
+            z-index: 10;
+        }
 
-@keyframes float {
-  0% { transform: translateY(100vh); }
-  100% { transform: translateY(-10vh); }
-}
+        /* 🧸 Teddy on Bottom Left */
+        .teddy {
+            position: absolute;
+            bottom: -28px;
+            left: -28px;
+            font-size: 65px;
+            transform: rotate(-10deg);
+            filter: drop-shadow(-2px 5px 4px rgba(0,0,0,0.3));
+            z-index: 10;
+        }
 
-/* photo */
-.photo-frame {
-  margin-top: 30px;
-  display: inline-block;
-  padding: 10px;
-  border-radius: 25px;
-  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb);
-  box-shadow: 0 0 25px rgba(255, 150, 200, 0.6);
-  position: relative;
-}
+        /* 🔒 --- PASSCODE DISPLAY --- 🔒 */
+        .passcode-title {
+            color: #fff;
+            font-size: 22px;
+            font-family: 'Fredoka One', cursive, sans-serif;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
 
-.photo-frame::before {
-  content: "🎀🎀🎀";
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+        .passcode-display {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
 
-.photo {
-  width: 100%;
-  max-width: 240px;
-  border-radius: 20px;
-}
+        /* રીલ જેવા ચોરસ બોક્સ */
+        .dot-box {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 32px;
+            color: transparent; /* શરૂઆતમાં * છુપાયેલું રહેશે */
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
 
-h2 {
-  margin-top: 20px;
-}
+        /* પાસવર્ડ નાખે ત્યારે * દેખાશે */
+        .dot-box.filled {
+            color: #fff; 
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
 
-/* dots */
-.dots {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0;
-}
+        /* ખોટો પાસવર્ડ નાખે તો સ્ક્રીન ધ્રૂજશે */
+        .error-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  margin: 5px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-}
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
 
-.dot.active {
-  background: white;
-}
+        /* 📱 --- DIALER NUMPAD --- 📱 */
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px 25px;
+        }
 
-/* ✅ KEYPAD FIX (NO FIXED POSITION) */
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 70px);
-  gap: 12px;
-  justify-content: center;
-  margin-top: 20px;
-}
+        .num-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 28px;
+            font-family: 'Fredoka One', cursive;
+            color: #a8325f;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
 
-/* button */
-.key {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: none;
-  font-size: 18px;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
+        .num-btn:active {
+            transform: scale(0.9) translateY(4px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            background: #ffe6f0;
+        }
 
-.key:active {
-  transform: scale(0.9);
-  background: rgba(255,255,255,0.25);
-}
+        /* * અને # માટે અલગ સ્ટાઈલ (પારદર્શક) */
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.6);
+            box-shadow: none;
+            font-size: 32px;
+        }
 
-/* 💋 blast */
-.kiss {
-  position: fixed;
-  font-size: 22px;
-  pointer-events: none;
-  animation: blast 1s ease-out forwards;
-}
+        .action-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
 
-/* 💖 BIG blast */
-.big-heart {
-  position: fixed;
-  font-size: 40px;
-  pointer-events: none;
-  animation: blast 1.2s ease-out forwards;
-}
-
-@keyframes blast {
-  0% { transform: translate(0,0) scale(1); opacity: 1; }
-  100% { transform: translate(var(--x), var(--y)) scale(1.8); opacity: 0; }
-}
-
-/* shake */
-.shake {
-  animation: shake 0.4s;
-}
-
-@keyframes shake {
-  25% { transform: translateX(-6px); }
-  50% { transform: translateX(6px); }
-}
-
-</style>
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+    <div class="polaroid-wrapper">
+        <div class="bow">🎀</div>
+        <div class="polaroid">
+            <img src="IMG-20260401-WA0014.jpg" alt="Dhruti">
+        </div>
+        <div class="teddy">🧸</div>
+    </div>
 
-  <div class="photo-frame">
-    <img src="IMG-20260401-WA0014.jpg" class="photo">
-  </div>
+    <div class="passcode-title">Enter your birthdate</div>
+    <div class="passcode-display" id="passcodeDisplay">
+        <div class="dot-box" id="dot1">*</div>
+        <div class="dot-box" id="dot2">*</div>
+        <div class="dot-box" id="dot3">*</div>
+        <div class="dot-box" id="dot4">*</div>
+    </div>
 
-  <h2>🌸 Enter your birthdate 🌸</h2>
+    <div class="numpad">
+        <button class="num-btn" onclick="pressKey('1')">1</button>
+        <button class="num-btn" onclick="pressKey('2')">2</button>
+        <button class="num-btn" onclick="pressKey('3')">3</button>
+        
+        <button class="num-btn" onclick="pressKey('4')">4</button>
+        <button class="num-btn" onclick="pressKey('5')">5</button>
+        <button class="num-btn" onclick="pressKey('6')">6</button>
+        
+        <button class="num-btn" onclick="pressKey('7')">7</button>
+        <button class="num-btn" onclick="pressKey('8')">8</button>
+        <button class="num-btn" onclick="pressKey('9')">9</button>
+        
+        <button class="num-btn action-btn" onclick="clearPasscode()">*</button>
+        <button class="num-btn" onclick="pressKey('0')">0</button>
+        <button class="num-btn action-btn" onclick="submitPasscode()">#</button>
+    </div>
 
-  <div class="dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+    <script>
+        let enteredPasscode = "";
+        
+        // ⚠️ અહીં ધ્રુતિની બર્થડે નો સાચો ૪ આંકડાનો પાસવર્ડ નાખી દેજો (ઉદાહરણ: 0412)
+        const correctPasscode = "0404"; 
 
-  <div class="keypad">
-    <button class="key" onclick="press(1, this)">1</button>
-    <button class="key" onclick="press(2, this)">2</button>
-    <button class="key" onclick="press(3, this)">3</button>
-    <button class="key" onclick="press(4, this)">4</button>
-    <button class="key" onclick="press(5, this)">5</button>
-    <button class="key" onclick="press(6, this)">6</button>
-    <button class="key" onclick="press(7, this)">7</button>
-    <button class="key" onclick="press(8, this)">8</button>
-    <button class="key" onclick="press(9, this)">9</button>
-    <button class="key" onclick="clearPass()">C</button>
-    <button class="key" onclick="press(0, this)">0</button>
-    <button class="key" onclick="check()">✔</button>
-  </div>
-
-</div>
-
-<script>
-
-let password = "2704";
-let input = "";
-
-/* dots */
-function updateDots(){
-  document.querySelectorAll(".dot").forEach((d,i)=>{
-    d.classList.toggle("active", i < input.length);
-  });
-}
-
-/* 💋 button blast */
-function press(num, el){
-  let rect = el.getBoundingClientRect();
-  let cx = rect.left + rect.width/2;
-  let cy = rect.top + rect.height/2;
-
-  for(let i=0;i<20;i++){
-    let k = document.createElement("div");
-    k.className = "kiss";
-    k.innerHTML = "💋";
-
-    let a = Math.random()*2*Math.PI;
-    let d = Math.random()*200+50;
-
-    k.style.left = cx+"px";
-    k.style.top = cy+"px";
-    k.style.setProperty('--x', Math.cos(a)*d+"px");
-    k.style.setProperty('--y', Math.sin(a)*d+"px");
-
-    document.body.appendChild(k);
-    setTimeout(()=>k.remove(),1000);
-  }
-
-  if(input.length < 4){
-    input += num;
-    updateDots();
-  }
-}
-
-function clearPass(){
-  input = "";
-  updateDots();
-}
-
-/* 💖 multi blast */
-function check(){
-  if(input === password){
-
-    let positions = [
-      [50,150],
-      [window.innerWidth-80,200],
-      [60, window.innerHeight-200],
-      [window.innerWidth/2, window.innerHeight/2],
-      [window.innerWidth-100, window.innerHeight-250]
-    ];
-
-    positions.forEach((pos, index)=>{
-      setTimeout(()=>{
-        for(let i=0;i<25;i++){
-          let h = document.createElement("div");
-          h.className = "big-heart";
-          h.innerHTML = "💖";
-
-          let a = Math.random()*2*Math.PI;
-          let d = Math.random()*250+80;
-
-          h.style.left = pos[0]+"px";
-          h.style.top = pos[1]+"px";
-          h.style.setProperty('--x', Math.cos(a)*d+"px");
-          h.style.setProperty('--y', Math.sin(a)*d+"px");
-
-          document.body.appendChild(h);
-          setTimeout(()=>h.remove(),1200);
+        function pressKey(num) {
+            // ૪ આંકડા સુધી જ ટાઈપ થશે
+            if(enteredPasscode.length < 4) {
+                enteredPasscode += num;
+                updateDisplay();
+                
+                // જો ૪ આંકડા પૂરા થઈ જાય તો જાતે જ ચેક થઈ જશે 
+                if(enteredPasscode.length === 4) {
+                    setTimeout(submitPasscode, 200); // 0.2 સેકન્ડ પછી ઓટો-સબમિટ
+                }
+            }
         }
-      }, index*200);
-    });
 
-    setTimeout(()=>{
-      window.location.href = "page2.html"; 
-    },1500);
+        function clearPasscode() {
+            enteredPasscode = "";
+            updateDisplay();
+        }
 
-  } else {
-    document.querySelector(".dots").classList.add("shake");
-    setTimeout(()=>{
-      document.querySelector(".dots").classList.remove("shake");
-      clearPass();
-    },400);
-  }
-}
+        function submitPasscode() {
+            // જો ૪ આંકડા ટાઈપ જ ના કર્યા હોય તો કાઈ નહિ થાય
+            if(enteredPasscode.length !== 4) return;
 
-</script>
+            if(enteredPasscode === correctPasscode) {
+                // પાસવર્ડ સાચો! page2.html પર જશે
+                window.location.href = "page2.html";
+            } else {
+                // પાસવર્ડ ખોટો! સ્ક્રીન ધ્રૂજશે અને પાસવર્ડ ભૂંસાઈ જશે
+                const display = document.getElementById('passcodeDisplay');
+                display.classList.add('error-shake');
+                setTimeout(() => {
+                    display.classList.remove('error-shake');
+                    clearPasscode();
+                }, 500);
+            }
+        }
 
+        function updateDisplay() {
+            for(let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot${i}`);
+                if(i <= enteredPasscode.length) {
+                    dot.classList.add('filled'); // * બતાવશે
+                } else {
+                    dot.classList.remove('filled'); // * છુપાવી દેશે
+                }
+            }
+        }
+    </script>
 </body>
 </html>
