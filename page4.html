@@ -118,7 +118,7 @@
     .pos-left { transform: translateX(-120px) scale(0.9) rotate(-12deg); z-index: 2; opacity: 1; }
     .pos-hidden { transform: translateX(0) scale(0.4) rotate(0deg); z-index: 1; opacity: 0; }
 
-    /* ⏭️ NEXT BUTTON (UPDATED) */
+    /* ⏭️ NEXT BUTTON (UPDATED ANIMATION) */
     .next-btn {
       display: none; 
       margin-top: 15px; 
@@ -136,9 +136,41 @@
       z-index: 20;
       box-shadow: 0 8px 25px rgba(0,0,0,0.6);
       animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      
+      /* ✨ ચોરસ બોક્સ હટાવવા માટે ✨ */
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .next-btn:active { transform: scale(0.92); }
+    /* ✨ યુનિક ક્લિક એનિમેશન (Ripple + Glow) ✨ */
+    .next-btn::after {
+      content: "";
+      background: rgba(255, 255, 255, 0.4);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin-top: -60px;
+      margin-left: -60px;
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    }
+
+    .next-btn:active { 
+      transform: scale(0.92); 
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .next-btn:active::after {
+      transform: scale(2.5);
+      opacity: 1;
+      transition: 0s;
+    }
 
     @keyframes popIn {
       0% { transform: scale(0); opacity: 0; }
@@ -232,8 +264,12 @@
       bgContainer.appendChild(sparkle);
     }
 
-    // ✨ ફંક્શન અપડેટ કર્યું: page5.html પર જવા માટે ✨
-    function goToPage5() { window.location.href = "page5.html"; }
+    function goToPage5() { 
+      // બટન એનિમેશન પૂરું થવાનો ટાઈમ આપવા માટે ૧૦૦ મિલીસેકન્ડનો ડિલે 
+      setTimeout(() => {
+        window.location.href = "page5.html"; 
+      }, 100);
+    }
 
     const polaroids = document.querySelectorAll('.polaroid');
     let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
