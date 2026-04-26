@@ -15,12 +15,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 6vh;
+  padding-top: 10vh; /* ટાઈટલ કાઢ્યા પછી કાર્ડને સેન્ટરમાં રાખવા */
   padding-bottom: 10vh; 
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden; 
-  overflow-y: auto; /* ૨ કાર્ડ છે એટલે સ્ક્રોલ કરવા માટે */
+  overflow-y: auto; 
   scroll-behavior: smooth;
   position: relative;
 }
@@ -51,22 +51,11 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🔠 Title */
-.page-title {
-  color: white;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 30px;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  z-index: 10;
-  letter-spacing: 1px;
-}
-
 /* 🎁 CARDS CONTAINER */
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* બે કાર્ડ વચ્ચેની જગ્યા */
+  gap: 40px; 
   z-index: 10;
   width: 100%;
   align-items: center;
@@ -198,8 +187,6 @@ body::before {
 
 <div id="heart-container"></div>
 
-<div class="page-title">Tap the Teddy 🧸</div>
-
 <div class="cards-container">
   
   <div class="card" onclick="flipCard(this)">
@@ -263,15 +250,15 @@ for (let i = 0; i < 20; i++) {
 
 // 💌 કાર્ડ ફ્લિપ લોજિક 💌
 function flipCard(card){
-  // જો એકવાર ફ્લિપ થઈ ગયું હોય તો પાછું નહિ ફરે (તમારે બંને સાઈડ ફેરવવું હોય તો આ કાઢી શકાય)
+  // જો એકવાર ફ્લિપ થઈ ગયું હોય તો પાછું નહિ ફરે 
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
   
-  // કન્ફેટી બ્લાસ્ટ 
-  setTimeout(() => {
-    confettiBlast(card);
-  }, 300); // કાર્ડ અડધું ફરે ત્યારે બ્લાસ્ટ થાય
+  // ✨ ૩ વાર કન્ફેટી બ્લાસ્ટ માટે ૩ અલગ અલગ ટાઈમર ✨
+  setTimeout(() => { confettiBlast(card); }, 300);  // પહેલો બ્લાસ્ટ
+  setTimeout(() => { confettiBlast(card); }, 900);  // બીજો બ્લાસ્ટ
+  setTimeout(() => { confettiBlast(card); }, 1500); // ત્રીજો બ્લાસ્ટ
 }
 
 function confettiBlast(element) {
@@ -300,4 +287,3 @@ function confettiBlast(element) {
 
 </body>
 </html>
-
