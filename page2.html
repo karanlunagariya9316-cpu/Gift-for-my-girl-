@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Make A Wish 🎂💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -11,12 +10,12 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100dvh;
+      min-height: 100dvh;
       width: 100vw;
-      overflow: hidden; 
+      overflow-x: hidden; 
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* ઉપરથી સ્ટાર્ટ થાય */
+      justify-content: flex-start;
       align-items: center;
       background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
       font-family: 'Poppins', sans-serif;
@@ -51,14 +50,14 @@
     }
 
     /* 🔠 BIG & GLOWING HEADERS (Structured Fredoka One) */
-    /* આખું ટેક્સ્ટ સ્ટ્રક્ચર કેકની ઉપર જ રહેશે */
+    /* ✨ સુધારો: આખું સ્ટ્રક્ચર થોડું ઉપર લીધું અને કેક વચ્ચે જગ્યા વધારી ✨ */
     .header-container {
-      margin-top: 6dvh;
-      margin-bottom: 3dvh; /* કેક અને ટેક્સ્ટ વચ્ચે જગ્યા */
+      margin-top: 2dvh; /* પહેલા 6dvh હતું, હવે 2dvh કર્યું જેથી ઉપર જાય */
+      margin-bottom: 6dvh; /* પહેલા 3dvh હતું, હવે 6dvh કર્યું જેથી કેક ને ના અડે */
       z-index: 10;
       text-align: center;
       transition: all 0.5s ease;
-      height: 120px; /* ફિક્સ હાઈટ જેથી કેક ના હલે */
+      height: 120px; 
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -68,14 +67,14 @@
     .pre-cut-text {
       font-family: 'Fredoka One', cursive, sans-serif;
       color: white;
-      font-size: 45px; /* મોટી સાઈઝ */
+      font-size: 45px; 
       letter-spacing: 2px;
       text-shadow:
         -2px -2px 0 #000,
          2px -2px 0 #000,
         -2px  2px 0 #000,
          2px  2px 0 #000,
-         0px 8px 15px rgba(255,255,255,0.7); /* ✨ Glowing structured effect ✨ */
+         0px 8px 15px rgba(255,255,255,0.7); 
       animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
     }
 
@@ -86,7 +85,7 @@
 
     /* Post-Cut structured header (HBD) with Teddy */
     .post-cut-content {
-      display: none; /* શરૂ શરૂમાં છુપાયેલું */
+      display: none; 
       flex-direction: column;
       align-items: center;
       animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
@@ -117,10 +116,9 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      margin-top: 0; /* કેકને પોઝિશનમાં સ્થિર રાખવા */
+      margin-top: 0; 
       z-index: 20;
       cursor: pointer;
-      /* ✨ Floating & Glowing Animation ✨ */
       animation: floatCake 3s ease-in-out infinite, glowCake 2s ease-in-out infinite alternate;
     }
 
@@ -136,7 +134,7 @@
 
     /* મોટી કેક ના માપ */
     .cake-half {
-      width: 140px; /* માપ વધાર્યું છે */
+      width: 140px; 
       height: 160px;
       background: #ff5e8e; 
       position: relative;
@@ -175,7 +173,7 @@
     .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 60px; }
     .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 100px; }
 
-    /* 🎂 ૪ મીણબત્તીઓ (પર્ફેક્ટલી સેટ) 🎂 */
+    /* 🎂 ૪ મીણબત્તીઓ 🎂 */
     .candle {
       width: 10px;
       height: 35px;
@@ -184,10 +182,8 @@
       top: -35px;
       border-radius: 4px;
     }
-    /* Left side candles */
     .cake-half.left .candle.c1 { left: 40px; }
     .cake-half.left .candle.c2 { left: 90px; }
-    /* Right side candles */
     .cake-half.right .candle.c3 { left: 35px; }
     .cake-half.right .candle.c4 { left: 85px; }
 
@@ -241,25 +237,23 @@
     .cake-half.right.cut { transform: rotate(12deg) translate(25px, 15px); opacity: 0.9; }
     .cut .flame { display: none; }
 
-    /* ✨ --- NEW HIGHLIGHT SENTENCE (Between Cake & Box) --- ✨ */
+    /* ✨ --- HIGHLIGHT SENTENCE --- ✨ */
     .highlight-sentence {
-      display: none; /* શરૂ શરૂમાં છુપાયેલું */
+      display: none; 
       font-family: 'Poppins', sans-serif;
       color: rgba(255, 255, 255, 0.95);
       font-size: 16px;
       font-weight: 500;
       text-align: center;
       margin-top: 3dvh;
-      margin-bottom: -1dvh; /* બોક્સની વધુ નજીક લાવવા */
+      margin-bottom: -1dvh; 
       padding: 10px 20px;
       z-index: 10;
       text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-      background: rgba(255, 71, 126, 0.3); /* પિન્ક ગ્લોઇંગ હાઇલાઇટ */
+      background: rgba(255, 71, 126, 0.3); 
       border-radius: 15px;
       border: 1px solid rgba(255, 126, 179, 0.5);
       box-shadow: 0 0 15px rgba(255, 126, 179, 0.3);
-      
-      /* ✨ Smooth fade-in and slide-up animation ✨ */
       animation: smoothSlideUpIn 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
@@ -268,29 +262,25 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* 🎁 --- NEW GIFT BOX CONTAINER with Smooth Lid Fly-off --- 🎁 */
+    /* 🎁 --- GIFT BOX CONTAINER --- 🎁 */
     .gift-box-container {
-      display: none; /* શરૂ શરૂમાં છુપાયેલું */
+      display: none; 
       position: relative;
-      width: 200px; /* મોટું માપ */
+      width: 200px; 
       height: 200px;
       background: #ff477e; 
       border: 4px solid #ff7eb3;
       border-radius: 20px;
       margin-top: 3dvh;
       margin-bottom: 5vh;
-      cursor: not-allowed; /* જ્યારે ઢાંકણું સક્રિય ન હોય ત્યારે */
+      cursor: not-allowed; 
       z-index: 20;
       box-shadow: 0 10px 25px rgba(0,0,0,0.6);
       animation: fadeIn 1s ease forwards;
     }
 
-    /* જ્યારે ઢાંકણું 2 સેકન્ડ પછી સક્રિય થાય */
-    .gift-box-container.active {
-      cursor: pointer;
-    }
+    .gift-box-container.active { cursor: pointer; }
 
-    /* બુઝાઈ ગયેલું ઢાંકણું (Touch disabled initially) */
     .gift-box-lid {
       position: absolute;
       top: -4px; left: -4px; right: -4px; bottom: -4px;
@@ -304,13 +294,11 @@
       z-index: 30;
       opacity: 1; 
       transition: all 0.2s ease;
-      pointer-events: none; /* શરૂઆતમાં ટચ નહિ થાય */
+      pointer-events: none; 
     }
 
-    /* જ્યારે ઢાંકણું સક્રિય થાય ત્યારે જ ટેપ કરવાનું કહો */
-    .gift-box-container.active .gift-box-lid {
-      pointer-events: auto; /* હવે ટચ થશે */
-    }
+    .gift-box-container.active .gift-box-lid { pointer-events: auto; }
+    
     .gift-box-container.active .gift-box-lid::after {
       content: '🎁 Tap to Open!';
       font-family: 'Poppins', sans-serif;
@@ -320,20 +308,16 @@
       text-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
 
-    /* ✨ --- SM00THER LID ACTION: Jsav arak upar -> then slowly down --- ✨ */
     .lid-fly-off {
       animation: smoothLidAction 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     @keyframes smoothLidAction {
       0% { top: -4px; left: -4px; transform: rotate(0deg) scale(1); opacity: 1; }
-      /* Jsav arak upar (તે સહેજ ઉપર જશે) */
       20% { top: -20px; left: -4px; transform: rotate(5deg) scale(1.05); opacity: 1; }
-      /* Then slowly down and out (પછી slowly નીચે ઉડી જશે) */
       100% { top: 100vh; left: 10vw; transform: rotate(360deg) scale(0.6); opacity: 0; }
     }
 
-    /* બોક્સની અંદરનું કન્ટેન્ટ (Revel when lid flies off) */
     .gift-box-content {
       display: none; 
       flex-direction: column;
@@ -349,7 +333,6 @@
       animation: fadeIn 1s ease forwards;
     }
 
-    /* સ્નેપી ફોટો સ્લાઈડશો */
     .snappy-slideshow {
       width: 170px;
       height: 110px;
@@ -366,11 +349,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* ✨ SNAPPY TRANSITION (ઝટકા સાથે) ✨ */
-      transition: none; /* કોઈ સ્મૂથ ટ્રાન્ઝિશન નહિ */
+      transition: none; 
     }
 
-    /* ગીત કંટ્રોલ */
     .song-control {
       margin-top: 15px;
       display: flex;
@@ -393,7 +374,7 @@
 
     /* ⏭️ READY TO SURPRISE BUTTON */
     .surprise-btn {
-      display: none; /* શરૂ શરૂમાં છુપાયેલું (ઢાંકણું ખૂલ્યા પછી દેખાશે) */
+      display: none; 
       position: fixed;
       bottom: 2dvh;
       right: 25px;
@@ -444,29 +425,21 @@
   </div>
 
   <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
-    
     <div class="visual-hint" id="visualHint"></div>
-
     <div class="cake-half left" id="cakeLeft">
       <div class="candle c1"><div class="flame"></div></div>
       <div class="candle c2"><div class="flame"></div></div>
       <div class="frosting">
-        <div class="dot d1"></div>
-        <div class="dot d2"></div>
-        <div class="dot d3"></div>
+        <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
       </div>
     </div>
-
     <div class="cake-half right" id="cakeRight">
       <div class="candle c3"><div class="flame"></div></div>
       <div class="candle c4"><div class="flame"></div></div>
       <div class="frosting">
-        <div class="dot d4"></div>
-        <div class="dot d5"></div>
-        <div class="dot d6"></div>
+        <div class="dot d4"></div><div class="dot d5"></div><div class="dot d6"></div>
       </div>
     </div>
-
   </div>
 
   <div class="highlight-sentence" id="highlightSentence">
@@ -490,19 +463,17 @@
   <button class="surprise-btn" id="surpriseBtn" onclick="goToNext()">Ready To Surprise 🎁</button>
 
   <script>
-    // 💋 Background Realistic Kiss Marks (Page 4 style continue staggered delay)
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
     const kissZones = [
-      {x: 10, y: 10}, {x: 80, y: 10}, 
-      {x: 45, y: 8},                  
-      {x: 10, y: 35}, {x: 80, y: 35}, 
-      {x: 10, y: 70}, {x: 80, y: 70}, 
-      {x: 45, y: 80}                  
+      {x: 10, y: 10}, {x: 80, y: 10}, {x: 45, y: 8},                  
+      {x: 10, y: 35}, {x: 80, y: 35}, {x: 10, y: 70}, 
+      {x: 80, y: 70}, {x: 45, y: 80}                  
     ];
 
     kissZones.forEach((zone) => {
       let kiss = document.createElement("img");
-      kiss.src = "kiss-mark_1f48b.png"; // Realistic kiss photo
+      kiss.src = "kiss-mark_1f48b.png"; 
       kiss.className = "kiss-bg";
       
       let randomX = zone.x + (Math.random() * 6 - 3); 
@@ -523,63 +494,47 @@
     });
 
     let isCakeCut = false;
-    let isBoxActive = false; // ડાલાને સક્રિય કરવા માટે
+    let isBoxActive = false; 
     let isBoxOpen = false;
 
-    // 🔪 કેક કટ કરવાનું ફંક્શન
     function cutCake() {
       if(isCakeCut) return; 
       isCakeCut = true;
 
-      // 1. જૂનું ટેક્સ્ટ અને હિંટ ગાયબ કરો
       document.getElementById("visualHint").style.display = "none";
       document.getElementById("makeWishHeader").style.display = "none";
 
-      // 2. કેકના ટુકડા કરો
       document.getElementById("cakeLeft").classList.add("cut");
       document.getElementById("cakeRight").classList.add("cut");
       
-      // 3. નવું HBD ટેક્સ્ટ અને છુપાયેલું નવું વાક્ય અને ગિફ્ટ બોક્સ લાવો
       document.getElementById("postCutContent").style.display = "flex";
-      document.getElementById("highlightSentence").style.display = "block"; // નવું વાક્ય દેખાશે
-      document.getElementById("giftBoxContainer").style.display = "block"; // બોક્સ દેખાશે (બુઝાઈ ગયેલું)
+      document.getElementById("highlightSentence").style.display = "block"; 
+      document.getElementById("giftBoxContainer").style.display = "block"; 
       
-      // એનિમેશન રોકવા (વૈકલ્પિક)
       document.getElementById("cakeWrapper").style.animation = "none";
 
-      // 🛑 ✨ 2 સેકન્ડનો ડિલે: નવું વાક્ય દેખાયા પછી ઢાંકણાને સક્રિય કરો 🛑 ✨
       setTimeout(() => {
         isBoxActive = true; 
-        document.getElementById("giftBoxContainer").classList.add("active"); // બોક્સ પર ક્લિક થશે
-      }, 2000); // 2000 મિલિસેકન્ડ = 2 સેકન્ડ
+        document.getElementById("giftBoxContainer").classList.add("active"); 
+      }, 2000); 
     }
 
-    // 🎁 ✨ NEW: Smoother ઢાંકણું (Jsav arak upar -> then slowly down) ✨ 🎁
     function openGiftBox() {
-      // જો બોક્સ હજી સક્રિય ના હોય (2 સેકન્ડ પહેલા) અથવા ખુલી ગયું હોય, તો કાઈ નહિ થાય
       if(!isBoxActive || isBoxOpen) return;
       isBoxOpen = true;
 
-      // ઢાંકણા પર ડાલા ઉડે છે એનિમેશન ચાલુ કરો (Smoother)
       document.getElementById("giftBoxLid").classList.add("lid-fly-off");
 
-      // ઢાંકણાનું એનિમેશન પૂરું થયા પછી (1.5 સેકન્ડ) અંદરનું કન્ટેન્ટ બતાવો
       setTimeout(() => {
-        // ઢાંકણાને છુપાવો (તે ઉડી ગયું છે)
         document.getElementById("giftBoxLid").style.display = "none";
-        // બોક્સના અંદરના સ્નેપી સલાઈડ અને ગીત કંટ્રોલ બતાવો
         document.getElementById("giftBoxContent").style.display = "flex";
-        // ફાઇનલ સરપ્રાઈઝ બટન બતાવો
         document.getElementById("surpriseBtn").style.display = "block";
-        // સ્નેપી સલાઈડશો જાતે ચાલુ કરો
         startSnappySlides();
-      }, 1000); // એનિમેશન ટાઈમિંગ સાથે પર્ફેક્ટ સેટ
+      }, 1000); 
     }
 
-    // ✨ SNAPPY SLIDESHOW LOGIC (For faster distinct sequence) ✨
     function startSnappySlides() {
       const snappyImg = document.getElementById("snappySlide");
-      // તમે આપેલી સિક્વન્સ મુજબના ૫ ફોટા
       const distinctPhotos = [
         "56775c61f409ca24e59916b0d54993c7.jpg",
         "5d257c099e08046766d50debc8123ba3.jpg",
@@ -589,35 +544,29 @@
       ];
       let currentIdx = 0;
 
-      // ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨
-      // સ્નેપી બદલવા માટે: દર ૦.૮ સેકન્ડે બદલો
-      // ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨
       setInterval(() => {
         if(distinctPhotos.length > 0) {
           snappyImg.src = distinctPhotos[currentIdx];
           currentIdx = (currentIdx + 1) % distinctPhotos.length;
         }
-      }, 800); // 800 મિલિસેકન્ડ (૦.૮ સેકન્ડ) - Faster!
+      }, 800); 
     }
 
-    // 🎵 ✨ ગીત પ્લે કરવાનું કંટ્રોલ ✨ 🎵
     function playSurpriseSong() {
       let song = document.getElementById("surpriseSong");
       let playBtn = document.getElementById("songPlayBtn");
 
       if(song.paused) {
         song.volume = 1;
-        song.play().catch(e => console.log("Audio play blocked."));
+        song.play().catch(e => console.log("Audio error"));
         playBtn.innerText = "⏸️ Stop Song";
       } else {
         song.pause();
-        playBtn.innerText = "▶️ Start Song";
+        playBtn.innerText = "▶️ Play Song";
       }
     }
 
-    // ➡️ બટન ક્લિક
     function goToNext() {
-      // બધી સરપ્રાઈઝ પતી ગયા પછી કાર્ડ ફ્લિપ પેજ પર જશે
       window.location.href = "page3.html"; 
     }
 
