@@ -7,11 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ✨ Main Background */
+    /* ✨ Main Theme Background */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100dvh;
+      min-height: 100dvh;
       width: 100vw;
       overflow-x: hidden; 
       display: flex;
@@ -67,6 +67,7 @@
       font-family: 'Fredoka One', cursive;
       color: white;
       font-size: 45px; 
+      letter-spacing: 2px;
       text-shadow: 0px 8px 15px rgba(255,255,255,0.7); 
       animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
     }
@@ -122,15 +123,44 @@
     .cake-half.left { border-radius: 15px 0 0 15px; border-right: 2px dashed rgba(255,255,255,0.2); }
     .cake-half.right { border-radius: 0 15px 15px 0; }
 
-    .frosting { background: white; height: 55px; position: absolute; top: 0; width: 100%; border-radius: 15px 15px 20px 20px; }
+    .frosting { background: white; height: 55px; position: absolute; top: 0; width: 100%; }
+    .cake-half.left .frosting { border-radius: 15px 0 20px 20px; }
+    .cake-half.right .frosting { border-radius: 0 15px 20px 20px; }
+
+    .dot { width: 18px; height: 18px; border-radius: 50%; position: absolute; }
+    .cake-half.left .d1 { background: #ffcc00; top: 15px; left: 20px; }
+    .cake-half.left .d2 { background: #00d2ff; top: 20px; left: 60px; }
+    .cake-half.left .d3 { background: #ff3366; top: 10px; left: 100px; }
+    .cake-half.right .d4 { background: #ff3366; top: 15px; left: 20px; }
+    .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 60px; }
+    .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 100px; }
 
     .candle { width: 10px; height: 35px; background: white; position: absolute; top: -35px; border-radius: 4px; }
-    .flame { width: 14px; height: 22px; background: #ffcc00; border-radius: 50%; position: absolute; top: -24px; left: -2px; box-shadow: 0 0 10px #ff9900; animation: flicker 0.6s infinite alternate; }
+    .cake-half.left .candle.c1 { left: 40px; }
+    .cake-half.left .candle.c2 { left: 90px; }
+    .cake-half.right .candle.c3 { left: 35px; }
+    .cake-half.right .candle.c4 { left: 85px; }
 
-    @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+    .flame { width: 14px; height: 22px; background: #ffcc00; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; position: absolute; top: -24px; left: -1px; box-shadow: 0 0 10px #ff9900; animation: flicker 0.6s infinite alternate; }
+
+    @keyframes flicker { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(1.1); opacity: 1; } }
+
+    .visual-hint {
+      position: absolute; width: 60px; height: 60px; border: 3px dashed rgba(255, 255, 255, 0.8);
+      border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      animation: pulseHint 2s infinite; z-index: 30; pointer-events: none;
+    }
+    .visual-hint::after { content: '✂️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; }
+
+    @keyframes pulseHint {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    }
 
     .cake-half.left.cut { transform: rotate(-12deg) translate(-25px, 15px); opacity: 0.9; }
     .cake-half.right.cut { transform: rotate(12deg) translate(25px, 15px); opacity: 0.9; }
+    .cut .flame { display: none; }
 
     /* ✨ Highlight Sentence */
     .highlight-sentence {
@@ -143,7 +173,7 @@
       animation: fadeIn 1s ease forwards;
     }
 
-    /* 🎁 Gift Box (30% larger) */
+    /* 🎁 Gift Box */
     .gift-box-container {
       display: none; 
       position: relative;
@@ -170,7 +200,6 @@
       z-index: 30;
     }
 
-    /* ઢાંકણું સ્મૂથ અને સ્લો ઉડશે (3s) */
     .lid-fly-off {
       animation: smoothLidActionSlower 3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
@@ -194,7 +223,7 @@
 
     .snappy-slideshow {
       width: 220px; 
-      height: 160px;
+      height: 180px;
       overflow: hidden;
       border-radius: 8px;
       border: 2px solid #ddd;
@@ -205,7 +234,8 @@
     /* ⏭️ Surprise Button (Below Box) */
     .surprise-btn {
       display: none; 
-      margin-top: 25px; /* બોક્સની નીચે ગેપ */
+      margin-top: 25px; 
+      margin-bottom: 30px;
       background: #ff477e;
       color: white;
       border: 2px solid #ff7eb3;
@@ -226,7 +256,8 @@
 <body>
 
   <div id="bg-container"></div>
-  <audio id="surpriseSong" src="songP4.mp3"></audio>
+  
+  <audio id="surpriseSong" src="karan.mp3"></audio>
 
   <div class="header-container">
     <div class="pre-cut-text" id="makeWishHeader">Make a wish ✨💫</div>
@@ -237,15 +268,16 @@
   </div>
 
   <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
+    <div class="visual-hint" id="visualHint"></div>
     <div class="cake-half left" id="cakeLeft">
-      <div class="candle" style="left:40px;"><div class="flame"></div></div>
-      <div class="candle" style="left:90px;"><div class="flame"></div></div>
-      <div class="frosting"></div>
+      <div class="candle c1"><div class="flame"></div></div>
+      <div class="candle c2"><div class="flame"></div></div>
+      <div class="frosting"><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div></div>
     </div>
     <div class="cake-half right" id="cakeRight">
-      <div class="candle" style="left:35px;"><div class="flame"></div></div>
-      <div class="candle" style="left:85px;"><div class="flame"></div></div>
-      <div class="frosting"></div>
+      <div class="candle c3"><div class="flame"></div></div>
+      <div class="candle c4"><div class="flame"></div></div>
+      <div class="frosting"><div class="dot d4"></div><div class="dot d5"></div><div class="dot d6"></div></div>
     </div>
   </div>
 
@@ -285,7 +317,9 @@
       if(isCakeCut) return; 
       isCakeCut = true;
 
+      document.getElementById("visualHint").style.display = "none";
       document.getElementById("makeWishHeader").style.display = "none";
+      
       document.getElementById("cakeLeft").classList.add("cut");
       document.getElementById("cakeRight").classList.add("cut");
       
@@ -300,8 +334,9 @@
     function openBoxAutomatically() {
       document.getElementById("giftBoxLid").classList.add("lid-fly-off");
       
+      // 🎵 સોંગ ઓટોમેટિક સ્ટાર્ટ
       let song = document.getElementById("surpriseSong");
-      song.play();
+      song.play().catch(e => console.log("Auto-play blocked by browser."));
 
       setTimeout(() => {
         document.getElementById("giftBoxLid").style.display = "none";
@@ -309,10 +344,11 @@
         startSnappySlides();
       }, 2000);
 
-      // સોંગ પૂરું થવામાં ૩ સેકન્ડ હોય ત્યારે બટન દેખાડવું
+      // ✨ પર્ફેક્ટ ૩ સેકન્ડ બાકી હોય ત્યારે બટન
       song.ontimeupdate = function() {
-        if (song.duration > 0 && (song.duration - song.currentTime <= 3)) {
+        if (song.duration > 0 && (song.duration - song.currentTime <= 3.2)) {
           document.getElementById("surpriseBtn").style.display = "block";
+          // એકવાર બટન દેખાઈ જાય એટલે ઇવેન્ટ બંધ કરો
           song.ontimeupdate = null; 
         }
       };
