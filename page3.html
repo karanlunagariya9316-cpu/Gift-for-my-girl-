@@ -135,7 +135,7 @@ body{
   100%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
 }
 
-/* 🎵 4 MINI PLAYERS AREA */
+/* 🎵 MINI PLAYERS AREA (હવે ફક્ત 2 જ બોક્સ છે) */
 .song-area{
   display:flex;
   flex-wrap: wrap; 
@@ -284,7 +284,7 @@ body{
 
 /* ➡️ CREATIVE NEXT BUTTON */
 .next-page-btn {
-  display: none; /* ગિફ્ટ ઓપન થાય પછી જ દેખાશે */
+  display: none; 
   margin-top: 25px;
   background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%);
   padding: 12px 35px;
@@ -336,6 +336,8 @@ body{
 
 <body>
 
+<audio id="audio1" src="song1.mp3"></audio>
+
 <div class="card" onclick="flipCard(this)">
   <div class="card-inner">
     <div class="card-front">
@@ -351,30 +353,6 @@ body{
 
 <div class="song-area">
   
-  <div class="song-box" id="box1" onclick="toggleSong(1)">
-    <img src="627f083b4a4ad03654f45135230ed0b9.jpg" class="teddy-img">
-    <div class="song-controls">
-      <div class="song-info">
-        <span class="song-title">Song 1</span>
-        <span class="song-artist">For Dhruti</span>
-      </div>
-      <div class="play-btn" id="icon1">▶</div>
-    </div>
-    <audio id="audio1" src="song1.mp3"></audio>
-  </div>
-
-  <div class="song-box" id="box2" onclick="toggleSong(2)">
-    <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" class="teddy-img">
-    <div class="song-controls">
-      <div class="song-info">
-        <span class="song-title">Song 2</span>
-        <span class="song-artist">From Karan</span>
-      </div>
-      <div class="play-btn" id="icon2">▶</div>
-    </div>
-    <audio id="audio2" src="song2.mp3"></audio>
-  </div>
-
   <div class="song-box" id="box3" onclick="toggleSong(3)">
     <img src="6fd54a10dbcb7173e77320e2e5bf4f60.jpg" class="teddy-img">
     <div class="song-controls">
@@ -436,7 +414,7 @@ And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
 
 let lines = rawText.split('\n');
 let isFlipped = false;
-let currentPlayingNum = null; // કયું ગીત ચાલી રહ્યું છે તે ટ્રેક કરવા
+let currentPlayingNum = null; 
 
 function flipCard(card){
   if(isFlipped) return; 
@@ -460,7 +438,23 @@ function flipCard(card){
     }, 400); 
 
     confettiBlast(card);
-    startNewSong(1);
+    
+    // ✨ બેકગ્રાઉન્ડમાં સોંગ 1 ઓટોમેટિક ચાલુ કરો ✨
+    let bgAudio = document.getElementById("audio1");
+    bgAudio.volume = 0;
+    bgAudio.play().catch(e => console.log("Audio error"));
+    currentPlayingNum = 1;
+    
+    let vol = 0;
+    let fadeIn = setInterval(() => {
+        if(vol < 0.9) { vol += 0.1; bgAudio.volume = vol; }
+        else { clearInterval(fadeIn); bgAudio.volume = 1; }
+    }, 80);
+
+    // બેકગ્રાઉન્ડ સોંગ પૂરું થાય ત્યારે ગિફ્ટ સેક્શન બતાવો 
+    bgAudio.onended = function() {
+        showGiftSection();
+    };
   }
 }
 
@@ -487,9 +481,8 @@ function confettiBlast(element) {
 
 // 🎧 ✨ SMOOTH AUDIO FADE LOGIC ✨ 🎧
 function fadeAndPlayNext(oldNum, newNum) {
-  let oldAudio = oldNum ? document.getElementById("audio" + oldNum) : null;
+  let oldAudio = document.getElementById("audio" + oldNum);
   
-  // જૂના ગીતનો અવાજ ધીમે ધીમે ઓછો કરો (Fade-out)
   if (oldAudio && !oldAudio.paused) {
       let vol = oldAudio.volume;
       let fadeOutTimer = setInterval(() => {
@@ -500,24 +493,28 @@ function fadeAndPlayNext(oldNum, newNum) {
               clearInterval(fadeOutTimer);
               oldAudio.pause();
               oldAudio.currentTime = 0;
-              oldAudio.volume = 1; // અવાજ પાછો ફુલ કરી દેવો
-              document.getElementById("icon" + oldNum).innerHTML = "▶";
-              document.getElementById("box" + oldNum).classList.remove("highlight");
+              oldAudio.volume = 1; 
               
-              startNewSong(newNum); // નવું ગીત ચાલુ કરો
+              // જો બોક્સ વાળું સોંગ હોય તો એના આઈકોન/હાઈલાઈટ કાઢો
+              if(oldNum > 1) {
+                  document.getElementById("icon" + oldNum).innerHTML = "▶";
+                  document.getElementById("box" + oldNum).classList.remove("highlight");
+              }
+              
+              if(newNum) startNewSong(newNum); 
           }
       }, 80); 
   } else {
-      // જો કોઈ ગીત ન વાગતું હોય તો સીધું નવું ચાલુ કરો
-      if(oldNum) {
+      if(oldNum > 1) {
         document.getElementById("icon" + oldNum).innerHTML = "▶";
         document.getElementById("box" + oldNum).classList.remove("highlight");
       }
-      startNewSong(newNum);
+      if(newNum) startNewSong(newNum);
   }
 }
 
 function startNewSong(num) {
+  // જો સોંગ પતી ગયા હોય તો સીધું ગિફ્ટ સેક્શન
   if (num > 4) {
     showGiftSection();
     return;
@@ -527,13 +524,12 @@ function startNewSong(num) {
   let icon = document.getElementById("icon" + num);
   let box = document.getElementById("box" + num);
 
-  audio.volume = 0; // અવાજ ઝીરોથી ચાલુ થશે
+  audio.volume = 0; 
   audio.play();
   icon.innerHTML = "⏸";
   box.classList.add("highlight");
   currentPlayingNum = num;
 
-  // નવા ગીતનો અવાજ ધીમે ધીમે વધારવો (Fade-in)
   let vol = 0;
   let fadeInTimer = setInterval(() => {
       if (vol < 0.9) {
@@ -545,9 +541,14 @@ function startNewSong(num) {
       }
   }, 80);
 
-  // ગીત પૂરું થાય ત્યારે સ્મૂથલી નેક્સ્ટ ગીત પર જવું
   audio.onended = function() {
-      fadeAndPlayNext(num, num + 1);
+      // 4 પછી પૂરું
+      if(num === 4) {
+          fadeAndPlayNext(4, null);
+          showGiftSection();
+      } else {
+          fadeAndPlayNext(num, num + 1);
+      }
   };
 }
 
@@ -555,7 +556,6 @@ function toggleSong(clickedNum) {
   let clickedAudio = document.getElementById("audio" + clickedNum);
   
   if (currentPlayingNum === clickedNum) {
-      // જો વાગતું ગીત જ દબાવે તો ખાલી પોઝ કરવું (Fade-out)
       if (!clickedAudio.paused) {
           let vol = clickedAudio.volume;
           let fadeOut = setInterval(() => {
@@ -569,7 +569,6 @@ function toggleSong(clickedNum) {
               }
           }, 50);
       } else {
-          // જો પોઝ હોય તો પાછું પ્લે કરવું (Fade-in)
           clickedAudio.volume = 0;
           clickedAudio.play();
           document.getElementById("icon" + clickedNum).innerHTML = "⏸";
@@ -581,12 +580,31 @@ function toggleSong(clickedNum) {
           }, 50);
       }
   } else {
-      // બીજા કોઈ ગીત પર ક્લિક કરે તો જૂનું Fade-out કરી નવું પ્લે કરવું
       fadeAndPlayNext(currentPlayingNum, clickedNum);
   }
 }
 
-// 🎁 ગિફ્ટ સેક્શન બતાવવાનું ફંક્શન
+// 🛑 ✨ ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક ✨ 🛑
+document.addEventListener("visibilitychange", function() {
+  if (document.hidden) {
+    // બેકગ્રાઉન્ડ સોંગ 1 ચેક કરો
+    let bgAudio = document.getElementById('audio1');
+    if(!bgAudio.paused) bgAudio.pause();
+
+    // સોંગ 3 અને 4 ચેક કરો
+    for(let i=3; i<=4; i++) {
+      let audio = document.getElementById('audio' + i);
+      if(!audio.paused) {
+         audio.pause(); 
+         let icon = document.getElementById('icon' + i);
+         icon.innerHTML = '▶';
+         document.getElementById('box' + i).classList.remove("highlight");
+      }
+    }
+  }
+});
+
+// 🎁 ગિફ્ટ સેક્શન 
 function showGiftSection() {
   let giftSec = document.getElementById("giftSection");
   giftSec.style.display = "flex";
@@ -595,7 +613,6 @@ function showGiftSection() {
   }, 500);
 }
 
-// 🎁 ગિફ્ટ ઓપન કરવાનું ફંક્શન
 function openGift() {
   let btn = document.getElementById("giftBtn");
   let msg = document.getElementById("giftMessage");
@@ -604,7 +621,6 @@ function openGift() {
   btn.style.display = "none";
   msg.style.display = "block";
   
-  // ગિફ્ટ ઓપન થયા પછી Next બટન દેખાશે
   setTimeout(() => {
     nextBtn.style.display = "block";
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -613,7 +629,6 @@ function openGift() {
   confettiBlast(msg); 
 }
 
-// ➡️ Next પેજ પર જવા માટે 
 function goToNextPage() {
   window.location.href = "page4.html";
 }
