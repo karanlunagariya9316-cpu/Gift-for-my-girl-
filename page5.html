@@ -1,1 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Special Memories 🧸</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ✨ Main Theme Background */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 6vh;
+  padding-bottom: 10vh; 
+  background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden; 
+  overflow-y: auto; /* ૨ કાર્ડ છે એટલે સ્ક્રોલ કરવા માટે */
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.65);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ✨ Floating Hearts Background Animation ✨ */
+.heart-bg {
+  position: fixed;
+  font-size: 30px; 
+  opacity: 0; 
+  z-index: 0;
+  pointer-events: none;
+  animation: floatUp var(--duration) linear infinite var(--delay);
+}
+
+@keyframes floatUp {
+  0% { opacity: 0; transform: translateY(110vh) rotate(var(--rot)) scale(var(--scl)); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
+}
+
+/* 🔠 Title */
+.page-title {
+  color: white;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  z-index: 10;
+  letter-spacing: 1px;
+}
+
+/* 🎁 CARDS CONTAINER */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* બે કાર્ડ વચ્ચેની જગ્યા */
+  z-index: 10;
+  width: 100%;
+  align-items: center;
+}
+
+/* 🎁 INDIVIDUAL CARD */
+.card {
+  width: 300px;
+  height: 380px;
+  perspective: 1200px;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center center; 
+}
+
+.card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  top: 0;  
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box; 
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+/* 📸 CARD FRONT (Photo Area) */
+.card-front {
+  background: white;
+  padding: 12px;
+}
+
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.tap-hint {
+  position: absolute;
+  bottom: -15px;
+  background: #ff477e;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  animation: bounceHint 2s infinite;
+  border: 2px solid white;
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 📝 CARD BACK (Message Area) */
+.card-back {
+  background: white;
+  color: #a8325f;
+  transform: rotateY(180deg);
+  font-size: 16px; 
+  line-height: 1.6;
+  padding: 25px;
+  display: flex;
+  flex-direction: column; 
+  border: 4px solid rgba(255, 71, 126, 0.3);
+}
+
+.card.flip .card-back {
+  animation: glow 1s ease;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+  50% { box-shadow: 0 0 25px rgba(255,255,255,0.9); }
+  100% { box-shadow: 0 0 20px rgba(255,255,255,0.6); }
+}
+
+.msg-title {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #ff477e;
+}
+
+.msg-text {
+  font-weight: 500;
+}
+
+/* 🎉 CONFETTI */
+.confetti {
+  position: fixed; 
+  font-size: 24px;
+  pointer-events: none;
+  animation: confettiBlast 1.5s ease-out forwards;
+  z-index: 100; 
+}
+
+@keyframes confettiBlast {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="heart-container"></div>
+
+<div class="page-title">Tap the Teddy 🧸</div>
+
+<div class="cards-container">
+  
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="627f083b4a4ad03654f45135230ed0b9.jpg" alt="Teddy 1">
+        <div class="tap-hint">Tap me ✨</div>
+      </div>
+      <div class="card-back">
+        <div class="msg-title">Message 1 💖</div>
+        <div class="msg-text">
+          અહીં આપણે કાર્ડ 1 નો મેસેજ મૂકીશું.<br><br>
+          તમે જ્યારે મેસેજ આપશો ત્યારે હું અહી પર્ફેક્ટલી સેટ કરી દઈશ! 🤭
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="92bd194da8d817438cbfe7ae3954b6f1.jpg" alt="Teddy 2">
+        <div class="tap-hint">Tap me ✨</div>
+      </div>
+      <div class="card-back">
+        <div class="msg-title">Message 2 💝</div>
+        <div class="msg-text">
+          અહીં આપણે કાર્ડ 2 નો મેસેજ મૂકીશું.<br><br>
+          તમે શાંતિથી મેસેજ વિચારી લો, આપણે આને પણ જોરદાર બનાવી દઈશું! 🫣
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ✨ ફ્લોટિંગ હાર્ટ્સ (બેકગ્રાઉન્ડ) ✨
+const heartContainer = document.getElementById("heart-container");
+const hearts = ['💖', '💕', '💗', '💓'];
+
+for (let i = 0; i < 20; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart-bg";
+    heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+    
+    let randomX = Math.random() * 100; 
+    let randomRotate = Math.floor(Math.random() * 360);
+    let randomScale = (Math.random() * 0.4) + 0.6; 
+    let animDuration = (Math.random() * 8) + 8; 
+    let animDelay = Math.random() * 5; 
+    
+    heart.style.left = randomX + "vw";
+    heart.style.setProperty('--rot', randomRotate + 'deg');
+    heart.style.setProperty('--scl', randomScale);
+    heart.style.setProperty('--duration', animDuration + 's');
+    heart.style.setProperty('--delay', animDelay + 's');
+    
+    heartContainer.appendChild(heart);
+}
+
+// 💌 કાર્ડ ફ્લિપ લોજિક 💌
+function flipCard(card){
+  // જો એકવાર ફ્લિપ થઈ ગયું હોય તો પાછું નહિ ફરે (તમારે બંને સાઈડ ફેરવવું હોય તો આ કાઢી શકાય)
+  if(card.classList.contains("flip")) return; 
+  
+  card.classList.add("flip");
+  
+  // કન્ફેટી બ્લાસ્ટ 
+  setTimeout(() => {
+    confettiBlast(card);
+  }, 300); // કાર્ડ અડધું ફરે ત્યારે બ્લાસ્ટ થાય
+}
+
+function confettiBlast(element) {
+  let rect = element.getBoundingClientRect();
+  let centerX = rect.left + rect.width / 2;
+  let centerY = rect.top + rect.height / 2;
+  let confettiItems = ["🎀", "🧸", "💖", "✨", "🍭"];
+
+  for (let i = 0; i < 40; i++) {
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.textContent = confettiItems[Math.floor(Math.random() * confettiItems.length)];
+    let a = Math.random() * 2 * Math.PI; 
+    let d = Math.random() * 250 + 50; 
+    
+    c.style.left = centerX + "px";
+    c.style.top = centerY + "px";
+    c.style.setProperty('--x', Math.cos(a) * d + "px");
+    c.style.setProperty('--y', Math.sin(a) * d + "px");
+    
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1500);
+  }
+}
+</script>
+
+</body>
+</html>
 
