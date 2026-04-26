@@ -7,11 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ✨ Main Theme Background */
+    /* ✨ Main Background */
     html, body {
       margin: 0;
       padding: 0;
-      min-height: 100dvh;
+      height: 100dvh;
       width: 100vw;
       overflow-x: hidden; 
       display: flex;
@@ -67,7 +67,6 @@
       font-family: 'Fredoka One', cursive;
       color: white;
       font-size: 45px; 
-      letter-spacing: 2px;
       text-shadow: 0px 8px 15px rgba(255,255,255,0.7); 
       animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
     }
@@ -123,44 +122,15 @@
     .cake-half.left { border-radius: 15px 0 0 15px; border-right: 2px dashed rgba(255,255,255,0.2); }
     .cake-half.right { border-radius: 0 15px 15px 0; }
 
-    .frosting { background: white; height: 55px; position: absolute; top: 0; width: 100%; }
-    .cake-half.left .frosting { border-radius: 15px 0 20px 20px; }
-    .cake-half.right .frosting { border-radius: 0 15px 20px 20px; }
-
-    .dot { width: 18px; height: 18px; border-radius: 50%; position: absolute; }
-    .cake-half.left .d1 { background: #ffcc00; top: 15px; left: 20px; }
-    .cake-half.left .d2 { background: #00d2ff; top: 20px; left: 60px; }
-    .cake-half.left .d3 { background: #ff3366; top: 10px; left: 100px; }
-    .cake-half.right .d4 { background: #ff3366; top: 15px; left: 20px; }
-    .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 60px; }
-    .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 100px; }
+    .frosting { background: white; height: 55px; position: absolute; top: 0; width: 100%; border-radius: 15px 15px 20px 20px; }
 
     .candle { width: 10px; height: 35px; background: white; position: absolute; top: -35px; border-radius: 4px; }
-    .cake-half.left .candle.c1 { left: 40px; }
-    .cake-half.left .candle.c2 { left: 90px; }
-    .cake-half.right .candle.c3 { left: 35px; }
-    .cake-half.right .candle.c4 { left: 85px; }
+    .flame { width: 14px; height: 22px; background: #ffcc00; border-radius: 50%; position: absolute; top: -24px; left: -2px; box-shadow: 0 0 10px #ff9900; animation: flicker 0.6s infinite alternate; }
 
-    .flame { width: 14px; height: 22px; background: #ffcc00; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; position: absolute; top: -24px; left: -1px; box-shadow: 0 0 10px #ff9900; animation: flicker 0.6s infinite alternate; }
-
-    @keyframes flicker { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(1.1); opacity: 1; } }
-
-    .visual-hint {
-      position: absolute; width: 60px; height: 60px; border: 3px dashed rgba(255, 255, 255, 0.8);
-      border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      animation: pulseHint 2s infinite; z-index: 30; pointer-events: none;
-    }
-    .visual-hint::after { content: '✂️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; }
-
-    @keyframes pulseHint {
-      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-    }
+    @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
     .cake-half.left.cut { transform: rotate(-12deg) translate(-25px, 15px); opacity: 0.9; }
     .cake-half.right.cut { transform: rotate(12deg) translate(25px, 15px); opacity: 0.9; }
-    .cut .flame { display: none; }
 
     /* ✨ Highlight Sentence */
     .highlight-sentence {
@@ -268,16 +238,15 @@
   </div>
 
   <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
-    <div class="visual-hint" id="visualHint"></div>
     <div class="cake-half left" id="cakeLeft">
-      <div class="candle c1"><div class="flame"></div></div>
-      <div class="candle c2"><div class="flame"></div></div>
-      <div class="frosting"><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div></div>
+      <div class="candle" style="left:40px;"><div class="flame"></div></div>
+      <div class="candle" style="left:90px;"><div class="flame"></div></div>
+      <div class="frosting"></div>
     </div>
     <div class="cake-half right" id="cakeRight">
-      <div class="candle c3"><div class="flame"></div></div>
-      <div class="candle c4"><div class="flame"></div></div>
-      <div class="frosting"><div class="dot d4"></div><div class="dot d5"></div><div class="dot d6"></div></div>
+      <div class="candle" style="left:35px;"><div class="flame"></div></div>
+      <div class="candle" style="left:85px;"><div class="flame"></div></div>
+      <div class="frosting"></div>
     </div>
   </div>
 
@@ -312,14 +281,13 @@
     }
 
     let isCakeCut = false;
+    let isSlideshowStarted = false; // ✨ નવો લોક - એક જ વાર ચાલુ થવા માટે ✨
 
     function cutCake() {
       if(isCakeCut) return; 
       isCakeCut = true;
 
-      document.getElementById("visualHint").style.display = "none";
       document.getElementById("makeWishHeader").style.display = "none";
-      
       document.getElementById("cakeLeft").classList.add("cut");
       document.getElementById("cakeRight").classList.add("cut");
       
@@ -334,7 +302,6 @@
     function openBoxAutomatically() {
       document.getElementById("giftBoxLid").classList.add("lid-fly-off");
       
-      // 🎵 સોંગ ઓટોમેટિક સ્ટાર્ટ
       let song = document.getElementById("surpriseSong");
       song.play().catch(e => console.log("Auto-play blocked by browser."));
 
@@ -344,24 +311,34 @@
         startSnappySlides();
       }, 2000);
 
-      // ✨ પર્ફેક્ટ ૩ સેકન્ડ બાકી હોય ત્યારે બટન
+      // પર્ફેક્ટ ૩ સેકન્ડ બાકી હોય ત્યારે બટન
       song.ontimeupdate = function() {
         if (song.duration > 0 && (song.duration - song.currentTime <= 3.2)) {
           document.getElementById("surpriseBtn").style.display = "block";
-          // એકવાર બટન દેખાઈ જાય એટલે ઇવેન્ટ બંધ કરો
           song.ontimeupdate = null; 
         }
       };
     }
 
     function startSnappySlides() {
+      if (isSlideshowStarted) return; // જો પહેલેથી ચાલુ હોય તો ફરીથી નહિ થાય (બગ ફિક્સ)
+      isSlideshowStarted = true;
+
       const snappyImg = document.getElementById("snappySlide");
-      const photos = ["56775c61f409ca24e59916b0d54993c7.jpg", "5d257c099e08046766d50debc8123ba3.jpg", "3684c4befa9e2726a0ebbed26737acde.jpg", "2d1f8c7f089e90dfe7a10c179dd860bd.jpg", "6fd54a10dbcb7173e77320e2e5bf4f60.jpg"];
+      const photos = [
+        "56775c61f409ca24e59916b0d54993c7.jpg", 
+        "5d257c099e08046766d50debc8123ba3.jpg", 
+        "3684c4befa9e2726a0ebbed26737acde.jpg", 
+        "2d1f8c7f089e90dfe7a10c179dd860bd.jpg", 
+        "6fd54a10dbcb7173e77320e2e5bf4f60.jpg"
+      ];
       let idx = 0;
+      
+      // પર્ફેક્ટ 0.5 સેકન્ડ (500ms) નો ગેપ
       setInterval(() => {
         idx = (idx + 1) % photos.length;
         snappyImg.src = photos[idx];
-      }, 800); 
+      }, 500); 
     }
   </script>
 </body>
