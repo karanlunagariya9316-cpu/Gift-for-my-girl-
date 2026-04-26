@@ -173,7 +173,7 @@
 
   <div id="bg-container"></div>
 
-  <audio id="bgMusic" src="songP4.mp3" loop></audio>
+  <audio id="bgMusic" src="songP4.mp3"></audio>
 
   <div class="content">
     <div class="title">I MISS US</div>
@@ -193,36 +193,49 @@
   </div>
 
   <script>
-    // 🎵 ✨ SMOOTH AUDIO FADE-IN LOGIC ✨ 🎵
-    window.addEventListener('load', () => {
-      let bgMusic = document.getElementById("bgMusic");
-      bgMusic.volume = 0; // શરૂઆતમાં અવાજ 0
+    // 🎵 ✨ ઇન્સ્ટન્ટ પ્લે અને સ્મૂથ ફેડ-ઇન ✨ 🎵
+    let bgMusic = document.getElementById("bgMusic");
 
-      // ફેડ ઇન કરવાનું ફંક્શન
+    window.addEventListener('load', () => {
+      bgMusic.volume = 0; 
+
       function smoothFadeIn() {
         let fadeAudio = setInterval(function () {
           if (bgMusic.volume < 0.9) {
-            bgMusic.volume += 0.05; // ધીમે ધીમે વધશે
+            bgMusic.volume += 0.05; 
           } else {
             bgMusic.volume = 1;
             clearInterval(fadeAudio);
           }
-        }, 200); // દર 200 મિલીસેકન્ડે વોલ્યુમ વધશે
+        }, 150); // થોડું ફાસ્ટ ફેડ-ઇન
       }
 
-      // ઓટોપ્લે માટે ટ્રાય કરીએ
+      // ઇન્સ્ટન્ટ પ્લે માટે ટ્રાય
       let playPromise = bgMusic.play();
       if (playPromise !== undefined) {
         playPromise.then(_ => {
-          smoothFadeIn(); // જો ઓટોપ્લે થાય તો સ્મૂથ ફેડ-ઇન
+          smoothFadeIn(); 
         }).catch(error => {
-          // જો બ્રાઉઝર ઓટોપ્લે બ્લોક કરે તો ક્યાંય પણ ટચ કરવાથી સ્મૂથ ફેડ-ઇન થશે
+          // જો બ્રાઉઝર ઓટોપ્લે બ્લોક કરે તો ટચ કરવાથી ચાલુ થશે
           document.body.addEventListener('click', function playOnInteract() {
             bgMusic.play();
             smoothFadeIn();
             document.body.removeEventListener('click', playOnInteract);
           }, { once: true });
         });
+      }
+    });
+
+    // 🛑 ✨ ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક ✨ 🛑
+    document.addEventListener("visibilitychange", function() {
+      if (document.hidden) {
+        // પેજ છુપાય ત્યારે ગીત પોઝ થશે
+        bgMusic.pause();
+      } else {
+        // પેજ પાછું ખુલે ત્યારે ગીત પાછું ચાલુ થશે (જો પૂરું ના થયું હોય તો)
+        if(bgMusic.currentTime > 0 && !bgMusic.ended) {
+          bgMusic.play();
+        }
       }
     });
 
@@ -285,7 +298,7 @@
     // દર 3 સેકન્ડે ફરશે
     setInterval(rotatePhotos, 3000);
 
-    // ✨ 18.5 સેકન્ડ પછી બટન દેખાડવાનું લોજિક (વધારે સમય)
+    // ✨ 18.5 સેકન્ડ પછી બટન દેખાડવાનું લોજિક
     setTimeout(() => {
       document.getElementById("restartBtn").style.display = "block";
     }, 18500); 
