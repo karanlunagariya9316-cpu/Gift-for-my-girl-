@@ -75,7 +75,6 @@ body::before {
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0px 8px 15px rgba(0,0,0,0.4), 2px 2px 0px rgba(255,255,255,0.2);
-    /* ✨ હવે કોઈ નેગેટિવ માર્જિન નહિ, એક્ઝેક્ટ નીચે લાવવા માટે 0 ✨ */
     margin-bottom: 0px; 
     position: relative;
     z-index: 2;
@@ -95,8 +94,8 @@ body::before {
   width: 75%; 
   max-width: 230px;
   height: auto;
-  margin-top: 5px; /* HBD થી થોડુંક જ અંતર */
-  margin-bottom: 0px; 
+  margin-top: 5px; 
+  margin-bottom: -35px; 
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
   position: relative;
   z-index: 1;
@@ -106,11 +105,10 @@ body::before {
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* બે કાર્ડ વચ્ચેનો ગેપ */
+  gap: 25px; 
   z-index: 10;
   width: 100%;
   align-items: center;
-  /* ✨ ટેડી અને કાર્ડ વચ્ચે તમે કીધું એમ "જરાક વધારે" જગ્યા ✨ */
   margin-top: 35px; 
 }
 
@@ -190,8 +188,6 @@ body::before {
   background: white;
   color: #a8325f;
   transform: rotateY(180deg);
-  font-size: 15px; 
-  line-height: 1.5;
   padding: 20px;
   display: flex;
   flex-direction: column; 
@@ -208,16 +204,9 @@ body::before {
   100% { box-shadow: 0 0 20px rgba(255,255,255,0.6); }
 }
 
-.msg-title {
-  font-family: 'Fredoka One', cursive; 
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #ff477e;
-  letter-spacing: 1px;
-}
-
 .msg-text {
-  font-weight: 500;
+  font-weight: 600;
+  color: #a8325f;
 }
 
 /* 🎉 CONFETTI */
@@ -232,6 +221,56 @@ body::before {
 @keyframes confettiBlast {
   0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
   100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+}
+
+/* ✨ NEW: Back to Page 1 Button (Professional) ✨ */
+.back-btn {
+  margin-top: 40px; 
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.6);
+  padding: 12px 35px;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  animation: bounceHint 2.5s infinite;
+}
+
+.back-btn::after {
+  content: "";
+  background: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin-top: -60px;
+  margin-left: -60px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.back-btn:active { 
+  transform: scale(0.92); 
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.back-btn:active::after {
+  transform: scale(2.5);
+  opacity: 1;
+  transition: 0s;
 }
 
 </style>
@@ -258,10 +297,9 @@ body::before {
         <div class="tap-hint">Tap me ✨</div>
       </div>
       <div class="card-back">
-        <div class="msg-title">Message 1 💖</div>
-        <div class="msg-text">
-          અહીં આપણે કાર્ડ 1 નો મેસેજ મૂકીશું.<br><br>
-          તમે જ્યારે મેસેજ આપશો ત્યારે હું અહી પર્ફેક્ટલી સેટ કરી દઈશ! 🤭
+        <div class="msg-text" style="font-size: 18px; line-height: 1.8;">
+          Many Many Happy Returns of The Day... 🥳🎉🎊💫💐🎁
+          Happy Birthday dhrutuuu...🥳🫰🫶💖💗❤️
         </div>
       </div>
     </div>
@@ -274,16 +312,18 @@ body::before {
         <div class="tap-hint">Tap me ✨</div>
       </div>
       <div class="card-back">
-        <div class="msg-title">Message 2 💝</div>
-        <div class="msg-text">
-          અહીં આપણે કાર્ડ 2 નો મેસેજ મૂકીશું.<br><br>
-          તમે શાંતિથી મેસેજ વિચારી લો, આપણે આને પણ જોરદાર બનાવી દઈશું! 🫣
+        <div class="msg-text" style="font-size: 15px; line-height: 1.6;">
+          Today is your day babe, and I hope this special day goes really well. ✨❤️🎂<br><br>
+          And also, I wish that you achieve everything you want in your life. 🫂🤞<br><br>
+          And I am always with you in that, and I will remain so. 🫰🌍💖
         </div>
       </div>
     </div>
   </div>
 
 </div>
+
+<button class="back-btn" onclick="goToPage1()">Back to Start</button>
 
 <script>
 const heartContainer = document.getElementById("heart-container");
@@ -340,6 +380,13 @@ function confettiBlast(element) {
     document.body.appendChild(c);
     setTimeout(() => c.remove(), 1500);
   }
+}
+
+// ✨ પેજ 1 પર જવા માટેનું ફંક્શન ✨
+function goToPage1() {
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 150); // એનિમેશન દેખાવા માટે 150ms નો ડિલે
 }
 </script>
 
