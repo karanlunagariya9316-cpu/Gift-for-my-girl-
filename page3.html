@@ -394,6 +394,7 @@ body{
 </div>
 
 <script>
+// ✨ ખાલી છેલ્લી લાઈન બદલવામાં આવી છે ✨
 let rawText = `Hyeee dhrutii...
 
 These are special lines for your special day bachha..💝
@@ -410,14 +411,14 @@ I love you so much...
 I love you so so much Bacha..💋❤️
 Forever with you..👀💫
 
-And yes, thanks for giving me this sweet 🍭 like your sweetness..🤭`;
+And yes, thanks for giving me this 🍭 every time..🙁🙄`;
 
 let lines = rawText.split('\n');
 let isFlipped = false;
 let currentPlayingNum = null; 
 let bgSongTimer; 
-let s4GiftTimer; // ✨ નવું ટાઈમર 13s માટે
-let s4EndTimer;  // ✨ નવું ટાઈમર 26s માટે
+let s4GiftTimer; // 13s માટે
+let s4EndTimer;  // 26s માટે
 
 function flipCard(card){
   if(isFlipped) return; 
@@ -520,7 +521,6 @@ function fadeAndPlayNext(oldNum, newNum) {
 }
 
 function startNewSong(num) {
-  // જૂના ટાઈમર્સ જો ચાલુ હોય તો કેન્સલ કરો
   clearTimeout(s4GiftTimer);
   clearTimeout(s4EndTimer);
 
@@ -550,21 +550,17 @@ function startNewSong(num) {
       }
   }, 80);
 
-  // ✨ નવો ફેરફાર: સોંગ 4 માટે પર્ફેક્ટ 13s અને 26s ટાઈમિંગ ✨
   if (num === 4) {
-      // 13 સેકન્ડ પછી ગિફ્ટ સેક્શન (નીચેનું બોક્સ) બતાવો
       s4GiftTimer = setTimeout(() => {
           showGiftSection();
-      }, 13000); // 13 સેકન્ડ 
+      }, 13000); 
 
-      // 26 સેકન્ડ પછી સોંગ 4 સ્મૂથલી બંધ કરો
       s4EndTimer = setTimeout(() => {
           fadeAndPlayNext(4, null);
-      }, 26000); // 26 સેકન્ડ
+      }, 26000); 
       
       audio.onended = null; 
   } else {
-      // સોંગ 3 માટેનું જૂનું લોજિક
       audio.onended = function() {
           fadeAndPlayNext(num, num + 1);
       };
@@ -572,7 +568,6 @@ function startNewSong(num) {
 }
 
 function toggleSong(clickedNum) {
-  // જો કોઈ વચ્ચે ક્લિક કરે તો ટાઈમર કેન્સલ કરી દો
   clearTimeout(bgSongTimer);
   clearTimeout(s4GiftTimer);
   clearTimeout(s4EndTimer);
@@ -623,7 +618,6 @@ document.addEventListener("visibilitychange", function() {
       }
     }
     
-    // ટેબ બદલાય ત્યારે ટાઈમર રોકી દેવા
     clearTimeout(bgSongTimer);
     clearTimeout(s4GiftTimer);
     clearTimeout(s4EndTimer);
