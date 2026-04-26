@@ -31,21 +31,21 @@
       z-index: 5;
     }
 
-    /* 💋 Realistic Image Kiss Animation */
+    /* 💋 Continuous Kiss Animation */
     .kiss-bg {
       position: absolute;
-      width: 80px; /* ફોટાની સાઈઝ અહીંથી કંટ્રોલ થશે */
-      height: auto;
+      font-size: 100px;
+      color: #e60000; 
       opacity: 0; 
       z-index: 0;
       pointer-events: none;
-      filter: blur(1.5px); /* થોડું બ્લર રાખ્યું છે જેથી રિયલ લાગે */
+      filter: blur(1px); 
       animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
     }
 
     @keyframes kissBreath {
       0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-      50% { opacity: 0.65; transform: rotate(var(--rot)) scale(var(--scl)); }
+      50% { opacity: 0.7; transform: rotate(var(--rot)) scale(var(--scl)); }
       100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
     }
 
@@ -82,7 +82,7 @@
       margin-bottom: 5px; 
     }
 
-    /* 📸 POLAROID SLIDESHOW AREA (Updated for 10 items) ✨ 📸 */
+    /* 📸 ✨ POLAROID SLIDESHOW AREA (Updated for 10 distinct photos) ✨ 📸 */
     .polaroid-container {
       position: relative;
       width: 100%;
@@ -112,7 +112,8 @@
       border: 1px solid #ccc;
     }
 
-    /* 🎯 ✨ 4 POSITION CLASSES FOR 10-PHOTO ANIMATION ✨ 🎯 */
+    /* 🎯 ✨ 4 POSITION CLASSES FOR 10-PHOTO ANIMATION (No Jarring Jump) ✨ 🎯 */
+    /* ધીમેથી ડાન્સ કરીને વચ્ચે આવશે */
     .pos-center {
       transform: translateX(0) scale(1.3) rotate(2deg); 
       z-index: 3;
@@ -120,25 +121,28 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.9);
     }
 
+    /* ધીમેથી જમણી બાજુ જતો રહેશે */
     .pos-right {
       transform: translateX(120px) scale(0.9) rotate(15deg); 
       z-index: 2;
       opacity: 1;
     }
 
+    /* ધીમેથી ડાબી બાજુ જતો રહેશે */
     .pos-left {
       transform: translateX(-120px) scale(0.9) rotate(-12deg); 
       z-index: 2;
       opacity: 1;
     }
 
+    /* પાછળ સંતાઈ જશે */
     .pos-hidden {
       transform: translateX(0) scale(0.4) rotate(0deg);
       z-index: 1;
-      opacity: 0; /* પાછળ સંતાઈ જશે */
+      opacity: 0; 
     }
 
-    /* ⏭️ RESTART BUTTON */
+    /* ⏭️ RESTART BUTTON (૧૮.૫ સેકન્ડ પછી) */
     .next-btn {
       display: none; 
       margin-top: 15px; 
@@ -192,7 +196,7 @@
       
       <div class="polaroid"><img src="IMG_20260112_175825_524~2.jpg"></div>
       <div class="polaroid"><img src="IMG_20260112_175838_981~2.jpg"></div>
-    </div>
+      <div class="polaroid"><img src="other_distinct_photo.jpg"></div> </div>
 
     <div class="subtitle">TOGETHER 🥺</div>
 
@@ -230,7 +234,7 @@
       }
     });
 
-    // 💋 રિયલ કિસ ઇમેજ બેકગ્રાઉન્ડ લોજિક
+    // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
     const kissZones = [
       {x: 10, y: 10}, {x: 80, y: 10}, 
@@ -241,9 +245,9 @@
     ];
 
     kissZones.forEach((zone) => {
-      let kiss = document.createElement("img");
-      kiss.src = "kiss-mark_1f48b.png"; 
+      let kiss = document.createElement("div");
       kiss.className = "kiss-bg";
+      kiss.innerText = "💋";
       
       let randomX = zone.x + (Math.random() * 6 - 3); 
       let randomY = zone.y + (Math.random() * 6 - 3); 
