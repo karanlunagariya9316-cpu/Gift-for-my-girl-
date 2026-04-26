@@ -112,6 +112,24 @@
       50% { transform: translateY(-12px); }
     }
 
+    /* ✨ NEW: Knife Hint Animation ✨ */
+    .knife-hint {
+      position: absolute;
+      top: -40px; /* કેકની ઉપર ગોઠવ્યું છે */
+      left: 50%;
+      font-size: 45px;
+      z-index: 30;
+      pointer-events: none; /* ટચ કરતા સીધું કેક પર જ ટચ થાય એટલે */
+      filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+      animation: sliceCakeHint 1.2s infinite ease-in-out;
+    }
+
+    @keyframes sliceCakeHint {
+      0% { transform: translate(-50%, -20px) rotate(-15deg); opacity: 0.8; }
+      50% { transform: translate(-50%, 20px) rotate(-15deg); opacity: 1; }
+      100% { transform: translate(-50%, -20px) rotate(-15deg); opacity: 0.8; }
+    }
+
     .cake-half {
       width: 140px; 
       height: 160px;
@@ -239,6 +257,7 @@
   </div>
 
   <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
+    <div class="knife-hint" id="knifeHint">🔪</div>
     <div class="cake-half left" id="cakeLeft">
       <div class="candle" style="left:40px;"><div class="flame"></div></div>
       <div class="candle" style="left:90px;"><div class="flame"></div></div>
@@ -288,6 +307,9 @@
       if(isCakeCut) return; 
       isCakeCut = true;
 
+      // ✨ કેક કપાતા જ છરી સંતાઈ જશે ✨
+      document.getElementById("knifeHint").style.display = "none";
+
       document.getElementById("makeWishHeader").style.display = "none";
       document.getElementById("cakeLeft").classList.add("cut");
       document.getElementById("cakeRight").classList.add("cut");
@@ -296,7 +318,6 @@
       document.getElementById("highlightSentence").style.display = "block"; 
       document.getElementById("giftBoxContainer").style.display = "block"; 
       
-      // ✨ 3 સેકન્ડનો ડિલે કાઢી નાખ્યો છે, હવે તરત જ બોક્સ ખુલશે અને સોંગ ચાલુ થશે ✨
       openBoxAutomatically();
     }
 
