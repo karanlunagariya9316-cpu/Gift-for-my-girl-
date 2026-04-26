@@ -71,12 +71,12 @@ body::before {
 .hbd-text-colorful {
     font-family: 'Fredoka One', cursive, sans-serif;
     font-size: 38px;
-    line-height: 1.1; /* લાઈન વચ્ચેની જગ્યા ઘટાડી */
+    line-height: 1.1; 
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0px 8px 15px rgba(0,0,0,0.4), 2px 2px 0px rgba(255,255,255,0.2);
-    /* ✨ 100% EXACT નીચે લાવવા માટે નેગેટિવ માર્જિન ✨ */
-    margin-bottom: -20px; 
+    /* ✨ હવે કોઈ નેગેટિવ માર્જિન નહિ, એક્ઝેક્ટ નીચે લાવવા માટે 0 ✨ */
+    margin-bottom: 0px; 
     position: relative;
     z-index: 2;
     display: block; 
@@ -90,14 +90,13 @@ body::before {
 .c6 { color: #fad0c4; }
 .c7 { color: #ffd1ff; }
 
-/* ✨ Teddy Group Image ✨ */
+/* ✨ નવી ટ્રાન્સપરન્ટ Teddy Group Image ✨ */
 .teddy-group-img {
-  width: 70%; 
-  max-width: 220px;
+  width: 75%; 
+  max-width: 230px;
   height: auto;
-  margin-top: 0px; 
-  /* ✨ કાર્ડ્સને નજીક લાવવા માટે મોટું નેગેટિવ માર્જિન (PNG ની ખાલી જગ્યા કાપવા) ✨ */
-  margin-bottom: -35px; 
+  margin-top: 5px; /* HBD થી થોડુંક જ અંતર */
+  margin-bottom: 0px; 
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
   position: relative;
   z-index: 1;
@@ -107,12 +106,12 @@ body::before {
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* બે કાર્ડ વચ્ચેનો ગેપ */
+  gap: 25px; /* બે કાર્ડ વચ્ચેનો ગેપ */
   z-index: 10;
   width: 100%;
   align-items: center;
-  /* ✨ ટેડી અને કાર્ડ વચ્ચે "જરાક જ વધારે" જગ્યા ✨ */
-  margin-top: 25px; 
+  /* ✨ ટેડી અને કાર્ડ વચ્ચે તમે કીધું એમ "જરાક વધારે" જગ્યા ✨ */
+  margin-top: 35px; 
 }
 
 /* 🎁 INDIVIDUAL RECTANGLE CARD */
@@ -247,7 +246,7 @@ body::before {
         <span class="c1">H</span><span class="c2">A</span><span class="c3">P</span><span class="c4">P</span><span class="c5">Y</span><br>
         <span class="c6">B</span><span class="c7">I</span><span class="c1">R</span><span class="c2">T</span><span class="c3">H</span><span class="c4">D</span><span class="c5">A</span><span class="c6">Y</span>
     </div>
-    <img src="1000270394-removebg-preview.png" class="teddy-group-img" alt="Teddies" onerror="this.style.display='none'">
+    <img src="1000270399.png" class="teddy-group-img" alt="Teddies" onerror="this.style.display='none'">
 </div>
 
 <div class="cards-container">
