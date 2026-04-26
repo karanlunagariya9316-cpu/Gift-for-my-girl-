@@ -118,7 +118,7 @@
     .pos-left { transform: translateX(-120px) scale(0.9) rotate(-12deg); z-index: 2; opacity: 1; }
     .pos-hidden { transform: translateX(0) scale(0.4) rotate(0deg); z-index: 1; opacity: 0; }
 
-    /* ⏭️ RESTART BUTTON */
+    /* ⏭️ NEXT BUTTON (UPDATED) */
     .next-btn {
       display: none; 
       margin-top: 15px; 
@@ -167,7 +167,7 @@
 
     <div class="subtitle">TOGETHER 🥺</div>
 
-    <button class="next-btn" id="restartBtn" onclick="goToPage1()">Restart Magic 🔄</button>
+    <button class="next-btn" id="nextBtn" onclick="goToPage5()">go Next ➡️</button>
   </div>
 
   <script>
@@ -175,7 +175,7 @@
     bgMusic.volume = 1; 
     bgMusic.currentTime = 0; 
     
-    let isMusicStarted = false; // ✨ ટ્રેક કરવા કે ગીત ચાલુ કરવાનો કમાન્ડ અપાયો છે કે નહિ ✨
+    let isMusicStarted = false; 
 
     async function playMusicFatafat() {
       try {
@@ -188,7 +188,6 @@
       }
     }
 
-    // જો બ્રાઉઝર રોકે, તો ધ્રુતિ ગમે ત્યાં ટચ કરે એટલે ચાલુ થાય, પણ 3 સેકન્ડ પછી જ!
     function playOnTouch() {
         if (isMusicStarted) { 
             playMusicFatafat();
@@ -199,7 +198,6 @@
     document.addEventListener('touchstart', playOnTouch);
     document.addEventListener('scroll', playOnTouch);
 
-    // 🛑 ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક 🛑
     document.addEventListener("visibilitychange", function() {
       if (document.hidden) {
         bgMusic.pause();
@@ -213,7 +211,6 @@
     let bgContainer = document.getElementById("bg-container");
     const sparkleEmojis = ['💫', '✨'];
 
-    // તારાઓ જનરેટ કરવા (કોઈ ફેરફાર નહિ)
     for (let i = 0; i < 15; i++) {
       let sparkle = document.createElement("div");
       sparkle.className = "sparkle-bg";
@@ -235,7 +232,8 @@
       bgContainer.appendChild(sparkle);
     }
 
-    function goToPage1() { window.location.href = "index.html"; }
+    // ✨ ફંક્શન અપડેટ કર્યું: page5.html પર જવા માટે ✨
+    function goToPage5() { window.location.href = "page5.html"; }
 
     const polaroids = document.querySelectorAll('.polaroid');
     let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
@@ -251,21 +249,19 @@
       positions.push(first); 
       applyPositions(); 
 
-      // ✨ NEW: પહેલો ફોટો ફરશે એટલે તરત જ ગીત ચાલુ થશે! ✨
       if (!isMusicStarted) {
           isMusicStarted = true;
           playMusicFatafat();
       }
     }
     
-    // દર 3 સેકન્ડે ફોટો બદલાશે (પહેલી 3 સેકન્ડ પૂરી થતાં જ ફોટો બદલાશે અને ગીત વાગશે)
     setInterval(rotatePhotos, 3000);
 
-    // ✨ NEW: ગીત બરાબર 33 સેકન્ડ વાગી જાય પછી જ બટન આવશે ✨
+    // ગીત બરાબર 33 સેકન્ડ વાગી જાય પછી જ બટન આવશે
     bgMusic.ontimeupdate = function() {
       if (bgMusic.currentTime >= 33) {
-        document.getElementById("restartBtn").style.display = "block";
-        bgMusic.ontimeupdate = null; // એકવાર આવી જાય પછી ચેક કરવાનું બંધ કરો
+        document.getElementById("nextBtn").style.display = "block";
+        bgMusic.ontimeupdate = null; 
       }
     };
 
