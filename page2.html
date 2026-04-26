@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Make A Wish 🎂💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -11,12 +10,12 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100dvh;
+      min-height: 100dvh;
       width: 100vw;
-      overflow: hidden; 
+      overflow-x: hidden; 
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* ઉપરથી સ્ટાર્ટ થાય */
       align-items: center;
       background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
       font-family: 'Poppins', sans-serif;
@@ -35,64 +34,53 @@
     /* 💋 Background Kiss Marks */
     .kiss-bg {
       position: absolute;
-      font-size: 80px;
-      color: transparent;
-      text-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
-      opacity: 0.3; 
+      width: 80px;
+      height: auto;
+      opacity: 0; 
       z-index: 0;
       pointer-events: none;
+      filter: blur(1.5px); 
+      animation: kissBreath var(--duration) infinite var(--delay) ease-in-out;
     }
 
-    /* 🔠 TEXT STYLES */
-    .pre-cut-text {
-      font-family: 'Fredoka One', cursive;
+    @keyframes kissBreath {
+      0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
+      50% { opacity: 0.65; transform: rotate(var(--rot)) scale(var(--scl)); }
+      100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
+    }
+
+    /* 🔠 BIG & GLOWING HEADERS */
+    .header {
+      font-family: 'Fredoka One', cursive, sans-serif;
       color: white;
-      font-size: 36px;
-      margin-bottom: 40px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-      z-index: 10;
-      transition: opacity 0.5s ease;
-    }
-
-    .post-cut-content {
-      display: none; /* શરૂઆતમાં છુપાયેલું */
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-      animation: fadeIn 1s ease forwards;
-      margin-bottom: 20px;
-    }
-
-    /* સ્ક્રીનશોટ મુજબનો ટેડી ફોટો (અહીં તમારી ફાઈલનું નામ નાખજો જો અલગ હોય) */
-    .teddy-img {
-      width: 140px;
-      margin-bottom: 15px;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
-    }
-
-    .hbd-text {
-      font-family: 'Fredoka One', cursive;
-      color: white;
-      font-size: 28px;
+      font-size: 45px; /* મોટી સાઈઝ */
+      margin-top: 6vh;
+      letter-spacing: 2px;
       text-align: center;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-      line-height: 1.4;
+      text-shadow:
+        -2px -2px 0 #000,
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px 8px 15px rgba(255,255,255,0.7); /* ✨ ગ્લોઇંગ ઈફેક્ટ ✨ */
+      z-index: 10;
+      animation: fadeIn 1s ease forwards, glowPulse 3s infinite ease-in-out;
     }
 
-    .emoji-row {
-      font-size: 22px;
-      margin-top: 5px;
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0px 8px 15px rgba(255,255,255,0.7); }
+      50% { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0px 8px 30px rgba(255,154,158,1); }
     }
 
-    /* 🎂 --- PURE CSS 3D CAKE --- 🎂 */
+    /* 🎂 --- LARGER 3D CAKE with 4 candles --- 🎂 */
     .cake-wrapper {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      z-index: 20;
+      margin-top: 6vh; /* મીણબત્તી માટે પૂરતી જગ્યા */
+      z-index: 10;
       cursor: pointer;
-      /* ✨ Floating & Glowing Animation ✨ */
       animation: floatCake 3s ease-in-out infinite, glowCake 2s ease-in-out infinite alternate;
     }
 
@@ -106,28 +94,27 @@
       100% { filter: drop-shadow(0 0 30px rgba(255,154,158,0.8)); }
     }
 
-    /* કેકના બે ટુકડા (Left & Right) */
+    /* મોટી કેક */
     .cake-half {
-      width: 100px;
-      height: 120px;
-      background: #ff5e8e; /* પિન્ક બેઝ */
+      width: 140px; 
+      height: 160px;
+      background: #ff5e8e; 
       position: relative;
       transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .cake-half.left {
       border-radius: 15px 0 0 15px;
-      border-right: 2px dashed rgba(255,255,255,0.2); /* વચ્ચેનો કટ */
+      border-right: 2px dashed rgba(255,255,255,0.2);
     }
 
     .cake-half.right {
       border-radius: 0 15px 15px 0;
     }
 
-    /* વ્હાઈટ ફ્રોસ્ટિંગ */
     .frosting {
       background: white;
-      height: 45px;
+      height: 55px;
       position: absolute;
       top: 0;
       width: 100%;
@@ -135,44 +122,41 @@
     .cake-half.left .frosting { border-radius: 15px 0 20px 20px; }
     .cake-half.right .frosting { border-radius: 0 15px 20px 20px; }
 
-    /* કલરફુલ સ્પ્રિન્કલ્સ (ટપકાં) */
     .dot {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       position: absolute;
     }
-    /* Left side dots */
-    .cake-half.left .d1 { background: #ffcc00; top: 15px; left: 15px; }
-    .cake-half.left .d2 { background: #00d2ff; top: 20px; left: 45px; }
-    .cake-half.left .d3 { background: #ff3366; top: 10px; left: 75px; }
-    /* Right side dots */
-    .cake-half.right .d4 { background: #ff3366; top: 15px; left: 15px; }
-    .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 45px; }
-    .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 75px; }
+    .cake-half.left .d1 { background: #ffcc00; top: 15px; left: 20px; }
+    .cake-half.left .d2 { background: #00d2ff; top: 20px; left: 60px; }
+    .cake-half.left .d3 { background: #ff3366; top: 10px; left: 100px; }
+    .cake-half.right .d4 { background: #ff3366; top: 15px; left: 20px; }
+    .cake-half.right .d5 { background: #00d2ff; top: 10px; left: 60px; }
+    .cake-half.right .d6 { background: #ffcc00; top: 20px; left: 100px; }
 
-    /* મીણબત્તીઓ */
+    /* 🎂 ૪ મીણબત્તીઓ 🎂 */
     .candle {
-      width: 8px;
-      height: 25px;
+      width: 12px;
+      height: 35px;
       background: white;
       position: absolute;
-      top: -25px;
+      top: -35px;
       border-radius: 4px;
     }
-    .cake-half.left .candle { left: 45px; }
-    .cake-half.right .candle.c1 { left: 25px; }
-    .cake-half.right .candle.c2 { left: 65px; }
+    .cake-half.left .candle.c1 { left: 40px; }
+    .cake-half.left .candle.c2 { left: 90px; }
+    .cake-half.right .candle.c3 { left: 35px; }
+    .cake-half.right .candle.c4 { left: 85px; }
 
-    /* મીણબત્તીની જ્યોત */
     .flame {
-      width: 12px;
-      height: 18px;
+      width: 14px;
+      height: 22px;
       background: #ffcc00;
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
       position: absolute;
-      top: -20px;
-      left: -2px;
+      top: -24px;
+      left: -1px;
       box-shadow: 0 0 10px #ff9900;
       animation: flicker 0.6s infinite alternate;
     }
@@ -182,11 +166,11 @@
       100% { transform: scale(1.1); opacity: 1; }
     }
 
-    /* ✨ Visual Cut Hint (કેક ની વચ્ચે પલ્સ થતી લાઈન) ✨ */
+    /* 🔪 Visual Cut Hint ✂️ */
     .visual-hint {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border: 3px dashed rgba(255, 255, 255, 0.8);
       border-radius: 50%;
       top: 50%;
@@ -201,7 +185,7 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 20px;
+      font-size: 24px;
     }
 
     @keyframes pulseHint {
@@ -210,22 +194,150 @@
       100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
     }
 
-    /* 🔪 CAKE CUT ANIMATION CLASSES 🔪 */
-    .cake-half.left.cut {
-      transform: rotate(-12deg) translate(-25px, 15px);
-      opacity: 0.9;
-    }
-    .cake-half.right.cut {
-      transform: rotate(12deg) translate(25px, 15px);
-      opacity: 0.9;
-    }
-    /* કટ થયા પછી જ્યોત બુઝાઈ જશે */
+    /* CAKE CUT ANIMATION CLASSES */
+    .cake-half.left.cut { transform: rotate(-15deg) translate(-30px, 20px); opacity: 0.9; }
+    .cake-half.right.cut { transform: rotate(15deg) translate(30px, 20px); opacity: 0.9; }
     .cut .flame { display: none; }
+
+    /* 🎉 POST-CUT CELEBRATION (HBD Text) */
+    .post-cut-content {
+      display: none; 
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      margin-top: 4vh;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .teddy-img {
+      width: 120px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+    }
+
+    .hbd-text {
+      font-family: 'Fredoka One', cursive, sans-serif;
+      color: white;
+      font-size: 32px;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      line-height: 1.4;
+      animation: glowPulse 3s infinite ease-in-out;
+    }
+
+    .emoji-row {
+      font-size: 24px;
+      margin-top: 5px;
+    }
+
+    /* 🎁 --- NEW GIFT BOX CONTAINER with Lid Fly-off --- 🎁 */
+    .gift-box-container {
+      display: none; 
+      position: relative;
+      width: 220px;
+      height: 220px;
+      background: #ff477e; 
+      border: 4px solid #ff7eb3;
+      border-radius: 15px;
+      margin-top: 3vh;
+      margin-bottom: 5vh;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* ઢાંકણું (Lid) */
+    .gift-box-lid {
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+      backdrop-filter: blur(10px);
+      border: 4px solid rgba(255,255,255,0.8);
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 30;
+      transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease;
+    }
+    .gift-box-lid::after {
+      content: '🎁 Tap to Open!';
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      color: white;
+      font-weight: 600;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    /* ઢાંકણું નીચે પડવા માટેની ઈફેક્ટ */
+    .lid-fly-off {
+      transform: translateY(100vh) rotate(45deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* બોક્સની અંદરનું કન્ટેન્ટ */
+    .gift-box-content {
+      display: none; 
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 25;
+      background: white;
+      border-radius: 11px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* સ્નેપી ફોટો સ્લાઈડશો */
+    .snappy-slideshow {
+      width: 180px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f0f0f0;
+      border: 2px solid #ddd;
+    }
+
+    .snappy-slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* ઝટકા સાથે બદલાવા માટે કોઈ ટ્રાન્ઝિશન નહિ */
+      transition: none; 
+    }
+
+    /* સોંગ કંટ્રોલ */
+    .song-control {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .play-btn {
+      background: #ff477e;
+      color: white;
+      border: none;
+      padding: 8px 25px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(255, 71, 126, 0.4);
+    }
 
     /* ⏭️ READY TO SURPRISE BUTTON */
     .surprise-btn {
-      display: none; /* શરૂઆતમાં છુપાયેલું */
-      margin-top: 40px;
+      display: none; 
+      margin-bottom: 5vh;
       background: #ff477e;
       color: white;
       border: 2px solid #ff7eb3;
@@ -234,15 +346,10 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 18px;
-      letter-spacing: 1px;
       cursor: pointer;
       z-index: 20;
       box-shadow: 0 8px 25px rgba(255, 71, 126, 0.5);
       animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    .surprise-btn:active {
-      transform: scale(0.92);
     }
 
     @keyframes popIn {
@@ -250,7 +357,7 @@
       100% { transform: scale(1); opacity: 1; }
     }
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-20px); }
+      0% { opacity: 0; transform: translateY(-10px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -260,9 +367,27 @@
 
   <div id="bg-container"></div>
 
-  <audio id="bdaySong" src="karan.mp3"></audio>
+  <audio id="surpriseSong" src="karan.mp3"></audio>
 
-  <div class="pre-cut-text" id="preCutText">Make a wish ✨💫</div>
+  <div class="header" id="makeWishHeader">Make a wish ✨💫</div>
+
+  <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
+    <div class="visual-hint" id="visualHint"></div>
+    <div class="cake-half left" id="cakeLeft">
+      <div class="candle c1"><div class="flame"></div></div>
+      <div class="candle c2"><div class="flame"></div></div>
+      <div class="frosting">
+        <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
+      </div>
+    </div>
+    <div class="cake-half right" id="cakeRight">
+      <div class="candle c3"><div class="flame"></div></div>
+      <div class="candle c4"><div class="flame"></div></div>
+      <div class="frosting">
+        <div class="dot d4"></div><div class="dot d5"></div><div class="dot d6"></div>
+      </div>
+    </div>
+  </div>
 
   <div class="post-cut-content" id="postCutContent">
     <img src="teddy.png" class="teddy-img" onerror="this.style.display='none'">
@@ -272,29 +397,17 @@
     </div>
   </div>
 
-  <div class="cake-wrapper" id="cakeWrapper" onclick="cutCake()">
+  <div class="gift-box-container" id="giftBoxContainer">
+    <div class="gift-box-lid" id="giftBoxLid" onclick="openGiftBox()"></div>
     
-    <div class="visual-hint" id="visualHint"></div>
-
-    <div class="cake-half left" id="cakeLeft">
-      <div class="candle"><div class="flame"></div></div>
-      <div class="frosting">
-        <div class="dot d1"></div>
-        <div class="dot d2"></div>
-        <div class="dot d3"></div>
+    <div class="gift-box-content" id="giftBoxContent">
+      <div class="snappy-slideshow">
+        <img id="snappySlide" src="56775c61f409ca24e59916b0d54993c7.jpg" onerror="this.src='https://via.placeholder.com/180x120.png?text=Photo'">
+      </div>
+      <div class="song-control">
+        <button class="play-btn" id="songPlayBtn" onclick="playSurpriseSong()">▶️ Play Song</button>
       </div>
     </div>
-
-    <div class="cake-half right" id="cakeRight">
-      <div class="candle c1"><div class="flame"></div></div>
-      <div class="candle c2"><div class="flame"></div></div>
-      <div class="frosting">
-        <div class="dot d4"></div>
-        <div class="dot d5"></div>
-        <div class="dot d6"></div>
-      </div>
-    </div>
-
   </div>
 
   <button class="surprise-btn" id="surpriseBtn" onclick="goToNext()">Ready To Surprise 🎁</button>
@@ -302,49 +415,96 @@
   <script>
     // 💋 બેકગ્રાઉન્ડ લિપસ્ટિક માર્ક્સ
     let bgContainer = document.getElementById("bg-container");
-    for (let i = 0; i < 15; i++) {
-      let kiss = document.createElement("div");
+    for(let i = 0; i < 20; i++) {
+      let kiss = document.createElement("img");
+      kiss.src = "kiss-mark_1f48b.png"; 
       kiss.className = "kiss-bg";
-      kiss.innerText = "💋";
-      kiss.style.left = Math.floor(Math.random() * 90) + "vw";
-      kiss.style.top = Math.floor(Math.random() * 90) + "vh";
+      kiss.style.left = (Math.random() * 90) + "vw";
+      kiss.style.top = (Math.random() * 90) + "vh";
       kiss.style.transform = `rotate(${Math.floor(Math.random() * 360)}deg)`;
+      kiss.style.setProperty('--rot', Math.floor(Math.random() * 360) + 'deg');
+      kiss.style.setProperty('--scl', (Math.random() * 0.5) + 0.7);
+      kiss.style.setProperty('--duration', ((Math.random() * 1.5) + 2) + 's');
+      kiss.style.setProperty('--delay', (Math.random() * 2) + 's');
       bgContainer.appendChild(kiss);
     }
 
-    let isCut = false;
+    let isCakeCut = false;
+    let isBoxOpen = false;
 
-    // 🔪 કેક કટ કરવાનું ફંક્શન
+    // 🔪 કેક કટ ફંક્શન
     function cutCake() {
-      if(isCut) return; // એકવાર કટ થયા પછી બીજી વાર નહિ થાય
-      isCut = true;
+      if(isCakeCut) return; 
+      isCakeCut = true;
 
-      // 1. ગીત ચાલુ કરો
-      let song = document.getElementById("bdaySong");
-      song.volume = 1;
-      song.play().catch(e => console.log("Audio play blocked by browser."));
+      document.getElementById("visualHint").style.display = "none";
+      document.getElementById("makeWishHeader").style.display = "none";
 
-      // 2. કેકના ટુકડા કરો
       document.getElementById("cakeLeft").classList.add("cut");
       document.getElementById("cakeRight").classList.add("cut");
       
-      // 3. હિંટ અને જૂનું ટેક્સ્ટ ગાયબ કરો
-      document.getElementById("visualHint").style.display = "none";
-      document.getElementById("preCutText").style.display = "none";
-
-      // 4. નવું સેલિબ્રેશન ટેક્સ્ટ અને બટન લાવો
       document.getElementById("postCutContent").style.display = "flex";
-      document.getElementById("surpriseBtn").style.display = "block";
+      document.getElementById("giftBoxContainer").style.display = "block";
       
-      // એનિમેશન રોકવા (વૈકલ્પિક)
       document.getElementById("cakeWrapper").style.animation = "none";
+    }
+
+    // 🎁 ઢાંકણું ઉડાડવાનું ફંક્શન
+    function openGiftBox() {
+      if(isBoxOpen) return;
+      isBoxOpen = true;
+
+      // ઢાંકણું ઉડાડો
+      document.getElementById("giftBoxLid").classList.add("lid-fly-off");
+
+      // 1 સેકન્ડ પછી અંદરનું કન્ટેન્ટ બતાવો
+      setTimeout(() => {
+        document.getElementById("giftBoxContent").style.display = "flex";
+        document.getElementById("surpriseBtn").style.display = "block";
+        startSnappySlides(); // સ્નેપી ફોટા ચાલુ કરો
+      }, 800); 
+    }
+
+    // ✨ SNAPPY SLIDESHOW ✨
+    function startSnappySlides() {
+      const snappyImg = document.getElementById("snappySlide");
+      // તમે આપેલી સિક્વન્સ મુજબના ૫ ફોટા
+      const photos = [
+        "56775c61f409ca24e59916b0d54993c7.jpg",
+        "5d257c099e08046766d50debc8123ba3.jpg",
+        "3684c4befa9e2726a0ebbed26737acde.jpg",
+        "2d1f8c7f089e90dfe7a10c179dd860bd.jpg",
+        "6fd54a10dbcb7173e77320e2e5bf4f60.jpg"
+      ];
+      let idx = 0;
+
+      // ઝટકા સાથે ફોટા બદલાશે દર 1.5 સેકન્ડે
+      setInterval(() => {
+        idx = (idx + 1) % photos.length;
+        snappyImg.src = photos[idx];
+      }, 1500); 
+    }
+
+    // 🎵 સોંગ કંટ્રોલ (karan.mp3)
+    function playSurpriseSong() {
+      let song = document.getElementById("surpriseSong");
+      let playBtn = document.getElementById("songPlayBtn");
+
+      if(song.paused) {
+        song.volume = 1;
+        song.play().catch(e => console.log("Audio error"));
+        playBtn.innerText = "⏸️ Stop Song";
+      } else {
+        song.pause();
+        playBtn.innerText = "▶️ Play Song";
+      }
     }
 
     // ➡️ બટન ક્લિક
     function goToNext() {
-      window.location.href = "page3.html"; // કાર્ડ ફ્લિપ પેજ પર જશે
+      window.location.href = "page3.html"; 
     }
-  </script>
 
+  </script>
 </body>
 </html>
