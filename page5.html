@@ -51,12 +51,12 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🎂 --- UPDATED: REEL STYLE TOP SECTION --- 🎂 */
+/* 🎂 --- UPDATED: TOP SECTION --- 🎂 */
 .reel-art-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0vh; /* જરા પણ જગ્યા નહિ */
+  margin-bottom: 0; 
   z-index: 10;
   animation: floatArt 3s ease-in-out infinite alternate;
   width: 100%;
@@ -67,21 +67,21 @@ body::before {
   100% { transform: translateY(-12px); }
 }
 
-/* ✨ NEW: કલરફુલ Happy Birthday ટેક્સ્ટનું સ્ટાઇલ (ફ્રેડોકા ફોન્ટ) ✨ */
+/* ✨ કલરફુલ Happy Birthday ટેક્સ્ટ ✨ */
 .hbd-text-colorful {
     font-family: 'Fredoka One', cursive, sans-serif;
     font-size: 38px;
-    line-height: 1.2;
+    line-height: 1.1; /* લાઈન વચ્ચેની જગ્યા ઘટાડી */
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0px 8px 15px rgba(0,0,0,0.4), 2px 2px 0px rgba(255,255,255,0.2);
-    margin-bottom: 5px; /* ✨ ટેડીથી થોડીક જ જગ્યા ✨ */
+    /* ✨ 100% EXACT નીચે લાવવા માટે નેગેટિવ માર્જિન ✨ */
+    margin-bottom: -20px; 
     position: relative;
     z-index: 2;
     display: block; 
 }
 
-/* કલરફુલ અક્ષરો માટેના પર્ફેક્ટ કલર્સ */
 .c1 { color: #ff9a9e; }
 .c2 { color: #a1c4fd; }
 .c3 { color: #fdcbf1; }
@@ -92,29 +92,30 @@ body::before {
 
 /* ✨ Teddy Group Image ✨ */
 .teddy-group-img {
-  width: 75%; 
-  max-width: 250px;
+  width: 70%; 
+  max-width: 220px;
   height: auto;
-  /* ✨ HBD ટેક્સ્ટને -100px ખેંચવાની જગ્યાએ નેચરલ ફ્લો થવા દીધો ✨ */
-  margin-top: 0; 
-  margin-bottom: 15px; /* ✨ કાર્ડ્સથી થોડી જગ્યા - "માપ ની જગ્યા" ✨ */
+  margin-top: 0px; 
+  /* ✨ કાર્ડ્સને નજીક લાવવા માટે મોટું નેગેટિવ માર્જિન (PNG ની ખાલી જગ્યા કાપવા) ✨ */
+  margin-bottom: -35px; 
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
   position: relative;
   z-index: 1;
 }
 
-
-/* 🎁 CARDS CONTAINER (જરા પણ ફેરફાર કર્યો નથી) */
+/* 🎁 CARDS CONTAINER */
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* બે કાર્ડ વચ્ચેનો પર્ફેક્ટ ગેપ */
+  gap: 20px; /* બે કાર્ડ વચ્ચેનો ગેપ */
   z-index: 10;
   width: 100%;
   align-items: center;
+  /* ✨ ટેડી અને કાર્ડ વચ્ચે "જરાક જ વધારે" જગ્યા ✨ */
+  margin-top: 25px; 
 }
 
-/* 🎁 INDIVIDUAL RECTANGLE CARD (જરા પણ ફેરફાર કર્યો નથી) */
+/* 🎁 INDIVIDUAL RECTANGLE CARD */
 .card {
   width: 85vw;
   max-width: 350px;
@@ -154,7 +155,6 @@ body::before {
   box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
 
-/* 📸 CARD FRONT (Photo Area) */
 .card-front {
   background: white;
   padding: 10px;
@@ -187,7 +187,6 @@ body::before {
   50% { transform: translateY(-8px); }
 }
 
-/* 📝 CARD BACK (Message Area) */
 .card-back {
   background: white;
   color: #a8325f;
