@@ -31,26 +31,35 @@
       z-index: 5;
     }
 
-    /* ✨ --- UPDATED: New Sparkle/Star Animation (Class and Size) --- ✨ */
-    /* Renamed from kiss-bg to sparkle-bg */
+    /* ✨ --- UPDATED: Falling Stars Animation --- ✨ */
     .sparkle-bg {
       position: absolute;
-      /* ✨ Medium size, slightly smaller than original 100px kiss ✨ */
-      font-size: 75px; 
+      top: -15vh; /* સ્ક્રીનની ઉપરથી શરૂ થશે */
+      font-size: 75px; /* Medium સાઈઝ */
       opacity: 0; 
       z-index: 0;
       pointer-events: none;
       filter: blur(1px); 
-      /* ✨ Renamed animation name to match ✨ */
-      animation: sparkleBreath var(--duration) infinite var(--delay) ease-in-out;
+      /* ✨ ધીમે ધીમે નીચે પડવાનું એનિમેશન ✨ */
+      animation: fallDown var(--duration) linear infinite var(--delay);
     }
 
-    /* Keep same breathing fade logic as requested */
-    @keyframes sparkleBreath {
-      0% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
-      20% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
-      80% { opacity: 0.6; transform: rotate(var(--rot)) scale(var(--scl)); }
-      100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
+    @keyframes fallDown {
+      0% { 
+        opacity: 0; 
+        transform: translateY(0) rotate(var(--rot)) scale(var(--scl)); 
+      }
+      10% { 
+        opacity: 0.7; 
+      }
+      90% { 
+        opacity: 0.7; 
+      }
+      100% { 
+        opacity: 0; 
+        /* છેક સ્ક્રીનની નીચે જતા રહેશે */
+        transform: translateY(130vh) rotate(calc(var(--rot) + 180deg)) scale(var(--scl)); 
+      }
     }
 
     .content {
@@ -65,7 +74,7 @@
       transform: translateY(-6vh); 
     }
 
-    /* 🔠 I MISS US / TOGETHER TEXT (No change) */
+    /* 🔠 I MISS US / TOGETHER TEXT */
     .title, .subtitle {
       font-family: 'Anton', sans-serif;
       color: white;
@@ -86,7 +95,7 @@
       margin-bottom: 5px; 
     }
 
-    /* 📸 POLAROID SLIDESHOW AREA (No change) */
+    /* 📸 POLAROID SLIDESHOW AREA */
     .polaroid-container {
       position: relative;
       width: 100%;
@@ -115,13 +124,13 @@
       border: 1px solid #ccc;
     }
 
-    /* 🎯 POSITION CLASSES FOR ANIMATION (No change) */
+    /* 🎯 POSITION CLASSES FOR ANIMATION */
     .pos-center { transform: translateX(0) scale(1.3) rotate(2deg); z-index: 3; opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.9); }
     .pos-right { transform: translateX(120px) scale(0.9) rotate(15deg); z-index: 2; opacity: 1; }
     .pos-left { transform: translateX(-120px) scale(0.9) rotate(-12deg); z-index: 2; opacity: 1; }
     .pos-hidden { transform: translateX(0) scale(0.4) rotate(0deg); z-index: 1; opacity: 0; }
 
-    /* ⏭️ RESTART BUTTON (No change) */
+    /* ⏭️ RESTART BUTTON */
     .next-btn {
       display: none; 
       margin-top: 15px; 
@@ -176,7 +185,6 @@
   <script>
     let bgMusic = document.getElementById("bgMusic");
 
-    // 🎵 ✨ ઇન્સ્ટન્ટ પ્લે (No change) ✨ 🎵
     bgMusic.volume = 1; 
     let playPromise = bgMusic.play();
     if (playPromise !== undefined) {
@@ -188,7 +196,6 @@
       });
     }
 
-    // 🛑 ✨ ટેબ બદલવા પર ગીત પોઝ (No change) ✨ 🛑
     document.addEventListener("visibilitychange", function() {
       if (document.hidden) {
         bgMusic.pause();
@@ -199,35 +206,24 @@
       }
     });
 
-    // ✨ --- UPDATED: Sparkle/Star Animation and Random Placement Logic --- ✨
     let bgContainer = document.getElementById("bg-container");
-
-    // ✨ નવી ઇમોજીની લિસ્ટ (💫 અને ✨) ✨
     const sparkleEmojis = ['💫', '✨'];
 
-    // Generator logic (પ્રે ડિફાઇન્ડ ઝોન કાઢીને truly random મૂક્યા છે)
+    // તારાઓ જનરેટ કરવા
     for (let i = 0; i < 15; i++) {
       let sparkle = document.createElement("div");
-      
-      // Renamed class to sparkle-bg
       sparkle.className = "sparkle-bg";
-      
-      // ✨ રેન્ડમલી એક ઇમોજી પસંદ કરો ✨
       sparkle.innerText = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
       
-      // ✨ Truly Randomly Whole Screen Placement (No predefined zones) ✨
-      // Math.random() * 90 vw/vh (જેથી સાવ બોર્ડર પર ના જાય)
-      let randomX = Math.random() * 90 + 5; 
-      let randomY = Math.random() * 90 + 5; 
-      
+      let randomX = Math.random() * 100; // આખી પહોળાઈમાં ક્યાંય પણ
       let randomRotate = Math.floor(Math.random() * 360);
-      let randomScale = (Math.random() * 0.4) + 0.6; // medium size scale
+      let randomScale = (Math.random() * 0.4) + 0.6; 
       
-      let animDuration = (Math.random() * 1.5) + 2; // breathing speed
-      let animDelay = Math.random() * 2; 
+      // ✨ 6 થી 11 સેકન્ડની વચ્ચે એકદમ ધીમેથી નીચે પડશે ✨
+      let animDuration = (Math.random() * 5) + 6; 
+      let animDelay = Math.random() * 5; 
       
       sparkle.style.left = randomX + "vw";
-      sparkle.style.top = randomY + "vh";
       sparkle.style.setProperty('--rot', randomRotate + 'deg');
       sparkle.style.setProperty('--scl', randomScale);
       sparkle.style.setProperty('--duration', animDuration + 's');
@@ -236,10 +232,8 @@
       bgContainer.appendChild(sparkle);
     }
 
-    // ➡️ બટન ક્લિક (No change)
     function goToPage1() { window.location.href = "index.html"; }
 
-    // 📸 ✨ CAROUSEL ANIMATION LOGIC (No change) ✨ 📸
     const polaroids = document.querySelectorAll('.polaroid');
     let positions = ['pos-center', 'pos-right', 'pos-hidden', 'pos-hidden', 'pos-hidden', 'pos-left'];
     function applyPositions() { polaroids.forEach((el, i) => { el.className = 'polaroid ' + positions[i]; }); }
@@ -247,7 +241,6 @@
     function rotatePhotos() { let first = positions.shift(); positions.push(first); applyPositions(); }
     setInterval(rotatePhotos, 3000);
 
-    // ✨ 18.5 સેકન્ડ પછી બટન (No change)
     setTimeout(() => { document.getElementById("restartBtn").style.display = "block"; }, 18500); 
   </script>
 
