@@ -20,6 +20,26 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             box-sizing: border-box;
+            position: relative; /* ✨ Falling Flowers માટે જરૂરી ✨ */
+        }
+
+        /* ✨ --- NEW: Falling Flowers Background Animation --- ✨ */
+        .flower-bg {
+            position: absolute;
+            top: -15vh; /* સ્ક્રીનની ઉપરથી શરૂ થશે */
+            font-size: 35px; /* ફૂલની સાઈઝ */
+            opacity: 0; 
+            z-index: 0;
+            pointer-events: none;
+            /* ધીમે ધીમે નીચે પડવાનું એનિમેશન */
+            animation: fallDown var(--duration) linear infinite var(--delay);
+        }
+
+        @keyframes fallDown {
+            0% { opacity: 0; transform: translateY(0) rotate(var(--rot)) scale(var(--scl)); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(130vh) rotate(calc(var(--rot) + 180deg)) scale(var(--scl)); }
         }
 
         /* 📸 --- POLAROID FRAME WITH TEDDY & BOW --- 📸 */
@@ -28,6 +48,7 @@
             margin-bottom: 3vh; 
             transform: rotate(-3deg);
             animation: floatFrame 4s ease-in-out infinite alternate;
+            z-index: 10; /* ફૂલો પાછળ રહેવા જોઈએ */
         }
 
         @keyframes floatFrame {
@@ -79,12 +100,14 @@
             letter-spacing: 1px;
             margin-bottom: 1.5vh;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
         .passcode-display {
             display: flex;
             gap: 10px;
             margin-bottom: 3.5vh;
+            z-index: 10;
         }
 
         .dot-box {
@@ -128,6 +151,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 12px 20px; 
             position: relative;
+            z-index: 10;
         }
 
         .num-btn {
@@ -167,9 +191,21 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
+        /* ✨ --- NEW: Hash Button Glow Animation --- ✨ */
+        .hash-glow {
+            animation: hashGlowAnim 1s infinite alternate;
+            background: rgba(255, 255, 255, 0.4);
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes hashGlowAnim {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.3); transform: scale(1); }
+            100% { box-shadow: 0 0 25px rgba(255, 255, 255, 1), inset 0 0 15px rgba(255, 255, 255, 0.8); transform: scale(1.05); }
+        }
+
         /* ✨ --- EMOJI BLAST ANIMATIONS --- ✨ */
         
-        /* નાના બ્લાસ્ટ માટે (બટન ક્લિક પર) */
         .mini-blast {
             position: fixed;
             pointer-events: none;
@@ -183,7 +219,6 @@
             100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2); opacity: 0; }
         }
 
-        /* મોટા બ્લાસ્ટ માટે (સાચો પાસવર્ડ નાખવા પર) */
         .mega-blast {
             position: fixed;
             pointer-events: none;
@@ -196,7 +231,6 @@
             0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
             100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.6) rotate(var(--rot)); opacity: 0; }
         }
-
 
         /* ✨ AUTO-ADJUST MAGIC: નાની સ્ક્રીન માટે મીડિયા ક્વેરી ✨ */
         @media screen and (max-height: 700px) {
@@ -218,6 +252,8 @@
     </style>
 </head>
 <body>
+
+    <div id="flower-container"></div>
 
     <div class="polaroid-wrapper">
         <div class="bow">🎀</div>
@@ -250,7 +286,7 @@
         
         <button class="num-btn action-btn" onclick="clearPasscode(event)">*</button>
         <button class="num-btn" onclick="pressKey('0', event)">0</button>
-        <button class="num-btn action-btn" onclick="submitPasscode(event)">#</button>
+        <button class="num-btn action-btn" id="hashBtn" onclick="submitPasscode(event)">#</button>
     </div>
 
     <script>
@@ -258,7 +294,32 @@
         let isSuccess = false; // સાચો પાસવર્ડ નંખાયા પછી કીપેડ બ્લોક કરવા
         const correctPasscode = "2704"; 
 
-        // 💋 ૧. બટન ક્લિક કરવા પર નાનો બ્લાસ્ટ
+        // ✨ 1. Falling Flowers Logic ✨
+        const flowerContainer = document.getElementById("flower-container");
+        const flowerEmojis = ['🌸', '💮', '🌼', '🏵️'];
+
+        for (let i = 0; i < 15; i++) {
+            let flower = document.createElement("div");
+            flower.className = "flower-bg";
+            flower.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            
+            let randomX = Math.random() * 100; 
+            let randomRotate = Math.floor(Math.random() * 360);
+            let randomScale = (Math.random() * 0.4) + 0.6; 
+            
+            let animDuration = (Math.random() * 5) + 6; 
+            let animDelay = Math.random() * 5; 
+            
+            flower.style.left = randomX + "vw";
+            flower.style.setProperty('--rot', randomRotate + 'deg');
+            flower.style.setProperty('--scl', randomScale);
+            flower.style.setProperty('--duration', animDuration + 's');
+            flower.style.setProperty('--delay', animDelay + 's');
+            
+            flowerContainer.appendChild(flower);
+        }
+
+        // 💋 ૨. બટન ક્લિક કરવા પર નાનો બ્લાસ્ટ
         function triggerMiniBlast(event) {
             if(!event) return;
             // જે બટન દબાવ્યું છે તેની એક્ઝેક્ટ પોઝિશન કાઢીએ
@@ -285,7 +346,7 @@
             }
         }
 
-        // 🎉 ૨. સાચો પાસવર્ડ નાખવા પર આખી સ્ક્રીનમાં મેગા બ્લાસ્ટ
+        // 🎉 ૩. સાચો પાસવર્ડ નાખવા પર આખી સ્ક્રીનમાં મેગા બ્લાસ્ટ
         function triggerMegaBlast() {
             const emojis = ['💋', '🎀', '💗', '💝', '💕', '✨'];
             let blastsCount = 0;
@@ -339,8 +400,9 @@
                 enteredPasscode += num;
                 updateDisplay();
                 
+                // ✨ જો 4 અક્ષર પુરા થઈ જાય, તો # બટનને ગ્લો કરાવો ✨
                 if(enteredPasscode.length === 4) {
-                    setTimeout(() => submitPasscode(null), 200); 
+                    document.getElementById('hashBtn').classList.add('hash-glow');
                 }
             }
         }
@@ -350,11 +412,17 @@
             if(event) triggerMiniBlast(event);
             enteredPasscode = "";
             updateDisplay();
+            
+            // ✨ જો ક્લિયર કરે, તો ગ્લો કાઢી નાખો ✨
+            document.getElementById('hashBtn').classList.remove('hash-glow');
         }
 
         function submitPasscode(event) {
             if(isSuccess || enteredPasscode.length !== 4) return;
             if(event) triggerMiniBlast(event);
+
+            // જો # દબાવે તો ગ્લો તરત કાઢી નાખો
+            document.getElementById('hashBtn').classList.remove('hash-glow');
 
             if(enteredPasscode === correctPasscode) {
                 // પાસવર્ડ સાચો! બ્લાસ્ટ ચાલુ કરો અને રીડાયરેક્ટ રોકી દો
