@@ -51,14 +51,13 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🎂 --- UPDATED: REEL STYLE TOP SECTION WITH NEW IMAGES --- 🎂 */
+/* 🎂 --- UPDATED: REEL STYLE TOP SECTION --- 🎂 */
 .reel-art-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 5vh;
+  margin-bottom: 0vh; /* ✨ જગ્યા ઘટાડવા માટે 5vh થી 0vh કર્યું ✨ */
   z-index: 10;
-  /* ✨ આખા સેક્શનને Float થવાનું એનિમેશન ✨ */
   animation: floatArt 3s ease-in-out infinite alternate;
   width: 100%;
 }
@@ -68,35 +67,40 @@ body::before {
   100% { transform: translateY(-12px); }
 }
 
-/* ✨ નવી Happy Birthday ટેક્સ્ટ ઇમેજનું સ્ટાઇલ ✨ */
+/* ✨ Happy Birthday Text Image ✨ */
 .hbd-img {
   width: 85%; 
   max-width: 320px;
   height: auto;
-  margin-bottom: 10px; 
+  margin-bottom: -60px; /* ✨ નેગેટિવ માર્જિન: ટેડીને ઉપર ખેંચવા માટે ✨ */
   filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.4));
+  position: relative;
+  z-index: 2;
 }
 
-/* ✨ નવી Teddy Group ઇમેજનું સ્ટાઇલ ✨ */
+/* ✨ Teddy Group Image ✨ */
 .teddy-group-img {
   width: 75%; 
   max-width: 250px;
   height: auto;
+  margin-bottom: -15px; /* ✨ નેગેટિવ માર્જિન: કાર્ડ્સને ઉપર ખેંચવા માટે ✨ */
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
+  position: relative;
+  z-index: 1;
 }
 
 
-/* 🎁 CARDS CONTAINER (જરા પણ ફેરફાર કર્યો નથી) */
+/* 🎁 CARDS CONTAINER */
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 35px; 
+  gap: 25px; /* ✨ બે કાર્ડ વચ્ચેની જગ્યા 35px થી ઘટાડીને 25px કરી દીધી ✨ */
   z-index: 10;
   width: 100%;
   align-items: center;
 }
 
-/* 🎁 INDIVIDUAL RECTANGLE CARD (જરા પણ ફેરફાર કર્યો નથી) */
+/* 🎁 INDIVIDUAL RECTANGLE CARD */
 .card {
   width: 85vw;
   max-width: 350px;
@@ -267,7 +271,6 @@ body::before {
 </div>
 
 <script>
-// ✨ ફ્લોટિંગ હાર્ટ્સ (બેકગ્રાઉન્ડ) ✨
 const heartContainer = document.getElementById("heart-container");
 const hearts = ['💖', '💕', '💗', '💓'];
 
@@ -291,13 +294,11 @@ for (let i = 0; i < 20; i++) {
     heartContainer.appendChild(heart);
 }
 
-// 💌 કાર્ડ ફ્લિપ લોજિક (3 વાર બ્લાસ્ટ સાથે - જરા પણ ફેરફાર કર્યો નથી) 💌
 function flipCard(card){
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
   
-  // ૩ વાર કન્ફેટી બ્લાસ્ટ માટે ૩ અલગ અલગ ટાઈમર
   setTimeout(() => { confettiBlast(card); }, 300);  
   setTimeout(() => { confettiBlast(card); }, 900);  
   setTimeout(() => { confettiBlast(card); }, 1500); 
