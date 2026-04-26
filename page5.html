@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Special Memories 🧸</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ✨ Main Theme Background */
@@ -15,7 +15,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 10vh; /* ટાઈટલ કાઢ્યા પછી કાર્ડને સેન્ટરમાં રાખવા */
+  padding-top: 5vh; 
   padding-bottom: 10vh; 
   background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
   font-family: 'Poppins', sans-serif;
@@ -51,20 +51,76 @@ body::before {
   100% { opacity: 0; transform: translateY(-20vh) rotate(calc(var(--rot) + 90deg)) scale(var(--scl)); }
 }
 
-/* 🎁 CARDS CONTAINER */
+/* 🎂 --- REEL STYLE CUTE TOP SECTION --- 🎂 */
+.reel-art-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5vh;
+  z-index: 10;
+  animation: floatArt 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatArt {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+.hbd-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: 38px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0px 8px 15px rgba(0,0,0,0.4), 2px 2px 0px rgba(255,255,255,0.2);
+  margin-bottom: 10px;
+}
+
+/* મસ્ત મલ્ટી-કલર લેટર્સ */
+.c1 { color: #ff9a9e; }
+.c2 { color: #a1c4fd; }
+.c3 { color: #fdcbf1; }
+.c4 { color: #a8edea; }
+.c5 { color: #fbc2eb; }
+.c6 { color: #fad0c4; }
+.c7 { color: #ffd1ff; }
+
+.cute-characters {
+  font-size: 45px;
+  display: flex;
+  gap: 10px;
+  filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.3));
+}
+
+.char-bounce {
+  animation: bounceChar 1.5s infinite;
+}
+.char-bounce:nth-child(2) { animation-delay: 0.2s; }
+.char-bounce:nth-child(3) { animation-delay: 0.4s; }
+.char-bounce:nth-child(4) { animation-delay: 0.6s; }
+.char-bounce:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes bounceChar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px) scale(1.1); }
+}
+
+
+/* 🎁 CARDS CONTAINER (નીચે ખસેડ્યું છે) */
 .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 40px; 
+  gap: 35px; 
   z-index: 10;
   width: 100%;
   align-items: center;
 }
 
-/* 🎁 INDIVIDUAL CARD */
+/* 🎁 INDIVIDUAL RECTANGLE CARD (લંબચોરસ) */
 .card {
-  width: 300px;
-  height: 380px;
+  width: 85vw;
+  max-width: 350px;
+  height: 220px; /* લંબચોરસ માટે હાઈટ ઓછી અને પહોળાઈ વધારે */
   perspective: 1200px;
   cursor: pointer;
   position: relative;
@@ -89,7 +145,7 @@ body::before {
   left: 0; 
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 18px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden; 
   display: flex;
@@ -103,19 +159,20 @@ body::before {
 /* 📸 CARD FRONT (Photo Area) */
 .card-front {
   background: white;
-  padding: 12px;
+  padding: 10px;
 }
 
 .card-front img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
+  object-fit: cover; /* ફોટો કપાયા વગર લંબચોરસમાં ફિટ થશે */
+  border-radius: 10px;
 }
 
 .tap-hint {
   position: absolute;
   bottom: -15px;
+  right: -10px; /* સાઈડમાં રાખ્યું છે જેથી ફોટો મસ્ત દેખાય */
   background: #ff477e;
   color: white;
   padding: 5px 15px;
@@ -137,9 +194,9 @@ body::before {
   background: white;
   color: #a8325f;
   transform: rotateY(180deg);
-  font-size: 16px; 
-  line-height: 1.6;
-  padding: 25px;
+  font-size: 15px; 
+  line-height: 1.5;
+  padding: 20px;
   display: flex;
   flex-direction: column; 
   border: 4px solid rgba(255, 71, 126, 0.3);
@@ -156,10 +213,11 @@ body::before {
 }
 
 .msg-title {
-  font-weight: 600;
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
+  margin-bottom: 10px;
   color: #ff477e;
+  letter-spacing: 1px;
 }
 
 .msg-text {
@@ -186,6 +244,20 @@ body::before {
 <body>
 
 <div id="heart-container"></div>
+
+<div class="reel-art-container">
+    <div class="hbd-text">
+        <span class="c1">H</span><span class="c2">A</span><span class="c3">P</span><span class="c4">P</span><span class="c5">Y</span><br>
+        <span class="c6">B</span><span class="c7">I</span><span class="c1">R</span><span class="c2">T</span><span class="c3">H</span><span class="c4">D</span><span class="c5">A</span><span class="c6">Y</span>
+    </div>
+    <div class="cute-characters">
+        <span class="char-bounce">🎁</span>
+        <span class="char-bounce">🐻</span>
+        <span class="char-bounce">🎂</span>
+        <span class="char-bounce">🐰</span>
+        <span class="char-bounce">🎁</span>
+    </div>
+</div>
 
 <div class="cards-container">
   
@@ -248,9 +320,8 @@ for (let i = 0; i < 20; i++) {
     heartContainer.appendChild(heart);
 }
 
-// 💌 કાર્ડ ફ્લિપ લોજિક 💌
+// 💌 કાર્ડ ફ્લિપ લોજિક (3 વાર બ્લાસ્ટ સાથે) 💌
 function flipCard(card){
-  // જો એકવાર ફ્લિપ થઈ ગયું હોય તો પાછું નહિ ફરે 
   if(card.classList.contains("flip")) return; 
   
   card.classList.add("flip");
