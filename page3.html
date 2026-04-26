@@ -11,15 +11,19 @@
     html, body {
       margin: 0;
       padding: 0;
-      min-height: 100dvh;
+      height: 100dvh; /* સ્ક્રીન પર ફિક્સ રાખવા માટે */
       width: 100vw;
-      overflow-x: hidden; 
+      overflow: hidden; /* સ્ક્રોલ બંધ */
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-evenly; /* બધું પર્ફેક્ટ ગેપમાં ગોઠવાશે */
       background: linear-gradient(135deg, #5a0f2e, #a8325f, #ff9a9e);
       font-family: 'Poppins', sans-serif;
       position: relative;
+      box-sizing: border-box;
+      padding-top: 3vh;
+      padding-bottom: 3vh;
     }
 
     body::before {
@@ -49,14 +53,27 @@
       100% { opacity: 0; transform: rotate(var(--rot)) scale(0.6); }
     }
 
-    /* 💌 --- FLIP CARD SECTION --- 💌 */
+    /* ✨ --- EMOJI BLAST ANIMATION --- ✨ */
+    .mega-blast {
+      position: fixed;
+      pointer-events: none;
+      font-size: 26px;
+      z-index: 200;
+      animation: popOutMega 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes popOutMega {
+      0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.6) rotate(180deg); opacity: 0; }
+    }
+
+    /* 💌 --- FLIP CARD SECTION (નાનું અને ફિક્સ) --- 💌 */
     .card-container {
       width: 85vw;
-      max-width: 360px;
-      height: 520px; /* મેસેજ પર્ફેક્ટલી બેસી જાય એટલી સાઈઝ */
+      max-width: 320px;
+      height: 48vh; /* પર્ફેક્ટ હાઈટ */
+      max-height: 420px;
       perspective: 1000px;
-      margin-top: 6vh;
-      margin-bottom: 4vh;
       z-index: 20;
     }
 
@@ -77,7 +94,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
-    /* કાર્ડનો આગળનો ભાગ (Pink) */
+    /* કાર્ડનો આગળનો ભાગ */
     .card-front {
       background: #ff7eb3;
       border: 4px solid rgba(255,255,255,0.8);
@@ -90,13 +107,13 @@
 
     .bow-icon {
       position: absolute;
-      top: -25px;
-      font-size: 45px;
+      top: -20px;
+      font-size: 40px;
     }
 
     .front-text {
       color: white;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 600;
       text-align: center;
       text-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -113,11 +130,11 @@
       50% { transform: translateY(-10px); }
     }
 
-    /* કાર્ડનો પાછળનો ભાગ (White Message Area) */
+    /* કાર્ડનો પાછળનો ભાગ (Message Area) */
     .card-back {
       background: white;
       transform: rotateY(180deg);
-      padding: 20px;
+      padding: 15px 20px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -125,53 +142,53 @@
       align-items: center;
       border: 4px solid rgba(255,255,255,0.8);
       box-shadow: 0 0 20px rgba(255,255,255,0.4);
+      overflow-y: auto; /* જો મેસેજ લાંબો હોય તો */
     }
 
-    /* ✨ મેસેજ લાઈનો માટેનું CSS (Gap ટાઈમિંગ માટે) ✨ */
+    /* ✨ મેસેજ લાઈનો (નાના ફોન્ટ જેથી બરાબર ફિટ થાય) ✨ */
     .msg-line {
       opacity: 0;
       transform: translateY(15px);
       transition: all 0.8s ease;
       text-align: center;
-      font-size: 15px;
-      color: #a8325f; /* ડાર્ક પિન્ક/મરૂન કલર */
+      font-size: 13.5px;
+      color: #a8325f;
       font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
 
-    /* જ્યારે JS થી ક્લાસ લાગે ત્યારે દેખાશે */
     .msg-line.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 🎵 --- SONG GRID SECTION --- 🎵 */
+    /* 🎵 --- SONG GRID SECTION (નાનું અને કોમ્પેક્ટ) --- 🎵 */
     .song-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      width: 90vw;
-      max-width: 400px;
-      margin-bottom: 5vh;
+      gap: 12px;
+      width: 88vw;
+      max-width: 360px;
       z-index: 20;
     }
 
     .song-box {
-      background: rgba(100, 20, 50, 0.6); /* ડાર્ક મરૂન બેકગ્રાઉન્ડ */
-      border-radius: 15px;
-      padding: 10px;
+      background: rgba(100, 20, 50, 0.6); 
+      border-radius: 12px;
+      padding: 8px;
       display: flex;
       flex-direction: column;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     .song-box img {
       width: 100%;
       aspect-ratio: 1/1;
       object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
     }
 
     .song-info-row {
@@ -187,37 +204,29 @@
 
     .song-title {
       color: white;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
     }
 
     .song-sub {
       color: rgba(255,255,255,0.7);
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .play-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+      width: 25px;
+      height: 25px;
+      border-radius: 6px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      font-size: 12px;
+      font-size: 10px;
       transition: all 0.3s ease;
     }
 
-    /* ડિફોલ્ટ પ્લે આઈકોન */
-    .play-icon.play {
-      background: transparent;
-    }
-
-    /* પ્લે થાય ત્યારે યેલ્લો પોઝ આઈકોન */
-    .play-icon.pause {
-      background: #ffb300; 
-      color: white;
-    }
+    .play-icon.play { background: transparent; }
+    .play-icon.pause { background: #ffb300; color: white; }
 
   </style>
 </head>
@@ -225,7 +234,7 @@
 
   <div id="bg-container"></div>
 
-  <div class="card-container" onclick="flipCard()">
+  <div class="card-container" onclick="flipCard(event)">
     <div class="card-inner" id="cardInner">
       
       <div class="card-front">
@@ -269,25 +278,19 @@
   </div>
 
   <div class="song-grid">
-    
     <div class="song-box" onclick="toggleSong(1)">
       <img src="56775c61f409ca24e59916b0d54993c7.jpg">
       <div class="song-info-row">
-        <div class="song-text">
-          <div class="song-title">Song 1</div>
-          <div class="song-sub">For Dhruti</div>
-        </div>
+        <div class="song-text"><div class="song-title">Song 1</div><div class="song-sub">For Dhruti</div></div>
         <div class="play-icon play" id="playIcon1">▶</div>
       </div>
-      <audio id="audio1" src="song1.mp3"></audio> </div>
+      <audio id="audio1" src="song1.mp3"></audio> 
+    </div>
 
     <div class="song-box" onclick="toggleSong(2)">
       <img src="5d257c099e08046766d50debc8123ba3.jpg">
       <div class="song-info-row">
-        <div class="song-text">
-          <div class="song-title">Song 2</div>
-          <div class="song-sub">From Karan</div>
-        </div>
+        <div class="song-text"><div class="song-title">Song 2</div><div class="song-sub">From Karan</div></div>
         <div class="play-icon play" id="playIcon2">▶</div>
       </div>
       <audio id="audio2" src="song2.mp3"></audio>
@@ -296,10 +299,7 @@
     <div class="song-box" onclick="toggleSong(3)">
       <img src="3684c4befa9e2726a0ebbed26737acde.jpg">
       <div class="song-info-row">
-        <div class="song-text">
-          <div class="song-title">Song 3</div>
-          <div class="song-sub">Our Memories</div>
-        </div>
+        <div class="song-text"><div class="song-title">Song 3</div><div class="song-sub">Our Memories</div></div>
         <div class="play-icon play" id="playIcon3">▶</div>
       </div>
       <audio id="audio3" src="song3.mp3"></audio>
@@ -308,19 +308,15 @@
     <div class="song-box" onclick="toggleSong(4)">
       <img src="2d1f8c7f089e90dfe7a10c179dd860bd.jpg">
       <div class="song-info-row">
-        <div class="song-text">
-          <div class="song-title">Song 4</div>
-          <div class="song-sub">Sweetheart</div>
-        </div>
+        <div class="song-text"><div class="song-title">Song 4</div><div class="song-sub">Sweetheart</div></div>
         <div class="play-icon play" id="playIcon4">▶</div>
       </div>
       <audio id="audio4" src="song4.mp3"></audio>
     </div>
-
   </div>
 
   <script>
-    // 💋 Kiss Marks Logic (As usual)
+    // 💋 Kiss Marks
     let bgContainer = document.getElementById("bg-container");
     for(let i=0; i<15; i++) {
       let kiss = document.createElement("img");
@@ -337,15 +333,41 @@
 
     let isCardOpened = false;
 
+    // ✨ ઇમોજી બ્લાસ્ટ ફંક્શન ✨
+    function triggerBlast(x, y) {
+      const emojis = ['💋', '🎀', '💗', '💝', '💕', '✨'];
+      for(let i=0; i<30; i++) {
+         let el = document.createElement('div');
+         el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+         el.className = 'mega-blast';
+         // કાર્ડના સેન્ટરથી ઉડશે
+         el.style.left = x + 'px';
+         el.style.top = y + 'px';
+         
+         let angle = Math.random() * Math.PI * 2;
+         let distance = Math.random() * 150 + 60; 
+         el.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+         el.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+         
+         document.body.appendChild(el);
+         setTimeout(() => el.remove(), 1200); // 1.2 સેકન્ડ પછી ગાયબ
+      }
+    }
+
     // 💌 કાર્ડ ફ્લિપ લોજિક
-    function flipCard() {
-      if (isCardOpened) return; // એક વાર ખુલે પછી પાછું નહિ ફરે
+    function flipCard(event) {
+      if (isCardOpened) return; 
       isCardOpened = true;
+
+      // સેન્ટર પોઇન્ટ ગોતીને બ્લાસ્ટ કરો
+      let rect = document.getElementById("cardInner").getBoundingClientRect();
+      let centerX = rect.left + (rect.width / 2);
+      let centerY = rect.top + (rect.height / 2);
+      triggerBlast(centerX, centerY);
 
       // કાર્ડ ફેરવો
       document.getElementById("cardInner").style.transform = "rotateY(180deg)";
 
-      // ✨ તમે કીધેલું ટાઈમિંગ લોજિક અહીં છે ✨
       startMessageSequence();
     }
 
@@ -357,26 +379,21 @@
       const l5 = document.getElementById("line5");
       const l6 = document.getElementById("line6");
 
-      // 0s: કાર્ડ ફ્લિપ થતા જ પહેલી લાઈન (500ms એનિમેશન ટાઈમ)
+      // 0s
       setTimeout(() => { l1.classList.add("show"); }, 500);
-
-      // 1 સેકન્ડ પછી બીજી લાઈન
+      // 1s gap
       setTimeout(() => { l2.classList.add("show"); }, 500 + 1000);
-
-      // 1.5 સેકન્ડ પછી ત્રીજી લાઈન
+      // 1.5s gap
       setTimeout(() => { l3.classList.add("show"); }, 500 + 1000 + 1500);
-
-      // 1 સેકન્ડ પછી ચોથી લાઈન
+      // 1s gap
       setTimeout(() => { l4.classList.add("show"); }, 500 + 1000 + 1500 + 1000);
-
-      // 2 સેકન્ડ પછી પાંચમી લાઈન
+      // 2s gap
       setTimeout(() => { l5.classList.add("show"); }, 500 + 1000 + 1500 + 1000 + 2000);
-
-      // 2 સેકન્ડ પછી છેલ્લી લાઈન
+      // 2s gap
       setTimeout(() => { l6.classList.add("show"); }, 500 + 1000 + 1500 + 1000 + 2000 + 2000);
     }
 
-    // 🎵 સોંગ પ્લે/પોઝ લોજિક (એક સમયે એક જ વાગશે)
+    // 🎵 સોંગ પ્લે/પોઝ લોજિક
     function toggleSong(num) {
       for(let i=1; i<=4; i++) {
         let audio = document.getElementById('audio' + i);
@@ -395,7 +412,6 @@
             icon.classList.remove('pause');
           }
         } else {
-          // બીજા બધા સોંગ બંધ કરો
           audio.pause();
           icon.innerHTML = '▶';
           icon.classList.add('play');
@@ -403,6 +419,23 @@
         }
       }
     }
+
+    // 🛑 ✨ NEW: ટેબ બદલવા પર ગીત પોઝ (Pause) કરવાનું લોજિક ✨ 🛑
+    document.addEventListener("visibilitychange", function() {
+      if (document.hidden) {
+        for(let i=1; i<=4; i++) {
+          let audio = document.getElementById('audio' + i);
+          if(!audio.paused) {
+             audio.pause(); // ગીત બંધ કરો
+             let icon = document.getElementById('playIcon' + i);
+             icon.innerHTML = '▶';
+             icon.classList.add('play');
+             icon.classList.remove('pause');
+          }
+        }
+      }
+    });
+
   </script>
 </body>
 </html>
