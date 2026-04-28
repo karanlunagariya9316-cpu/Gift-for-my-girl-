@@ -312,6 +312,8 @@ body::before {
 
 <div id="heart-container"></div>
 
+<audio id="bgMusicP5" src="songp5.mp3" loop></audio>
+
 <div class="reel-art-container">
     <div class="hbd-text-colorful">
         <span class="c1">H</span><span class="c2">A</span><span class="c3">P</span><span class="c4">P</span><span class="c5">Y</span><br>
@@ -358,6 +360,60 @@ body::before {
 <button class="back-btn" id="backBtn" onclick="goToPage1()">Back to Start</button>
 
 <script>
+// ✨ Smooth Audio Play Logic ✨
+let bgMusicP5 = document.getElementById("bgMusicP5");
+bgMusicP5.volume = 0; // શરૂઆતમાં 0 વોલ્યુમ
+let isP5MusicPlaying = false;
+
+function startP5MusicFadeIn() {
+    if(isP5MusicPlaying) return;
+    
+    let playPromise = bgMusicP5.play();
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            isP5MusicPlaying = true;
+            let vol = 0;
+            // ધીમે ધીમે અવાજ વધારવા માટે ફેડ-ઈન
+            let fadeInTimer = setInterval(() => {
+                if (vol < 0.9) {
+                    vol += 0.1;
+                    bgMusicP5.volume = vol;
+                } else {
+                    bgMusicP5.volume = 1;
+                    clearInterval(fadeInTimer);
+                }
+            }, 150); 
+            
+            // એકવાર વાગવા લાગે પછી ઈવેન્ટ હટાવી દો
+            document.removeEventListener('click', startP5MusicFadeIn);
+            document.removeEventListener('touchstart', startP5MusicFadeIn);
+        }).catch(e => {
+            console.log("Autoplay blocked, waiting for touch.");
+        });
+    }
+}
+
+// પેજ લોડ થાય ત્યારે જ ટ્રાય કરશે
+window.addEventListener('DOMContentLoaded', startP5MusicFadeIn);
+// જો બ્રાઉઝર રોકે, તો યુઝર ના પહેલા ટચ પર ચાલુ થશે
+document.addEventListener('click', startP5MusicFadeIn);
+document.addEventListener('touchstart', startP5MusicFadeIn);
+
+// Visibility Change: કોઈ બીજું ટેબ ખોલે તો ગીત બંધ થાય
+document.addEventListener("visibilitychange", function() {
+  if (document.hidden) {
+    bgMusicP5.pause();
+  } else {
+    if(isP5MusicPlaying) {
+      bgMusicP5.play().catch(e => console.log(e)); 
+    }
+  }
+});
+
+
+// ----------------------------------------------------
+// બાકીનો જૂનો કોડ (Hearts, Flip Logic, Confetti) 
+// ----------------------------------------------------
 const heartContainer = document.getElementById("heart-container");
 const hearts = ['💖', '💕', '💗', '💓'];
 
