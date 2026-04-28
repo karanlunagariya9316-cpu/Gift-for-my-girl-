@@ -6,6 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <script>
+    const EXPIRATION_TIME = 24 * 60 * 60 * 1000; 
+    let startTime = localStorage.getItem('siteOpenTime');
+
+    if (!startTime) {
+      localStorage.setItem('siteOpenTime', new Date().getTime());
+    } else {
+      let currentTime = new Date().getTime();
+      if (currentTime - startTime > EXPIRATION_TIME) {
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.innerHTML = `
+              <div style="display:flex; justify-content:center; align-items:center; height:100vh; width:100vw; background-color:#111; color:#fff; font-family:'Poppins', sans-serif; text-align:center; padding:20px; box-sizing:border-box;">
+                <div>
+                  <h2 style="color:#ff477e; margin-bottom:10px;">Link Expired 🚫</h2>
+                  <p style="font-size:16px; color:#ccc;">આ સરપ્રાઈઝ લિંક નો સમય પૂરો થઈ ગયો છે.</p>
+                </div>
+              </div>
+            `;
+            window.stop();
+        });
+      }
+    }
+  </script>
   <style>
     /* ✨ Main Background */
     html, body {
